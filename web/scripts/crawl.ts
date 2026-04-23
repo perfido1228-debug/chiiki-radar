@@ -14,6 +14,7 @@ import {
   extractCity,
   extractNearestStation,
   isFoodOpening,
+  isChainStore,
   type Pref,
 } from "./lib/normalize";
 import { findExistingStore } from "./lib/dedupe";
@@ -81,6 +82,7 @@ async function crawlSource(src: SourceRow) {
     const thumbnail = extractFirstImageUrl(contentHtml);
 
     if (!isFoodOpening(title, contentText)) { skipped++; continue; }
+    if (isChainStore(title, contentText)) { skipped++; continue; }
 
     const { data: articleIns, error: articleErr } = await sb
       .from("articles")
