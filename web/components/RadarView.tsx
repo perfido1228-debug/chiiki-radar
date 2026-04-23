@@ -58,6 +58,8 @@ export default function RadarView({ stores, pinnedPref }: Props) {
   const [sortMode, setSortMode] = useState<SortMode>("date-desc");
   const [hiddenIds, setHiddenIds] = useState<Set<string>>(new Set());
   const [showHidden, setShowHidden] = useState<boolean>(false);
+  const [requireTel, setRequireTel] = useState<boolean>(false);
+  const [requireAddr, setRequireAddr] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -110,11 +112,13 @@ export default function RadarView({ stores, pinnedPref }: Props) {
       if (genreFilter && d.genre !== genreFilter) return false;
       if (srcFilter && !d.sources.some((s) => s.type === srcFilter)) return false;
       if (srcNameFilter && !d.sources.some((s) => s.name === srcNameFilter)) return false;
+      if (requireTel && !d.tel) return false;
+      if (requireAddr && !d.addr) return false;
       if (!showHidden && d.id && hiddenIds.has(d.id)) return false;
       return true;
     });
     return sortItems(filtered, sortMode);
-  }, [stores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, sortMode, today, hiddenIds, showHidden]);
+  }, [stores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, requireTel, requireAddr, sortMode, today, hiddenIds, showHidden]);
 
   const hiddenCount = useMemo(() => {
     return stores.filter((s) => s.id && hiddenIds.has(s.id)).length;
@@ -127,6 +131,8 @@ export default function RadarView({ stores, pinnedPref }: Props) {
     setGenreFilter("");
     setSrcFilter("");
     setSrcNameFilter("");
+    setRequireTel(false);
+    setRequireAddr(false);
     setSortMode("date-desc");
   };
 
@@ -208,6 +214,22 @@ export default function RadarView({ stores, pinnedPref }: Props) {
             <option value="genre">ジャンル順</option>
             <option value="pref">都道府県順</option>
           </select>
+        </label>
+        <label className="toggle-filter">
+          <input
+            type="checkbox"
+            checked={requireAddr}
+            onChange={(e) => setRequireAddr(e.target.checked)}
+          />
+          住所あり
+        </label>
+        <label className="toggle-filter">
+          <input
+            type="checkbox"
+            checked={requireTel}
+            onChange={(e) => setRequireTel(e.target.checked)}
+          />
+          電話あり
         </label>
         <button className="reset" onClick={reset}>
           リセット

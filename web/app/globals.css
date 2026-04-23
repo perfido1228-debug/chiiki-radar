@@ -36,6 +36,9 @@ main { padding: 20px 24px 60px; max-width: 1400px; margin: 0 auto; }
 .hidden-card:hover { opacity: 0.85; }
 .show-hidden { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #666; cursor: pointer; }
 .show-hidden input { cursor: pointer; }
+.toggle-filter { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #333; cursor: pointer; background: #eef2f7; padding: 8px 12px; border-radius: 6px; border: 1px solid #d0d4dc; font-weight: 500; align-self: flex-end; }
+.toggle-filter:hover { background: #e0e7ef; }
+.toggle-filter input { cursor: pointer; accent-color: #0b3d91; }
 .card .thumb .emoji { font-size: 40px; opacity: 0.4; }
 .card .opendate { background: #fff4e6; border-left: 3px solid #f59e0b; color: #92400e; font-size: 12px; padding: 6px 10px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
 .card .opendate.future { background: #fee2e2; border-left-color: #dc2626; color: #991b1b; }
