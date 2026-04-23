@@ -1,8 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Store, SortMode } from "@/lib/types";
 import { GENRE_COLORS } from "@/lib/mockData";
+
+const HIDDEN_KEY = "chiiki-radar-hidden-ids";
 
 type Props = {
   stores: Store[];
@@ -54,6 +56,27 @@ export default function RadarView({ stores, pinnedPref }: Props) {
   const [srcFilter, setSrcFilter] = useState<string>("");
   const [srcNameFilter, setSrcNameFilter] = useState<string>("");
   const [sortMode, setSortMode] = useState<SortMode>("date-desc");
+  const [hiddenIds, setHiddenIds] = useState<Set<string>>(new Set());
+  const [showHidden, setShowHidden] = useState<boolean>(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(HIDDEN_KEY);
+      if (raw) setHiddenIds(new Set(JSON.parse(raw)));
+    } catch {}
+  }, []);
+
+  const toggleHidden = (id: string) => {
+    setHiddenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      try {
+        localStorage.setItem(HIDDEN_KEY, JSON.stringify([...next]));
+      } catch {}
+      return next;
+    });
+  };
 
   const today = useMemo(() => new Date("2026-04-23"), []);
 
@@ -87,10 +110,15 @@ export default function RadarView({ stores, pinnedPref }: Props) {
       if (genreFilter && d.genre !== genreFilter) return false;
       if (srcFilter && !d.sources.some((s) => s.type === srcFilter)) return false;
       if (srcNameFilter && !d.sources.some((s) => s.name === srcNameFilter)) return false;
+      if (!showHidden && d.id && hiddenIds.has(d.id)) return false;
       return true;
     });
     return sortItems(filtered, sortMode);
-  }, [stores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, sortMode, today]);
+  }, [stores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, sortMode, today, hiddenIds, showHidden]);
+
+  const hiddenCount = useMemo(() => {
+    return stores.filter((s) => s.id && hiddenIds.has(s.id)).length;
+  }, [stores, hiddenIds]);
 
   const reset = () => {
     if (!pinnedPref) setPrefFilter("");
@@ -184,6 +212,16 @@ export default function RadarView({ stores, pinnedPref }: Props) {
         <button className="reset" onClick={reset}>
           リセット
         </button>
+        {hiddenCount > 0 && (
+          <label className="show-hidden">
+            <input
+              type="checkbox"
+              checked={showHidden}
+              onChange={(e) => setShowHidden(e.target.checked)}
+            />
+            除外済みも表示（{hiddenCount}件）
+          </label>
+        )}
         <div className="count">
           <b>{filteredItems.length}</b>件
         </div>
@@ -198,14 +236,32 @@ export default function RadarView({ stores, pinnedPref }: Props) {
               const bg = GENRE_COLORS[d.genre] || "#6b7280";
               const srcMain = d.sources[0];
               const openInfo = d.openDate ? formatOpenDate(d.openDate, today) : null;
+              const storeKey = d.id ?? `${d.name}-${d.addr}`;
+              const isHidden = d.id ? hiddenIds.has(d.id) : false;
               return (
-                <div className="card" key={(d.id ?? `${d.name}-${d.addr}`) + i}>
+                <div className={`card${isHidden ? " hidden-card" : ""}`} key={storeKey + i}>
                   <div
                     className="thumb"
                     style={{ background: `linear-gradient(135deg, ${bg}dd, ${bg}88)` }}
                   >
                     <span className="genre">{d.genre}</span>
-                    <span className="date">掲載 {d.date.slice(5).replace("-", "/")}</span>
+                    <span className="date">
+                      {d.id && (
+                        <label
+                          className="hide-check"
+                          title={isHidden ? "表示に戻す" : "このカードを除外"}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isHidden}
+                            onChange={() => d.id && toggleHidden(d.id)}
+                          />
+                          <span>除外</span>
+                        </label>
+                      )}
+                      掲載 {d.date.slice(5).replace("-", "/")}
+                    </span>
                     <span className="emoji">🍽️</span>
                   </div>
                   <div className="body">
