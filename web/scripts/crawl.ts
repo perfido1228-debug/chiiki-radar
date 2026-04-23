@@ -49,6 +49,33 @@ function extractFirstImageUrl(html: string): string | null {
   return src ?? null;
 }
 
+async function fetchArticleFullText(url: string): Promise<{ text: string; thumbnail: string | null }> {
+  try {
+    const controller = new AbortController();
+    const t = setTimeout(() => controller.abort(), 15000);
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0 ChiikiRadar/1.0 (+https://github.com/perfido1228-debug/chiiki-radar)" },
+      signal: controller.signal,
+    });
+    clearTimeout(t);
+    if (!res.ok) return { text: "", thumbnail: null };
+    const html = await res.text();
+    const $ = cheerio.load(html);
+    $("script, style, nav, header, footer, aside, iframe, form, .sidebar, .widget").remove();
+    const candidates = ["article", ".post-content", ".entry-content", ".post-body", ".single-content", "main"];
+    let $body = $("body");
+    for (const sel of candidates) {
+      const found = $(sel).first();
+      if (found.length && found.text().trim().length > 200) { $body = found; break; }
+    }
+    const text = $body.text().replace(/\s+/g, " ").trim().slice(0, 10000);
+    const thumb = $body.find("img").first().attr("src") ?? $('meta[property="og:image"]').attr("content") ?? null;
+    return { text, thumbnail: thumb };
+  } catch {
+    return { text: "", thumbnail: null };
+  }
+}
+
 async function crawlSource(src: SourceRow) {
   console.log(`\n=== ${src.name} (${src.rss_url}) ===`);
   let feed;
