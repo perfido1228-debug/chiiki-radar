@@ -262,12 +262,11 @@ export default function RadarView({ stores, pinnedPref }: Props) {
               const isHidden = d.id ? hiddenIds.has(d.id) : false;
               return (
                 <div className={`card${isHidden ? " hidden-card" : ""}`} key={storeKey + i}>
-                  <div
-                    className="thumb"
-                    style={{ background: `linear-gradient(135deg, ${bg}dd, ${bg}88)` }}
-                  >
-                    <span className="genre">{d.genre}</span>
-                    <span className="date">掲載 {d.date.slice(5).replace("-", "/")}</span>
+                  <div className="card-header" style={{ borderLeft: `4px solid ${bg}` }}>
+                    <span className="genre-badge" style={{ background: bg }}>
+                      {d.genre}
+                    </span>
+                    <span className="date-badge">掲載 {d.date.slice(5).replace("-", "/")}</span>
                     {d.id && (
                       <label
                         className={`unneeded-toggle${isHidden ? " checked" : ""}`}
@@ -279,10 +278,9 @@ export default function RadarView({ stores, pinnedPref }: Props) {
                           checked={isHidden}
                           onChange={() => d.id && toggleHidden(d.id)}
                         />
-                        <span>{isHidden ? "✓ 不要（非表示）" : "不要（非表示にする）"}</span>
+                        <span>{isHidden ? "✓ 不要" : "不要"}</span>
                       </label>
                     )}
-                    <span className="emoji">🍽️</span>
                   </div>
                   <div className="body">
                     <h3>
