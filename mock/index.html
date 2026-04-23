@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>地域密着レーダー</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; background: #f5f6f8; color: #1a1a1a; }
+  header { background: #0b3d91; color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 18px; letter-spacing: 0.03em; }
+  header .meta { font-size: 12px; opacity: 0.85; }
+  nav.tabs { background: #fff; border-bottom: 1px solid #e3e5ea; padding: 0 24px; display: flex; gap: 0; overflow-x: auto; }
+  nav.tabs button { background: none; border: none; padding: 14px 18px; font-size: 14px; cursor: pointer; color: #555; border-bottom: 3px solid transparent; white-space: nowrap; font-weight: 500; }
+  nav.tabs button.active { color: #0b3d91; border-bottom-color: #0b3d91; font-weight: 600; }
+  nav.tabs button:hover { background: #f5f6f8; }
+  .filters { background: #fff; padding: 14px 24px; border-bottom: 1px solid #e3e5ea; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .filters label { font-size: 12px; color: #666; display: flex; flex-direction: column; gap: 4px; }
+  .filters select, .filters input { padding: 7px 10px; border: 1px solid #d0d4dc; border-radius: 6px; font-size: 13px; background: #fff; min-width: 140px; }
+  .filters .count { margin-left: auto; font-size: 13px; color: #555; }
+  .filters .count b { color: #0b3d91; font-size: 16px; margin-right: 3px; }
+  .filters button.reset { padding: 7px 14px; border: 1px solid #d0d4dc; background: #fff; border-radius: 6px; cursor: pointer; font-size: 12px; color: #555; align-self: flex-end; }
+  main { padding: 20px 24px 60px; max-width: 1400px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e8ebf0; display: flex; flex-direction: column; transition: box-shadow 0.15s; }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .card .thumb { width: 100%; height: 160px; background: linear-gradient(135deg, #cfd6e4, #e8ebf0); display: flex; align-items: center; justify-content: center; color: #8892a6; font-size: 12px; position: relative; }
+  .card .thumb .genre { position: absolute; top: 10px; left: 10px; background: rgba(11,61,145,0.85); color: #fff; font-size: 11px; padding: 3px 9px; border-radius: 12px; }
+  .card .thumb .date { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 9px; border-radius: 12px; }
+  .card .opendate { background: #fff4e6; border-left: 3px solid #f59e0b; color: #92400e; font-size: 12px; padding: 6px 10px; border-radius: 4px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .card .opendate.future { background: #fee2e2; border-left-color: #dc2626; color: #991b1b; }
+  .card .body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .card h3 { font-size: 16px; color: #1a1a1a; line-height: 1.35; }
+  .card .addr { font-size: 12px; color: #666; line-height: 1.5; }
+  .card .tel { font-size: 12px; color: #0b3d91; font-weight: 500; }
+  .card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+  .card .tag { font-size: 11px; background: #eef1f7; color: #4a5568; padding: 2px 8px; border-radius: 10px; }
+  .card .tag.pref { background: #e8f0fe; color: #0b3d91; }
+  .card .footer { border-top: 1px solid #eef0f4; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background: #fafbfc; }
+  .card .sources { font-size: 11px; color: #666; }
+  .card .sources .src-count { color: #d66; font-weight: 600; margin-left: 4px; }
+  .card .open-btn { font-size: 12px; color: #0b3d91; text-decoration: none; font-weight: 500; padding: 4px 10px; border: 1px solid #0b3d91; border-radius: 4px; }
+  .card .open-btn:hover { background: #0b3d91; color: #fff; }
+  .empty { text-align: center; padding: 60px; color: #999; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>地域密着レーダー <span style="font-weight:400;opacity:0.7;font-size:13px;margin-left:8px;">1都3県 新規開店情報ダッシュボード</span></h1>
+  <div class="meta">
+    自動取込: 1時間ごと / 最終更新: 2026-04-23 14:30
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-pref="" class="active">一覧（1都3県）</button>
+  <button data-pref="東京都">東京都</button>
+  <button data-pref="神奈川県">神奈川県</button>
+  <button data-pref="千葉県">千葉県</button>
+  <button data-pref="埼玉県">埼玉県</button>
+</nav>
+
+<div class="filters">
+  <label>都道府県
+    <select id="f-pref">
+      <option value="">すべて</option>
+      <option>東京都</option><option>神奈川県</option><option>千葉県</option><option>埼玉県</option>
+    </select>
+  </label>
+  <label>市区町村
+    <select id="f-city"><option value="">すべて</option></select>
+  </label>
+  <label>掲載日
+    <select id="f-date">
+      <option value="">すべて</option>
+      <option value="3">3日以内</option>
+      <option value="7">1週間以内</option>
+      <option value="30">1ヶ月以内</option>
+    </select>
+  </label>
+  <label>ジャンル
+    <select id="f-genre"><option value="">すべて</option></select>
+  </label>
+  <label>情報元
+    <select id="f-src">
+      <option value="">すべて</option>
+      <option>号外NET</option>
+      <option>経済新聞</option>
+      <option>独立系ブログ</option>
+    </select>
+  </label>
+  <label>並び順
+    <select id="f-sort">
+      <option value="date-desc">掲載日（新しい順）</option>
+      <option value="date-asc">掲載日（古い順）</option>
+      <option value="open-desc">オープン日（新しい順）</option>
+      <option value="open-asc">オープン日（古い順）</option>
+      <option value="genre">ジャンル順</option>
+      <option value="pref">都道府県順</option>
+    </select>
+  </label>
+  <button class="reset" id="reset-btn">リセット</button>
+  <div class="count"><b id="cnt">0</b>件</div>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none;">該当する開店情報はありません</div>
+</main>
+
+<script>
+const DATA = [
+  { name:"炭火焼鳥 とりまさ 赤羽店", addr:"東京都北区赤羽1-22-8 ミヤビルB1", pref:"東京都", city:"北区", date:"2026-04-22", openDate:"2026-04-25", genre:"居酒屋", tel:"03-1234-5678", thumb:"", sources:[{name:"赤羽マガジン", url:"https://akabane-shinbun.com/", type:"独立系ブログ"},{name:"号外NET 北区", url:"https://tokyokita.goguynet.jp/", type:"号外NET"}] },
+  { name:"パン工房 Boulangerie MIE", addr:"東京都板橋区常盤台2-5-1", pref:"東京都", city:"板橋区", date:"2026-04-22", openDate:"2026-04-28", genre:"ベーカリー", tel:"", thumb:"", sources:[{name:"いたばしTIMES", url:"https://itabashi-times.com/", type:"独立系ブログ"}] },
+  { name:"中華そば 四ツ木製麺所", addr:"東京都葛飾区四つ木3-12-4", pref:"東京都", city:"葛飾区", date:"2026-04-21", openDate:"", genre:"ラーメン", tel:"03-6666-7777", thumb:"", sources:[{name:"葛飾つうしん", url:"https://katsushika-tsushin.com/", type:"独立系ブログ"},{name:"号外NET 葛飾区", url:"https://katsushika.goguynet.jp/", type:"号外NET"}] },
+  { name:"Cafe & Bakery TSUBAME", addr:"東京都豊島区池袋2-40-13 グランドビル1F", pref:"東京都", city:"豊島区", date:"2026-04-21", openDate:"2026-04-20", genre:"カフェ", tel:"03-9876-5432", thumb:"", sources:[{name:"池袋タイムズ", url:"https://ikebukuro-times.com/", type:"独立系ブログ"}] },
+  { name:"やきとん もつ寅", addr:"東京都大田区蒲田5-15-8", pref:"東京都", city:"大田区", date:"2026-04-20", openDate:"", genre:"居酒屋", tel:"", thumb:"", sources:[{name:"大田区タイムズ", url:"https://otaku-times.com/", type:"独立系ブログ"},{name:"おおたく通信", url:"https://ootaku2shin.com/", type:"独立系ブログ"}] },
+  { name:"スープカレー SAMA 立川店", addr:"東京都立川市曙町2-11-2", pref:"東京都", city:"立川市", date:"2026-04-20", openDate:"2026-05-01", genre:"カレー", tel:"042-555-1234", thumb:"", sources:[{name:"いいね！立川", url:"https://iine-tachikawa.net/", type:"独立系ブログ"}] },
+  { name:"焼肉ホルモン にくまる 多摩センター店", addr:"東京都多摩市落合1-46-1", pref:"東京都", city:"多摩市", date:"2026-04-19", openDate:"2026-04-19", genre:"焼肉", tel:"042-333-7788", thumb:"", sources:[{name:"多摩ポン", url:"https://tamapon.com/", type:"独立系ブログ"}] },
+  { name:"タイ料理 Baan Esan", addr:"東京都八王子市旭町9-1", pref:"東京都", city:"八王子市", date:"2026-04-18", openDate:"", genre:"タイ料理", tel:"", thumb:"", sources:[{name:"八王子ジャーニー", url:"https://8dabe.com/", type:"独立系ブログ"}] },
+  { name:"寿司 銀座 久兵衛 横浜高島屋店", addr:"神奈川県横浜市西区南幸1-6-31", pref:"神奈川県", city:"横浜市西区", date:"2026-04-22", openDate:"2026-04-26", genre:"寿司", tel:"045-321-1111", thumb:"", sources:[{name:"号外NET 横浜中区・西区", url:"https://yokohamanaka-nishi.goguynet.jp/", type:"号外NET"},{name:"ヨコハマ経済新聞", url:"https://www.hamakei.com/", type:"経済新聞"}] },
+  { name:"川崎プリンホテル", addr:"神奈川県川崎市中原区小杉町3-13", pref:"神奈川県", city:"川崎市中原区", date:"2026-04-22", openDate:"2026-05-10", genre:"スイーツ", tel:"", thumb:"", sources:[{name:"かなレポ川崎", url:"https://kanagawa-report.com/", type:"独立系ブログ"},{name:"号外NET 川崎市中原区", url:"https://kawasakinakahara.goguynet.jp/", type:"号外NET"},{name:"川崎経済新聞", url:"https://kawasaki.keizai.biz/", type:"経済新聞"}] },
+  { name:"イタリアン Osteria da SAKU", addr:"神奈川県藤沢市鵠沼石上1-3-10", pref:"神奈川県", city:"藤沢市", date:"2026-04-21", openDate:"2026-04-18", genre:"イタリアン", tel:"0466-12-3456", thumb:"", sources:[{name:"湘南人", url:"https://shonanjin.com/", type:"独立系ブログ"},{name:"JIMOHACK湘南", url:"https://jimohack-shonan.jp/", type:"独立系ブログ"}] },
+  { name:"串カツ田中 大和駅前店", addr:"神奈川県大和市大和東1-1-1", pref:"神奈川県", city:"大和市", date:"2026-04-19", openDate:"", genre:"居酒屋", tel:"046-111-2222", thumb:"", sources:[{name:"大和とぴっく", url:"https://www.yamatopi.jp/", type:"独立系ブログ"}] },
+  { name:"町中華 福来軒 相模原店", addr:"神奈川県相模原市中央区矢部3-22-1", pref:"神奈川県", city:"相模原市中央区", date:"2026-04-18", openDate:"2026-04-15", genre:"中華", tel:"", thumb:"", sources:[{name:"さがみはらあたり。", url:"https://sagamiharaatari.com/", type:"独立系ブログ"}] },
+  { name:"船橋ビストロ La Table", addr:"千葉県船橋市本町4-38-20", pref:"千葉県", city:"船橋市", date:"2026-04-22", openDate:"2026-05-03", genre:"フレンチ", tel:"047-123-4567", thumb:"", sources:[{name:"船橋つうしん", url:"https://funabashi-tsushin.com/", type:"独立系ブログ"},{name:"号外NET 船橋市", url:"https://funabashi.goguynet.jp/", type:"号外NET"},{name:"船橋経済新聞", url:"https://funabashi.keizai.biz/", type:"経済新聞"}] },
+  { name:"海鮮居酒屋 魚々 松戸店", addr:"千葉県松戸市本町1-15", pref:"千葉県", city:"松戸市", date:"2026-04-21", openDate:"", genre:"居酒屋", tel:"", thumb:"", sources:[{name:"松戸つうしん", url:"https://matsudo-tsushin.com/", type:"独立系ブログ"}] },
+  { name:"ドッグカフェ WAN-WAN", addr:"千葉県柏市柏1-1-11", pref:"千葉県", city:"柏市", date:"2026-04-20", openDate:"2026-04-24", genre:"カフェ", tel:"04-7100-0000", thumb:"", sources:[{name:"柏つうしん", url:"https://kashiwa-tsushin.com/", type:"独立系ブログ"},{name:"まちっと柏", url:"https://machitto.jp/kashiwa/", type:"独立系ブログ"}] },
+  { name:"沖縄料理 ちゅらさん", addr:"千葉県市川市八幡3-4-1", pref:"千葉県", city:"市川市", date:"2026-04-19", openDate:"2026-04-19", genre:"沖縄料理", tel:"", thumb:"", sources:[{name:"市川にゅ～す", url:"https://ichi-24.jp/", type:"独立系ブログ"}] },
+  { name:"中華食堂 ちゃんぽん亭 越谷店", addr:"埼玉県越谷市南越谷1-11-4", pref:"埼玉県", city:"越谷市", date:"2026-04-22", openDate:"2026-04-27", genre:"中華", tel:"048-123-9999", thumb:"", sources:[{name:"越谷雑談がやてっく", url:"https://koshigaya.gayatec.jp/", type:"独立系ブログ"},{name:"号外NET 越谷市", url:"https://koshigaya.goguynet.jp/", type:"号外NET"}] },
+  { name:"韓国カフェ OPPA COFFEE", addr:"埼玉県川口市本町4-3-6", pref:"埼玉県", city:"川口市", date:"2026-04-21", openDate:"", genre:"カフェ", tel:"", thumb:"", sources:[{name:"川口マガジン", url:"https://kawaguchi-magazine.com/", type:"独立系ブログ"},{name:"号外NET 川口市", url:"https://kawaguchi.goguynet.jp/", type:"号外NET"}] },
+  { name:"餃子酒場 GYOZA HOUSE", addr:"埼玉県さいたま市大宮区桜木町2-1-1", pref:"埼玉県", city:"さいたま市大宮区", date:"2026-04-20", openDate:"2026-04-30", genre:"居酒屋", tel:"048-777-8888", thumb:"", sources:[{name:"宮原大宮ドットコム", url:"https://miyahara-kitaku.com/", type:"独立系ブログ"},{name:"大宮経済新聞", url:"https://omiya.keizai.biz/", type:"経済新聞"}] },
+  { name:"和菓子 三郷庵", addr:"埼玉県三郷市中央1-1-1", pref:"埼玉県", city:"三郷市", date:"2026-04-19", openDate:"2026-04-21", genre:"和菓子", tel:"048-999-0000", thumb:"", sources:[{name:"三郷ぐらし", url:"https://misato-gurashi.com/", type:"独立系ブログ"}] },
+  { name:"手打ちそば 所沢庵", addr:"埼玉県所沢市日吉町4-13", pref:"埼玉県", city:"所沢市", date:"2026-04-17", openDate:"", genre:"そば", tel:"", thumb:"", sources:[{name:"所沢なび", url:"https://tokorozawanavi.com/", type:"独立系ブログ"}] },
+];
+
+const GENRE_COLORS = {"居酒屋":"#c4554d","ラーメン":"#d97706","カフェ":"#7c6f64","ベーカリー":"#b87333","焼肉":"#8b1e1e","カレー":"#c97b2a","タイ料理":"#6a7f3a","寿司":"#143d5c","スイーツ":"#c2528b","イタリアン":"#2d5f3f","中華":"#9b2226","フレンチ":"#3a5a82","沖縄料理":"#c95d4a","和菓子":"#6b4226","そば":"#4a5c3a"};
+
+const tabsEl = document.getElementById("tabs");
+const prefSel = document.getElementById("f-pref");
+const citySel = document.getElementById("f-city");
+const dateSel = document.getElementById("f-date");
+const genreSel = document.getElementById("f-genre");
+const srcSel = document.getElementById("f-src");
+const sortSel = document.getElementById("f-sort");
+const resetBtn = document.getElementById("reset-btn");
+const grid = document.getElementById("grid");
+const empty = document.getElementById("empty");
+const cntEl = document.getElementById("cnt");
+
+let activePref = "";
+const TODAY = new Date("2026-04-23");
+
+function updateCityOptions() {
+  const pref = prefSel.value;
+  const cities = [...new Set(DATA.filter(d => !pref || d.pref === pref).map(d => d.city))].sort();
+  citySel.innerHTML = '<option value="">すべて</option>' + cities.map(c => `<option>${c}</option>`).join("");
+}
+
+function updateGenreOptions() {
+  const genres = [...new Set(DATA.map(d => d.genre))].sort();
+  genreSel.innerHTML = '<option value="">すべて</option>' + genres.map(g => `<option>${g}</option>`).join("");
+}
+
+function sortItems(items, mode) {
+  const cp = [...items];
+  switch (mode) {
+    case "date-asc": return cp.sort((a,b) => a.date.localeCompare(b.date));
+    case "open-desc": return cp.sort((a,b) => (b.openDate||"0").localeCompare(a.openDate||"0"));
+    case "open-asc": return cp.sort((a,b) => (a.openDate||"9999").localeCompare(b.openDate||"9999"));
+    case "genre": return cp.sort((a,b) => a.genre.localeCompare(b.genre, "ja") || b.date.localeCompare(a.date));
+    case "pref": {
+      const order = ["東京都","神奈川県","千葉県","埼玉県"];
+      return cp.sort((a,b) => order.indexOf(a.pref) - order.indexOf(b.pref) || b.date.localeCompare(a.date));
+    }
+    default: return cp.sort((a,b) => b.date.localeCompare(a.date));
+  }
+}
+
+function formatOpenDate(openDate) {
+  const od = new Date(openDate);
+  const diff = Math.round((od - TODAY) / (1000*60*60*24));
+  const md = openDate.slice(5).replace("-","/");
+  if (diff > 0) return { text:`🎉 ${md} オープン予定（あと${diff}日）`, future: true };
+  if (diff === 0) return { text:`🎉 本日 ${md} オープン！`, future: true };
+  if (diff >= -7) return { text:`🎉 ${md} オープン（${-diff}日前）`, future: false };
+  return { text:`🎉 ${md} オープン`, future: false };
+}
+
+function render() {
+  const filtered = DATA.filter(d => {
+    if (activePref && d.pref !== activePref) return false;
+    if (prefSel.value && d.pref !== prefSel.value) return false;
+    if (citySel.value && d.city !== citySel.value) return false;
+    if (dateSel.value) {
+      const diff = (TODAY - new Date(d.date)) / (1000*60*60*24);
+      if (diff > Number(dateSel.value)) return false;
+    }
+    if (genreSel.value && d.genre !== genreSel.value) return false;
+    if (srcSel.value && !d.sources.some(s => s.type === srcSel.value)) return false;
+    return true;
+  });
+  const items = sortItems(filtered, sortSel.value);
+
+  cntEl.textContent = items.length;
+  grid.innerHTML = items.map(d => {
+    const bg = GENRE_COLORS[d.genre] || "#6b7280";
+    const srcMain = d.sources[0].name;
+    const extraSrc = d.sources.length > 1 ? `<span class="src-count">+${d.sources.length-1}件</span>` : "";
+    const openBadge = d.openDate ? (() => {
+      const info = formatOpenDate(d.openDate);
+      return `<div class="opendate${info.future ? ' future' : ''}">${info.text}</div>`;
+    })() : "";
+    return `
+      <div class="card">
+        <div class="thumb" style="background:linear-gradient(135deg, ${bg}dd, ${bg}88);color:#fff;">
+          <span class="genre">${d.genre}</span>
+          <span class="date">掲載 ${d.date.slice(5).replace("-","/")}</span>
+          <span style="font-size:40px;opacity:0.4;">🍽️</span>
+        </div>
+        <div class="body">
+          <h3>${d.name}</h3>
+          ${openBadge}
+          <div class="addr">${d.addr}</div>
+          ${d.tel ? `<div class="tel">📞 ${d.tel}</div>` : `<div class="tel" style="color:#bbb;">電話番号記載なし</div>`}
+          <div class="tags">
+            <span class="tag pref">${d.pref}</span>
+            <span class="tag">${d.city}</span>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="sources">📰 ${srcMain}${extraSrc}</div>
+          <a class="open-btn" href="${d.sources[0].url}" target="_blank" rel="noopener">記事を開く</a>
+        </div>
+      </div>`;
+  }).join("");
+
+  empty.style.display = items.length ? "none" : "block";
+}
+
+tabsEl.addEventListener("click", e => {
+  if (e.target.tagName !== "BUTTON") return;
+  tabsEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+  e.target.classList.add("active");
+  activePref = e.target.dataset.pref;
+  prefSel.value = activePref;
+  updateCityOptions();
+  render();
+});
+
+prefSel.addEventListener("change", () => { updateCityOptions(); render(); });
+citySel.addEventListener("change", render);
+dateSel.addEventListener("change", render);
+genreSel.addEventListener("change", render);
+srcSel.addEventListener("change", render);
+sortSel.addEventListener("change", render);
+resetBtn.addEventListener("click", () => {
+  prefSel.value = ""; citySel.value = ""; dateSel.value = ""; genreSel.value = ""; srcSel.value = ""; sortSel.value = "date-desc";
+  activePref = "";
+  tabsEl.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+  tabsEl.querySelector("button[data-pref='']").classList.add("active");
+  updateCityOptions(); render();
+});
+
+updateCityOptions();
+updateGenreOptions();
+render();
+</script>
+</body>
+</html>
