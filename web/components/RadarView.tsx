@@ -245,23 +245,21 @@ export default function RadarView({ stores, pinnedPref }: Props) {
                     style={{ background: `linear-gradient(135deg, ${bg}dd, ${bg}88)` }}
                   >
                     <span className="genre">{d.genre}</span>
-                    <span className="date">
-                      {d.id && (
-                        <label
-                          className="hide-check"
-                          title={isHidden ? "表示に戻す" : "このカードを除外"}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isHidden}
-                            onChange={() => d.id && toggleHidden(d.id)}
-                          />
-                          <span>除外</span>
-                        </label>
-                      )}
-                      掲載 {d.date.slice(5).replace("-", "/")}
-                    </span>
+                    <span className="date">掲載 {d.date.slice(5).replace("-", "/")}</span>
+                    {d.id && (
+                      <label
+                        className={`unneeded-toggle${isHidden ? " checked" : ""}`}
+                        title={isHidden ? "非表示中（クリックで戻す）" : "クリックで非表示に"}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isHidden}
+                          onChange={() => d.id && toggleHidden(d.id)}
+                        />
+                        <span>{isHidden ? "✓ 不要（非表示）" : "不要（非表示にする）"}</span>
+                      </label>
+                    )}
                     <span className="emoji">🍽️</span>
                   </div>
                   <div className="body">
