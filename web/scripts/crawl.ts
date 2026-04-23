@@ -103,13 +103,17 @@ async function crawlSource(src: SourceRow) {
     if (existingArticle) { skipped++; continue; }
 
     const title = (item.title ?? "").trim();
-    const contentHtml = (item as any).contentEncoded ?? item.content ?? "";
-    const contentText = stripHtml(contentHtml);
+    const rssContentHtml = (item as any).contentEncoded ?? item.content ?? "";
+    const rssContentText = stripHtml(rssContentHtml);
     const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
-    const thumbnail = extractFirstImageUrl(contentHtml);
+    let thumbnail = extractFirstImageUrl(rssContentHtml);
 
-    if (!isFoodOpening(title, contentText)) { skipped++; continue; }
-    if (isChainStore(title, contentText)) { skipped++; continue; }
+    if (!isFoodOpening(title, rssContentText)) { skipped++; continue; }
+    if (isChainStore(title, rssContentText)) { skipped++; continue; }
+
+    const full = await fetchArticleFullText(articleUrl);
+    const contentText = full.text && full.text.length > rssContentText.length ? full.text : rssContentText;
+    if (!thumbnail && full.thumbnail) thumbnail = full.thumbnail;
 
     const { data: articleIns, error: articleErr } = await sb
       .from("articles")
