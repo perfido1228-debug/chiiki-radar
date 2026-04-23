@@ -1,7 +1,7 @@
 import RadarView from "@/components/RadarView";
 import { fetchStores } from "@/lib/fetchStores";
 
-export const revalidate = 60;
+export const revalidate = 30;
 
 export default async function Page() {
   const stores = await fetchStores("東京都");
