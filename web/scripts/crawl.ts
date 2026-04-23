@@ -139,7 +139,7 @@ async function crawlSource(src: SourceRow) {
     const city = (addr && pref ? extractCity(addr, pref) : null) ?? src.city ?? "";
     const tel = extractTel(contentText);
     const openDate = extractOpenDate(`${title} ${contentText}`, pubDate.getFullYear());
-    const genre = extractGenre(`${title} ${contentText}`);
+    const genre = extractGenre(contentText, title);
     const nearestStation = extractNearestStation(`${title} ${contentText}`);
 
     if (!storeName || !pref || !city) { skipped++; continue; }
