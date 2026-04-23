@@ -12,7 +12,7 @@ import {
   extractStoreName,
   extractPref,
   extractCity,
-  isOpeningArticle,
+  isFoodOpening,
   type Pref,
 } from "./lib/normalize";
 import { findExistingStore } from "./lib/dedupe";
@@ -79,7 +79,7 @@ async function crawlSource(src: SourceRow) {
     const pubDate = item.pubDate ? new Date(item.pubDate) : new Date();
     const thumbnail = extractFirstImageUrl(contentHtml);
 
-    if (!isOpeningArticle(title, contentText)) { skipped++; continue; }
+    if (!isFoodOpening(title, contentText)) { skipped++; continue; }
 
     const { data: articleIns, error: articleErr } = await sb
       .from("articles")

@@ -209,7 +209,16 @@ export default function RadarView({ stores, pinnedPref }: Props) {
                     <span className="emoji">🍽️</span>
                   </div>
                   <div className="body">
-                    <h3>{d.articleTitle || d.name}</h3>
+                    <h3>
+                      <a
+                        href={srcMain.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="title-link"
+                      >
+                        {d.articleTitle || d.name}
+                      </a>
+                    </h3>
                     {openInfo && (
                       <div className={`opendate${openInfo.future ? " future" : ""}`}>
                         {openInfo.text}
