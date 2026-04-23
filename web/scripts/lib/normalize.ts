@@ -306,16 +306,47 @@ export function extractNearestStation(text: string): string | null {
   return null;
 }
 
+const TITLE_STRONG_REJECTS = [
+  "補助金", "助成金", "給付金", "支援金", "奨励金", "報奨金",
+  "キャンペーン", "抽選", "プレゼント", "当選",
+  "応募", "募集", "公募", "採用情報", "求人",
+  "説明会", "セミナー", "講座", "講習", "ワークショップ",
+  "イベント", "まつり", "祭り", "催事", "フェス",
+  "中止", "終了", "締切", "締め切り", "期間限定終了",
+  "改装", "リニューアル", "リフォーム",
+  "移転", "引っ越し",
+  "議会", "選挙", "行政", "条例", "法改正",
+  "工事", "通行止め", "通行止", "規制",
+  "注意", "警告", "被害",
+  "ランキング", "まとめ", "特集",
+  "インタビュー",
+];
+
+const TITLE_OPENING_KEYWORDS = ["オープン", "OPEN", "開店", "開業", "新規オープン", "新店", "グランドオープン", "New Open", "NEW OPEN"];
+
 export function isFoodOpening(title: string, content: string): boolean {
-  if (!isOpeningArticle(title, content)) return false;
-  const text = `${title} ${content}`;
-  // タイトルに非飲食キーワードがあれば即除外（本文より重み付け強い）
+  const titleHasOpening = TITLE_OPENING_KEYWORDS.some((kw) => title.includes(kw));
+  if (!titleHasOpening) return false;
+
+  for (const kw of TITLE_STRONG_REJECTS) {
+    if (title.includes(kw)) return false;
+  }
+
+  const closeKw = /(閉店|閉業|ラストデー|ラストオーダー終了)/.test(title);
+  if (closeKw) return false;
+
   for (const kw of NON_FOOD_KEYWORDS) {
     if (title.includes(kw)) return false;
   }
+
+  const text = `${title} ${content}`;
   for (const kw of NON_FOOD_KEYWORDS) {
     if (text.includes(kw)) return false;
   }
+
+  const titleHasFood = FOOD_INDICATORS.some((kw) => title.includes(kw));
+  if (titleHasFood) return true;
+
   for (const kw of FOOD_INDICATORS) {
     if (text.includes(kw)) return true;
   }
