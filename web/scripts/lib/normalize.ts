@@ -69,15 +69,21 @@ export function extractCity(addr: string, pref: Pref): string | null {
 
 const ADDRESS_PREFIX_NOISE = /(?:場所は|所在地は?|住所[:：]?|Address[:：]?\s*|店舗情報[:：]?\s*)/g;
 const ADDRESS_RE = /((?:東京都|神奈川県|千葉県|埼玉県)[^\s、。]+?\d+[\d\-ー―－]*(?:番地?\d*)?(?:号)?[^\s、。]*)/;
-const CITY_ADDRESS_RE = /([一-龥々]{1,8}(?:市|区|町|村))([一-龥ぁ-んァ-ヶー々]{1,12}\d+[\d\-ー―－]*(?:番地?\d*)?(?:号)?)/;
+const CITY_ADDRESS_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々]{1,8}(?:市|区|町|村))([一-龥ぁ-んァ-ヶー々]{1,12}\d+[\d\-ー―－]*(?:番地?\d*)?(?:号)?)/;
+const CHOME_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々]{1,8}(?:市|区|町|村))([一-龥々]{1,6}(?:\d+|[一二三四五六七八九十])丁目)/;
 
 export function extractAddress(text: string, fallbackPref?: Pref): string | null {
   const cleaned = text.replace(ADDRESS_PREFIX_NOISE, "");
-  const m = cleaned.match(ADDRESS_RE);
-  if (m) return normalizeText(m[1]);
+
+  const full = cleaned.match(ADDRESS_RE);
+  if (full) return normalizeText(full[1]);
+
   if (fallbackPref) {
-    const m2 = cleaned.match(CITY_ADDRESS_RE);
-    if (m2) return normalizeText(fallbackPref + m2[1] + m2[2]);
+    const city = cleaned.match(CITY_ADDRESS_RE);
+    if (city) return normalizeText(fallbackPref + city[1] + city[2]);
+
+    const chome = cleaned.match(CHOME_RE);
+    if (chome) return normalizeText(fallbackPref + chome[1] + chome[2]);
   }
   return null;
 }
