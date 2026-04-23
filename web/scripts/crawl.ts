@@ -12,6 +12,7 @@ import {
   extractStoreName,
   extractPref,
   extractCity,
+  extractNearestStation,
   isFoodOpening,
   type Pref,
 } from "./lib/normalize";
@@ -106,6 +107,7 @@ async function crawlSource(src: SourceRow) {
     const tel = extractTel(contentText);
     const openDate = extractOpenDate(`${title} ${contentText}`, pubDate.getFullYear());
     const genre = extractGenre(`${title} ${contentText}`);
+    const nearestStation = extractNearestStation(`${title} ${contentText}`);
 
     if (!storeName || !pref || !city) { skipped++; continue; }
 
@@ -138,6 +140,7 @@ async function crawlSource(src: SourceRow) {
           tel,
           tel_normalized: candidate.tel_normalized,
           genre,
+          nearest_station: nearestStation,
           open_date: openDate,
           listed_date: pubDate.toISOString().slice(0, 10),
           thumbnail_url: thumbnail,

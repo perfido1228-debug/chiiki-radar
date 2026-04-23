@@ -11,6 +11,7 @@ type Row = {
   pref: string;
   city: string;
   tel: string | null;
+  nearest_station: string | null;
   genre: string | null;
   open_date: string | null;
   listed_date: string;
@@ -41,6 +42,7 @@ export async function fetchStores(pref?: string): Promise<Store[]> {
     openDate: r.open_date ?? "",
     genre: r.genre ?? "その他",
     tel: r.tel ?? "",
+    nearestStation: r.nearest_station ?? undefined,
     thumb: r.thumbnail_url ?? "",
     sources: (r.sources ?? []).map((s) => ({
       name: s.name,

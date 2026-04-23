@@ -17,6 +17,7 @@ export type Store = {
   openDate: string;
   genre: string;
   tel: string;
+  nearestStation?: string;
   thumb: string;
   sources: Source[];
   duplicateFlag?: boolean;

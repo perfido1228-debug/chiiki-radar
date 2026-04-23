@@ -230,7 +230,12 @@ export default function RadarView({ stores, pinnedPref }: Props) {
                     {d.duplicateFlag && (
                       <div className="dup-flag">⚠️ 重複の可能性あり（類似店舗あり）</div>
                     )}
-                    <div className="addr">{d.addr || "住所未抽出"}</div>
+                    <div className="addr">
+                      {d.addr || (d.nearestStation ? `🚃 最寄: ${d.nearestStation}` : "住所未抽出")}
+                    </div>
+                    {d.addr && d.nearestStation && (
+                      <div className="station">🚃 最寄: {d.nearestStation}</div>
+                    )}
                     <div className={`tel${d.tel ? "" : " empty"}`}>
                       {d.tel ? `📞 ${d.tel}` : "電話番号記載なし"}
                     </div>

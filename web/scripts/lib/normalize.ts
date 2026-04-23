@@ -235,6 +235,23 @@ const FOOD_INDICATORS = [
   "定食",
 ];
 
+const STATION_EXCLUDE = ["病院駅", "郵便駅"];
+
+export function extractNearestStation(text: string): string | null {
+  const re = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥ぁ-んァ-ヶー々]{2,6}駅)/g;
+  const seen = new Set<string>();
+  const matches = [...text.matchAll(re)];
+  for (const m of matches) {
+    const station = m[1];
+    if (STATION_EXCLUDE.some((ex) => station.endsWith(ex))) continue;
+    if (station.length < 3) continue;
+    if (seen.has(station)) continue;
+    seen.add(station);
+    return station;
+  }
+  return null;
+}
+
 export function isFoodOpening(title: string, content: string): boolean {
   if (!isOpeningArticle(title, content)) return false;
   const text = `${title} ${content}`;
