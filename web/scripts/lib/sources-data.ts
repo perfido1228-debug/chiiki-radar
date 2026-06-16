@@ -3,7 +3,7 @@ export type SourceDef = {
   url: string;
   rss_url: string;
   source_type: "号外NET" | "経済新聞" | "独立系ブログ" | "つうしん系" | "ku2shin系";
-  pref: "東京都" | "神奈川県" | "千葉県" | "埼玉県";
+  pref: "東京都" | "神奈川県" | "千葉県" | "埼玉県" | "愛知県" | "大阪府" | "京都府";
   city: string | null;
 };
 
@@ -16,10 +16,11 @@ const goguy = (sub: string, name: string, pref: SourceDef["pref"], city: string 
   city,
 });
 
+// keizai.biz は 2025〜 RSS パスを /list_1.xml → /rss.xml に移行（旧パスは全紙404）
 const keizai = (sub: string, name: string, pref: SourceDef["pref"], city: string | null): SourceDef => ({
   name: `${name}経済新聞`,
   url: `https://${sub}.keizai.biz/`,
-  rss_url: `https://${sub}.keizai.biz/list_1.xml`,
+  rss_url: `https://${sub}.keizai.biz/rss.xml`,
   source_type: "経済新聞",
   pref,
   city,
@@ -108,7 +109,7 @@ export const ALL_SOURCES: SourceDef[] = [
   goguy("toda-warabi", "戸田市・蕨市", "埼玉県", "戸田市"),
 
   // ========== 経済新聞 (33サイト) ==========
-  { name: "ヨコハマ経済新聞", url: "https://www.hamakei.com/", rss_url: "https://www.hamakei.com/list_1.xml", source_type: "経済新聞", pref: "神奈川県", city: "横浜市" },
+  { name: "ヨコハマ経済新聞", url: "https://www.hamakei.com/", rss_url: "https://www.hamakei.com/rss.xml", source_type: "経済新聞", pref: "神奈川県", city: "横浜市" },
   keizai("kohoku", "港北", "神奈川県", "横浜市港北区"),
   keizai("kawasaki", "川崎", "神奈川県", "川崎市"),
   keizai("machida", "相模原町田", "神奈川県", "相模原市"),
@@ -195,4 +196,105 @@ export const ALL_SOURCES: SourceDef[] = [
   { name: "食べて埼玉", url: "https://jikomanpuku.com/", rss_url: "https://jikomanpuku.com/feed/", source_type: "独立系ブログ", pref: "埼玉県", city: "さいたま市" },
   { name: "Urawacity.net", url: "https://urawacity.net/", rss_url: "https://urawacity.net/feed/", source_type: "独立系ブログ", pref: "埼玉県", city: "さいたま市浦和区" },
   { name: "宮原大宮ドットコム", url: "https://miyahara-kitaku.com/", rss_url: "https://miyahara-kitaku.com/feed/", source_type: "独立系ブログ", pref: "埼玉県", city: "さいたま市北区" },
+
+  // ========================================================================
+  // 関西・中部 拡張（2026-06-16 全RSS実在検証済み）
+  // ========================================================================
+
+  // ========== 愛知県 ==========
+  // 号外NET（名古屋市は区ブロック別サブドメイン。集約 nagoya は記事0で除外）
+  goguy("nagoyakita-higashi", "名古屋市北区・東区", "愛知県", "名古屋市東区"),
+  goguy("nagoyanishi-nakamura", "名古屋市西区・中村区", "愛知県", "名古屋市西区"),
+  goguy("nagoyameito-chikusa", "名古屋市名東区・千種区", "愛知県", "名古屋市千種区"),
+  goguy("nagoyanakagawa-minato", "名古屋市中川区・港区", "愛知県", "名古屋市中川区"),
+  goguy("nagoyaatsuta-minami", "名古屋市熱田区・南区", "愛知県", "名古屋市熱田区"),
+  goguy("ichinomiya", "一宮市", "愛知県", "一宮市"),
+  goguy("ama-tsushima-aisai", "あま市・津島市・愛西市", "愛知県", "あま市"),
+  goguy("inazawa", "稲沢市・清須市", "愛知県", "稲沢市"),
+  goguy("komaki-inuyama", "小牧市・犬山市", "愛知県", "小牧市"),
+  goguy("kasugai", "春日井市", "愛知県", "春日井市"),
+  goguy("seto-owariasahi", "瀬戸市・尾張旭市", "愛知県", "瀬戸市"),
+  goguy("tokai-obu", "東海市・大府市", "愛知県", "東海市"),
+  goguy("toyota", "豊田市", "愛知県", "豊田市"),
+  goguy("kariya-chiryu", "刈谷市・知立市", "愛知県", "刈谷市"),
+  goguy("anjo-takahama-hekinan", "安城市・高浜市・碧南市", "愛知県", "安城市"),
+  goguy("okazaki", "岡崎市", "愛知県", "岡崎市"),
+  goguy("nishio", "西尾市・幸田町", "愛知県", "西尾市"),
+  goguy("toyokawa-gamagori", "豊川市・蒲郡市", "愛知県", "豊川市"),
+  goguy("toyohashi-tahara", "豊橋市・田原市", "愛知県", "豊橋市"),
+  // 経済新聞（愛知）
+  keizai("sakae", "サカエ", "愛知県", "名古屋市中区"),
+  keizai("meieki", "名駅", "愛知県", "名古屋市中村区"),
+  keizai("toyota", "豊田", "愛知県", "豊田市"),
+  // 独立系（愛知）
+  { name: "NAGOYA.（ナゴヤドット）新店", url: "https://nagoyadot.jp/", rss_url: "https://nagoyadot.jp/new/feed/", source_type: "独立系ブログ", pref: "愛知県", city: "名古屋市" },
+  { name: "名古屋情報通", url: "https://jouhou.nagoya/", rss_url: "https://jouhou.nagoya/feed/", source_type: "独立系ブログ", pref: "愛知県", city: "名古屋市" },
+
+  // ========== 大阪府 ==========
+  // 号外NET（大阪市24区）
+  goguy("osaka", "大阪市", "大阪府", "大阪市"),
+  goguy("icchome", "大阪市西区", "大阪府", "大阪市西区"),
+  goguy("higashiyodogawaku", "大阪市東淀川区", "大阪府", "大阪市東淀川区"),
+  goguy("yodogawaku", "大阪市淀川区・西淀川区", "大阪府", "大阪市淀川区"),
+  goguy("fukushima-konohana", "大阪市福島区・此花区", "大阪府", "大阪市此花区"),
+  goguy("miyakojima-asahi", "大阪市都島区・旭区", "大阪府", "大阪市旭区"),
+  goguy("tsurumi-joto", "大阪市鶴見区・城東区", "大阪府", "大阪市鶴見区"),
+  goguy("higashinari-ikuno", "大阪市東成区・生野区", "大阪府", "大阪市東成区"),
+  goguy("minato-taisho", "大阪市港区・大正区", "大阪府", "大阪市大正区"),
+  goguy("tennoji-ku", "大阪市天王寺区・阿倍野区", "大阪府", "大阪市天王寺区"),
+  goguy("sumiyoshi-higashisumiyoshi", "大阪市住吉区・東住吉区", "大阪府", "大阪市住吉区"),
+  goguy("naniwa-nishinari", "大阪市浪速区・西成区", "大阪府", "大阪市浪速区"),
+  goguy("hirano", "大阪市平野区", "大阪府", "大阪市平野区"),
+  // 号外NET（大阪府主要都市）
+  goguy("suita", "吹田市", "大阪府", "吹田市"),
+  goguy("toyonaka", "豊中市", "大阪府", "豊中市"),
+  goguy("higashiosaka", "東大阪市", "大阪府", "東大阪市"),
+  goguy("ibaraki", "茨木市", "大阪府", "茨木市"),
+  goguy("takatsuki", "高槻市", "大阪府", "高槻市"),
+  goguy("hirakata", "枚方市", "大阪府", "枚方市"),
+  goguy("neyagawa", "寝屋川市", "大阪府", "寝屋川市"),
+  goguy("yao", "八尾市", "大阪府", "八尾市"),
+  goguy("moriguchikadoma", "守口市・門真市", "大阪府", "守口市"),
+  goguy("daitoshijonawate", "大東市・四條畷市", "大阪府", "四條畷市"),
+  goguy("minoh", "箕面市・池田市", "大阪府", "箕面市"),
+  goguy("settsu", "摂津市・千里丘・南茨木", "大阪府", "摂津市"),
+  goguy("izumi", "和泉市", "大阪府", "和泉市"),
+  // 号外NET（堺市）
+  goguy("sakai-nishi", "堺市堺区・西区", "大阪府", "堺市堺区"),
+  goguy("sakaikita-higashi-mihara", "堺市北区・東区・美原区", "大阪府", "堺市北区"),
+  goguy("sakainaka-minami", "堺市中区・南区", "大阪府", "堺市中区"),
+  // 号外NET（泉州・南河内）
+  goguy("kanku-area", "泉大津市・高石市・忠岡町", "大阪府", "泉大津市"),
+  goguy("kishiwada-kaizuka", "岸和田市・貝塚市", "大阪府", "岸和田市"),
+  goguy("izumisano-sennan-hannan", "泉佐野市・泉南市・阪南市", "大阪府", "泉佐野市"),
+  goguy("tondabayashi-kawachinagano", "富田林市・河内長野市", "大阪府", "河内長野市"),
+  goguy("habikino-fujiidera-kashiwara", "羽曳野市・藤井寺市・柏原市", "大阪府", "藤井寺市"),
+  // 経済新聞（大阪）
+  keizai("umeda", "梅田", "大阪府", "大阪市北区"),
+  keizai("namba", "なんば", "大阪府", "大阪市中央区"),
+  keizai("semba", "船場", "大阪府", "大阪市中央区"),
+  keizai("kyobashi", "京橋", "大阪府", "大阪市都島区"),
+  keizai("abeno", "あべの", "大阪府", "大阪市阿倍野区"),
+  keizai("osakabay", "大阪ベイ", "大阪府", "大阪市住之江区"),
+  keizai("higashiosaka", "東大阪", "大阪府", "東大阪市"),
+  // 独立系（大阪）
+  { name: "さかにゅー", url: "https://sakai-news.jp/", rss_url: "https://sakai-news.jp/category/newface/feed/", source_type: "独立系ブログ", pref: "大阪府", city: "堺市" },
+  { name: "関西ニューオープン情報（大阪）", url: "https://kansai-kaiten.com/", rss_url: "https://kansai-kaiten.com/category/osaka/feed/", source_type: "独立系ブログ", pref: "大阪府", city: null },
+
+  // ========== 京都府 ==========
+  // 号外NET（京都市は更新頻度低めの区あり）
+  goguy("kyoto", "京都市", "京都府", "京都市"),
+  goguy("fushimi", "京都市伏見区", "京都府", "京都市伏見区"),
+  goguy("kyotoponto", "京都市上京区・中京区・下京区", "京都府", "京都市"),
+  goguy("kyotoyamasina-higasiyama", "京都市山科区・東山区", "京都府", "京都市山科区"),
+  goguy("kyotoukyo", "京都市右京区", "京都府", "京都市右京区"),
+  goguy("kyotosakyo-kita", "京都市左京区・北区", "京都府", "京都市左京区"),
+  goguy("uji-joyo", "宇治市・城陽市", "京都府", "宇治市"),
+  goguy("nagaokakyo", "長岡京市・向日市・大山崎町", "京都府", "長岡京市"),
+  goguy("kyotanabekizugawa", "京田辺市・木津川市・精華町", "京都府", "京田辺市"),
+  // 経済新聞（京都）
+  keizai("karasuma", "烏丸", "京都府", "京都市中京区"),
+  // 独立系（京都）
+  { name: "グッチジャパンの京都最新グルメ", url: "https://gcjapan-kyoto.com/", rss_url: "https://gcjapan-kyoto.com/category/%E6%96%B0%E5%BA%97%E3%83%BB%E9%96%89%E5%BA%97/feed/", source_type: "独立系ブログ", pref: "京都府", city: "京都市" },
+  { name: "京都のお墨付き！", url: "https://osumituki.com/", rss_url: "https://osumituki.com/feed", source_type: "独立系ブログ", pref: "京都府", city: "京都市" },
 ];

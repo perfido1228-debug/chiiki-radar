@@ -4,11 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { href: "/", label: "一覧（1都3県）" },
+  { href: "/", label: "一覧（全エリア）" },
   { href: "/tokyo", label: "東京都" },
   { href: "/kanagawa", label: "神奈川県" },
   { href: "/chiba", label: "千葉県" },
   { href: "/saitama", label: "埼玉県" },
+  { href: "/aichi", label: "愛知県" },
+  { href: "/osaka", label: "大阪府" },
+  { href: "/kyoto", label: "京都府" },
 ];
 
 export default function Tabs() {

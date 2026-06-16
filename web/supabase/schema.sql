@@ -53,7 +53,7 @@ create table if not exists public.stores (
   name_normalized text not null,
   addr text,
   addr_normalized text,
-  pref text not null check (pref in ('東京都','神奈川県','千葉県','埼玉県')),
+  pref text not null check (pref in ('東京都','神奈川県','千葉県','埼玉県','愛知県','大阪府','京都府')),
   city text not null,
   tel text,
   tel_normalized text,

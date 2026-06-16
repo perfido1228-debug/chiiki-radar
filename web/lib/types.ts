@@ -11,7 +11,7 @@ export type Store = {
   name: string;
   articleTitle?: string;
   addr: string;
-  pref: "東京都" | "神奈川県" | "千葉県" | "埼玉県";
+  pref: "東京都" | "神奈川県" | "千葉県" | "埼玉県" | "愛知県" | "大阪府" | "京都府";
   city: string;
   date: string;
   openDate: string;

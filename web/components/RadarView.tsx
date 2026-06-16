@@ -11,7 +11,7 @@ type Props = {
   pinnedPref?: string;
 };
 
-const PREF_ORDER = ["東京都", "神奈川県", "千葉県", "埼玉県"];
+const PREF_ORDER = ["東京都", "神奈川県", "千葉県", "埼玉県", "愛知県", "大阪府", "京都府"];
 
 function formatOpenDate(openDate: string, today: Date) {
   const od = new Date(openDate);
@@ -154,6 +154,9 @@ export default function RadarView({ stores, pinnedPref }: Props) {
               <option>神奈川県</option>
               <option>千葉県</option>
               <option>埼玉県</option>
+              <option>愛知県</option>
+              <option>大阪府</option>
+              <option>京都府</option>
             </select>
           </label>
         )}
