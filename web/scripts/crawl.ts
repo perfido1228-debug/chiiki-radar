@@ -82,8 +82,20 @@ async function crawlSource(src: SourceRow) {
   try {
     feed = await parser.parseURL(src.rss_url);
   } catch (e) {
-    console.error(`  RSS fetch failed:`, (e as Error).message);
-    return;
+    // 一部サイトはXML内に未エスケープの「&」を含みパースに失敗する
+    // （Invalid character in entity name）。取得して正規化し再パースする。
+    try {
+      const res = await fetch(src.rss_url, {
+        headers: { "User-Agent": "Mozilla/5.0 ChiikiRadar/1.0 (+https://github.com/perfido1228-debug/chiiki-radar)" },
+      });
+      if (!res.ok) throw new Error(`Status code ${res.status}`);
+      const xml = await res.text();
+      const sanitized = xml.replace(/&(?!(?:[a-zA-Z][a-zA-Z0-9]*|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
+      feed = await parser.parseString(sanitized);
+    } catch (e2) {
+      console.error(`  RSS fetch failed:`, (e2 as Error).message);
+      return;
+    }
   }
 
   const items = feed.items ?? [];

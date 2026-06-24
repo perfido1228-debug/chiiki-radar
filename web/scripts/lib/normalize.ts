@@ -285,7 +285,7 @@ const CHAIN_KEYWORDS = [
   "丸亀製麺", "はなまるうどん",
   // ラーメンチェーン
   "一蘭", "一風堂", "天下一品", "幸楽苑", "日高屋", "リンガーハット",
-  "家系", "ラーメン横綱", "スガキヤ",
+  "ラーメン横綱", "スガキヤ",
   // 寿司チェーン
   "スシロー", "くら寿司", "はま寿司", "かっぱ寿司", "銚子丸",
   // 焼肉チェーン
@@ -376,9 +376,16 @@ const TITLE_STRONG_REJECTS = [
 
 const TITLE_OPENING_KEYWORDS = ["オープン", "OPEN", "開店", "開業", "新規オープン", "新店", "グランドオープン", "New Open", "NEW OPEN", "移転", "リニューアル"];
 
+// 経済新聞ネットワーク等は見出しに「オープン/開店」を入れず、
+// 「○○に「店名」」「○○に△△店」形式で新規開店を告知する。
+// その場合は本文の開店表現で裏取りする（見出し形式＋本文開店語の二重条件で誤検出を抑制）。
+const NEWSHOP_TITLE_RE = /[にへ]「[^」]{2,}」|[にへ][^\s、。]{0,14}(?:専門店|食堂|レストラン|ダイニング|カフェ|酒場|バル|ビストロ|店)(?:が|、|を|\s|$)/;
+const BODY_OPENING_RE = /(オープン|開店|開業|グランドオープン|新規開店|新装開店)/;
+
 export function isFoodOpening(title: string, content: string): boolean {
   const titleHasOpening = TITLE_OPENING_KEYWORDS.some((kw) => title.includes(kw));
-  if (!titleHasOpening) return false;
+  const newsStyleOpening = NEWSHOP_TITLE_RE.test(title) && BODY_OPENING_RE.test(content);
+  if (!titleHasOpening && !newsStyleOpening) return false;
 
   for (const kw of TITLE_STRONG_REJECTS) {
     if (title.includes(kw)) return false;

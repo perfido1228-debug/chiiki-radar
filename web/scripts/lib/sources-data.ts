@@ -5,6 +5,7 @@ export type SourceDef = {
   source_type: "号外NET" | "経済新聞" | "独立系ブログ" | "つうしん系" | "ku2shin系";
   pref: "東京都" | "神奈川県" | "千葉県" | "埼玉県" | "愛知県" | "大阪府" | "京都府";
   city: string | null;
+  enabled?: boolean;
 };
 
 const goguy = (sub: string, name: string, pref: SourceDef["pref"], city: string | null): SourceDef => ({
@@ -38,7 +39,7 @@ export const ALL_SOURCES: SourceDef[] = [
   goguy("suginami", "杉並区", "東京都", "杉並区"),
   goguy("nakano", "中野区", "東京都", "中野区"),
   goguy("nerima", "練馬区", "東京都", "練馬区"),
-  goguy("toshima", "豊島区", "東京都", "豊島区"),
+  // 豊島区: 号外NETサイト未開設（wp-signup へリダイレクト）のため除外
   goguy("tokyokita", "北区", "東京都", "北区"),
   goguy("itabashi", "板橋区", "東京都", "板橋区"),
   goguy("arakawa", "荒川区", "東京都", "荒川区"),
@@ -144,47 +145,48 @@ export const ALL_SOURCES: SourceDef[] = [
   { name: "船橋つうしん", url: "https://funabashi-tsushin.com/", rss_url: "https://funabashi-tsushin.com/openclosed/feed/", source_type: "つうしん系", pref: "千葉県", city: "船橋市" },
   { name: "松戸つうしん", url: "https://matsudo-tsushin.com/", rss_url: "https://matsudo-tsushin.com/openclosed/feed/", source_type: "つうしん系", pref: "千葉県", city: "松戸市" },
   { name: "柏つうしん", url: "https://kashiwa-tsushin.com/", rss_url: "https://kashiwa-tsushin.com/openclosed/feed/", source_type: "つうしん系", pref: "千葉県", city: "柏市" },
-  { name: "我孫子つうしん", url: "https://www.abiko-tsushin.com/", rss_url: "https://www.abiko-tsushin.com/feed/", source_type: "つうしん系", pref: "千葉県", city: "我孫子市" },
+  // RSSフィード廃止（/feed/が404・代替フィードなし）→無効化。再開にはHTMLスクレイパーが必要
+  { name: "我孫子つうしん", url: "https://www.abiko-tsushin.com/", rss_url: "https://www.abiko-tsushin.com/feed/", source_type: "つうしん系", pref: "千葉県", city: "我孫子市", enabled: false },
   { name: "葛飾つうしん", url: "https://katsushika-tsushin.com/", rss_url: "https://katsushika-tsushin.com/openclosed/feed/", source_type: "つうしん系", pref: "東京都", city: "葛飾区" },
 
   // ========== ku2shin系 ==========
-  { name: "しんじゅく通信", url: "https://shinjukuku2shin.com/", rss_url: "https://shinjukuku2shin.com/openclose/feed/", source_type: "ku2shin系", pref: "東京都", city: "新宿区" },
-  { name: "ミナトアイの港区通信", url: "https://minatoku2shin.com/", rss_url: "https://minatoku2shin.com/open/feed/", source_type: "ku2shin系", pref: "東京都", city: "港区" },
-  { name: "なかのく通信", url: "https://nakanoku2shin.com/", rss_url: "https://nakanoku2shin.com/feed/", source_type: "ku2shin系", pref: "東京都", city: "中野区" },
-  { name: "おおたく通信", url: "https://ootaku2shin.com/", rss_url: "https://ootaku2shin.com/open/feed/", source_type: "ku2shin系", pref: "東京都", city: "大田区" },
+  { name: "しんじゅく通信", url: "https://shinjukuku2shin.com/", rss_url: "https://shinjukuku2shin.com/index.rdf", source_type: "ku2shin系", pref: "東京都", city: "新宿区" },
+  { name: "ミナトアイの港区通信", url: "https://minatoku2shin.com/", rss_url: "https://minatoku2shin.com/index.rdf", source_type: "ku2shin系", pref: "東京都", city: "港区" },
+  { name: "なかのく通信", url: "https://nakanoku2shin.com/", rss_url: "https://nakanoku2shin.com/index.rdf", source_type: "ku2shin系", pref: "東京都", city: "中野区" },
+  { name: "おおたく通信", url: "https://ootaku2shin.com/", rss_url: "https://ootaku2shin.com/index.rdf", source_type: "ku2shin系", pref: "東京都", city: "大田区" },
 
   // ========== 独立系ローカルメディア ==========
   // 東京23区
   { name: "池袋タイムズ", url: "https://ikebukuro-times.com/", rss_url: "https://ikebukuro-times.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "豊島区" },
   { name: "いたばしTIMES", url: "https://itabashi-times.com/", rss_url: "https://itabashi-times.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "板橋区" },
   { name: "赤羽マガジン", url: "https://akabane-shinbun.com/", rss_url: "https://akabane-shinbun.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "北区" },
-  { name: "大田区タイムズ", url: "https://otaku-times.com/", rss_url: "https://otaku-times.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "大田区" },
+  { name: "大田区タイムズ", url: "https://otaku-times.com/", rss_url: "https://otaku-times.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "大田区", enabled: false }, // RSS廃止(404)→無効化
   { name: "世田谷ガイド", url: "https://setagaya.guide/", rss_url: "https://setagaya.guide/feed/", source_type: "独立系ブログ", pref: "東京都", city: "世田谷区" },
   { name: "南砂一丁目", url: "https://minamisuna1.com/", rss_url: "https://minamisuna1.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "江東区" },
   { name: "荒川102", url: "https://arakawa102.com/", rss_url: "https://arakawa102.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "荒川区" },
-  { name: "いけぶくろねっと", url: "https://www.ikebukuro-net.jp/", rss_url: "https://www.ikebukuro-net.jp/feed/", source_type: "独立系ブログ", pref: "東京都", city: "豊島区" },
+  { name: "いけぶくろねっと", url: "https://www.ikebukuro-net.jp/", rss_url: "https://www.ikebukuro-net.jp/index.rdf", source_type: "独立系ブログ", pref: "東京都", city: "豊島区" },
   // 東京多摩
   { name: "多摩ポン", url: "https://tamapon.com/", rss_url: "https://tamapon.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "多摩市" },
-  { name: "ちょうふ通信", url: "https://chofucity.com/", rss_url: "https://chofucity.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "調布市" },
+  { name: "ちょうふ通信", url: "https://chofucity.com/", rss_url: "https://chofucity.com/index.rdf", source_type: "独立系ブログ", pref: "東京都", city: "調布市" },
   { name: "いいね！立川", url: "https://iine-tachikawa.net/", rss_url: "https://iine-tachikawa.net/feed/", source_type: "独立系ブログ", pref: "東京都", city: "立川市" },
   { name: "八王子ジャーニー", url: "https://8dabe.com/", rss_url: "https://8dabe.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "八王子市" },
   { name: "府中でみいつけた！", url: "https://mikke-fuchu.com/", rss_url: "https://mikke-fuchu.com/feed/", source_type: "独立系ブログ", pref: "東京都", city: "府中市" },
   // 神奈川
   { name: "横浜日吉新聞", url: "https://hiyosi.net/", rss_url: "https://hiyosi.net/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "横浜市港北区" },
   { name: "かなレポ川崎", url: "https://kanagawa-report.com/", rss_url: "https://kanagawa-report.com/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "川崎市" },
-  { name: "大和とぴっく", url: "https://www.yamatopi.jp/", rss_url: "https://www.yamatopi.jp/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "大和市" },
+  { name: "大和とぴっく", url: "https://www.yamatopi.jp/", rss_url: "https://www.yamatopi.jp/index.rdf", source_type: "独立系ブログ", pref: "神奈川県", city: "大和市" },
   { name: "さがみはらあたり。", url: "https://sagamiharaatari.com/", rss_url: "https://sagamiharaatari.com/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "相模原市" },
   { name: "相模原ジャーニー", url: "https://sagamihara-journey.com/", rss_url: "https://sagamihara-journey.com/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "相模原市" },
   { name: "湘南人", url: "https://shonanjin.com/", rss_url: "https://shonanjin.com/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "藤沢市" },
   { name: "JIMOHACK湘南", url: "https://jimohack-shonan.jp/", rss_url: "https://jimohack-shonan.jp/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "藤沢市" },
-  { name: "とことこ湘南", url: "https://www.shonan-sh.jp/", rss_url: "https://www.shonan-sh.jp/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "茅ヶ崎市" },
-  { name: "WEB ふじさわびと", url: "https://www.fujisawabito.net/", rss_url: "https://www.fujisawabito.net/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "藤沢市" },
+  { name: "とことこ湘南", url: "https://www.shonan-sh.jp/", rss_url: "https://www.shonan-sh.jp/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "茅ヶ崎市", enabled: false }, // RSS廃止(404)→無効化
+  { name: "WEB ふじさわびと", url: "https://www.fujisawabito.net/", rss_url: "https://www.fujisawabito.net/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "藤沢市", enabled: false }, // RSS廃止(404)→無効化
   { name: "三浦半島日和", url: "https://miurahantou.jp/", rss_url: "https://miurahantou.jp/feed/", source_type: "独立系ブログ", pref: "神奈川県", city: "横須賀市" },
   // 千葉
-  { name: "ちば通信", url: "https://chibatsu.jp/", rss_url: "https://chibatsu.jp/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "千葉市" },
+  { name: "ちば通信", url: "https://chibatsu.jp/", rss_url: "https://chibatsu.jp/index.rdf", source_type: "独立系ブログ", pref: "千葉県", city: "千葉市" },
   { name: "市川にゅ～す", url: "https://ichi-24.jp/", rss_url: "https://ichi-24.jp/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "市川市" },
-  { name: "新浦安NAVIGATOR", url: "https://www.shinurayasu-navi.com/", rss_url: "https://www.shinurayasu-navi.com/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "浦安市" },
-  { name: "まちっと柏", url: "https://machitto.jp/kashiwa/", rss_url: "https://machitto.jp/kashiwa/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "柏市" },
+  { name: "新浦安NAVIGATOR", url: "https://www.shinurayasu-navi.com/", rss_url: "https://www.shinurayasu-navi.com/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "浦安市", enabled: false }, // RSS廃止(404)→無効化
+  { name: "まちっと柏", url: "https://machitto.jp/kashiwa/", rss_url: "https://machitto.jp/kashiwa/feed/", source_type: "独立系ブログ", pref: "千葉県", city: "柏市", enabled: false }, // RSS廃止(404)→無効化
   // 埼玉
   { name: "越谷雑談がやてっく", url: "https://koshigaya.gayatec.jp/", rss_url: "https://koshigaya.gayatec.jp/feed/", source_type: "独立系ブログ", pref: "埼玉県", city: "越谷市" },
   { name: "埼玉マガジン", url: "https://saitama-city-marathon.jp/", rss_url: "https://saitama-city-marathon.jp/feed/", source_type: "独立系ブログ", pref: "埼玉県", city: "さいたま市" },
