@@ -72,11 +72,12 @@ export function extractCity(addr: string, pref: Pref): string | null {
 
 const ADDRESS_PREFIX_NOISE = /(?:場所は|所在地は?|住所[:：]?|Address[:：]?\s*|店舗情報[:：]?\s*)/g;
 const ADDRESS_RE = /((?:東京都|神奈川県|千葉県|埼玉県|愛知県|大阪府|京都府)[^\s、。]+?\d+[\d\-ー―－]*(?:番地?\d*)?(?:号)?[^\s、。]*)/;
-const CITY_ADDRESS_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々]{1,8}(?:市|区|町|村))([一-龥ぁ-んァ-ヶー々]{1,12}\d+[\d\-ー―－]*(?:番地?\d*)?(?:号)?)/;
+const CITY_ADDRESS_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々ヶ]{1,8}(?:市|区|町|村))([一-龥ぁ-んァ-ヶー々]{1,12}(?:\d+丁目)?\d+(?:[-－−ー―‐]\d+)*(?:番地?\d*)?(?:号)?)/;
 const CHOME_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々]{1,8}(?:市|区|町|村))([一-龥々]{1,6}(?:\d+|[一二三四五六七八九十])丁目)/;
 
 export function extractAddress(text: string, fallbackPref?: Pref): string | null {
-  const cleaned = text.replace(ADDRESS_PREFIX_NOISE, "");
+  // 全角数字（４５−２等）を含む住所を取りこぼさないよう先に正規化する
+  const cleaned = normalizeText(text).replace(ADDRESS_PREFIX_NOISE, "");
 
   const full = cleaned.match(ADDRESS_RE);
   if (full) return normalizeText(full[1]);
@@ -139,6 +140,8 @@ const GENRE_KEYWORDS: Array<[string, string[]]> = [
   ["タイ料理", ["タイ料理", "ガパオ", "トムヤム"]],
   ["ベトナム料理", ["ベトナム料理", "生春巻"]],
   ["インド料理", ["インド料理", "インドカレー", "ビリヤニ"]],
+  ["ケバブ", ["ケバブ", "ケバブサンド", "ドネルケバブ", "シシケバブ", "シシカバブ", "トルコ料理", "トルコ料理店"]],
+  ["中東料理", ["中東料理", "アラブ料理", "ハラルフード", "ハラールフード"]],
   ["カレー", ["カレーライス", "カレー専門", "スープカレー", "ルーカレー", "カレー店", "インドカレー"]],
   ["居酒屋", ["居酒屋", "酒場", "ダイニングバー", "バル", "もつ焼き", "串揚げ", "串カツ"]],
   ["バー", ["BAR", "ダイニングバー", "ワインバー", "ウイスキー", "カクテル", "オーセンティックバー"]],
@@ -344,8 +347,8 @@ const TITLE_STRONG_REJECTS = [
   "説明会", "セミナー", "講座", "講習", "ワークショップ",
   "イベント", "まつり", "祭り", "催事", "フェス",
   "中止", "終了", "締切", "締め切り", "期間限定終了",
-  "改装", "リニューアル", "リフォーム",
-  "移転", "引っ越し",
+  "リフォーム",
+  // 「移転」「リニューアル」「改装」は新店リードとして含める方針のため除外語から外した
   "議会", "選挙", "行政", "条例", "法改正",
   "工事", "通行止め", "通行止", "規制",
   "注意", "警告", "被害",
@@ -363,7 +366,7 @@ const TITLE_STRONG_REJECTS = [
   "総選挙", "議員",
 ];
 
-const TITLE_OPENING_KEYWORDS = ["オープン", "OPEN", "開店", "開業", "新規オープン", "新店", "グランドオープン", "New Open", "NEW OPEN"];
+const TITLE_OPENING_KEYWORDS = ["オープン", "OPEN", "開店", "開業", "新規オープン", "新店", "グランドオープン", "New Open", "NEW OPEN", "移転", "リニューアル"];
 
 export function isFoodOpening(title: string, content: string): boolean {
   const titleHasOpening = TITLE_OPENING_KEYWORDS.some((kw) => title.includes(kw));
@@ -373,8 +376,11 @@ export function isFoodOpening(title: string, content: string): boolean {
     if (title.includes(kw)) return false;
   }
 
+  // 移転・リニューアル記事は「閉店取りやめ」「旧店舗の閉店」等で閉店語を含むことがあるため、
+  // 閉店語による除外をスキップする（新住所での開店＝リードとして拾う方針）。
+  const isRelocationOrRenewal = title.includes("移転") || title.includes("リニューアル");
   const closeKw = /(閉店|閉業|ラストデー|ラストオーダー終了)/.test(title);
-  if (closeKw) return false;
+  if (closeKw && !isRelocationOrRenewal) return false;
 
   for (const kw of NON_FOOD_KEYWORDS) {
     if (title.includes(kw)) return false;
@@ -394,10 +400,17 @@ export function isFoodOpening(title: string, content: string): boolean {
   return false;
 }
 
-export function isChainStore(title: string, content: string): boolean {
-  const text = `${title} ${content}`;
+// チェーン判定は「店名」のみで行う。
+// 地域ブログは道案内で近隣チェーン店（丸亀製麺/鳥貴族/セブンイレブン等）を
+// 目印に使うため、本文をスキャンすると個人店が誤ってチェーン扱いされ取りこぼす。
+export function isChainStore(name: string): boolean {
+  if (!name) return false;
+  // 店名は正規化で長音符「ー」が「-」等に変換されるため、
+  // 長音符・各種ダッシュを除去してからチェーン名と突合する。
+  const stripDashes = (s: string) => s.replace(/[ーｰ\-‐‑–—―－]/g, "");
+  const n = stripDashes(name);
   for (const kw of CHAIN_KEYWORDS) {
-    if (text.includes(kw)) return true;
+    if (n.includes(stripDashes(kw))) return true;
   }
   return false;
 }

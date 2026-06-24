@@ -109,7 +109,6 @@ async function crawlSource(src: SourceRow) {
     let thumbnail = extractFirstImageUrl(rssContentHtml);
 
     if (!isFoodOpening(title, rssContentText)) { skipped++; continue; }
-    if (isChainStore(title, rssContentText)) { skipped++; continue; }
 
     const full = await fetchArticleFullText(articleUrl);
     const contentText = full.text && full.text.length > rssContentText.length ? full.text : rssContentText;
@@ -143,6 +142,7 @@ async function crawlSource(src: SourceRow) {
     const nearestStation = extractNearestStation(`${title} ${contentText}`);
 
     if (!storeName || !pref || !city) { skipped++; continue; }
+    if (isChainStore(storeName)) { skipped++; continue; }
 
     const candidate = {
       name: storeName,
