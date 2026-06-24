@@ -2,8 +2,17 @@ name: Crawl sources
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    # GitHubのscheduleは高負荷時に無音スキップされる。毎時00分は最も混雑し
+    # 落とされやすいため、混雑しない分(:17/:47)に2回/時で冗長化してgapを縮める。
+    # クロールは既存URLスキップで冪等なので二重発火しても安全。
+    - cron: "17 * * * *"
+    - cron: "47 * * * *"
   workflow_dispatch:
+
+# 前のcrawlが走行中に次が発火しても積み上がらないよう直列化（実行中は待たせる）
+concurrency:
+  group: crawl
+  cancel-in-progress: false
 
 jobs:
   crawl:
