@@ -75,19 +75,27 @@ const ADDRESS_RE = /((?:東京都|神奈川県|千葉県|埼玉県|愛知県|大
 const CITY_ADDRESS_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々ヶ]{1,8}(?:市|区|町|村))([一-龥ぁ-んァ-ヶー々]{1,12}(?:\d+丁目)?\d+(?:[-－−ー―‐]\d+)*(?:番地?\d*)?(?:号)?)/;
 const CHOME_RE = /(?<![一-龥ぁ-んァ-ヶー々])([一-龥々]{1,8}(?:市|区|町|村))([一-龥々]{1,6}(?:\d+|[一二三四五六七八九十])丁目)/;
 
+// 住所末尾に紛れる注記（※記事を公開した時点の情報です 等）や括弧書きを除去する
+function cleanAddress(addr: string): string {
+  return normalizeText(addr)
+    .replace(/\s*[※（(【].*$/, "")
+    .replace(/[、。\s]+$/, "")
+    .trim();
+}
+
 export function extractAddress(text: string, fallbackPref?: Pref): string | null {
   // 全角数字（４５−２等）を含む住所を取りこぼさないよう先に正規化する
   const cleaned = normalizeText(text).replace(ADDRESS_PREFIX_NOISE, "");
 
   const full = cleaned.match(ADDRESS_RE);
-  if (full) return normalizeText(full[1]);
+  if (full) return cleanAddress(full[1]);
 
   if (fallbackPref) {
     const city = cleaned.match(CITY_ADDRESS_RE);
-    if (city) return normalizeText(fallbackPref + city[1] + city[2]);
+    if (city) return cleanAddress(fallbackPref + city[1] + city[2]);
 
     const chome = cleaned.match(CHOME_RE);
-    if (chome) return normalizeText(fallbackPref + chome[1] + chome[2]);
+    if (chome) return cleanAddress(fallbackPref + chome[1] + chome[2]);
   }
   return null;
 }
