@@ -210,6 +210,12 @@ export function extractStoreName(title: string): string | null {
     .replace(/^\s*\d+[\.、]\s*/, "")
     .trim();
 
+  // 見出し先頭の「YYYY年M月D日オープン」「M月D日オープン」等（日付＋開店表現）を除去する。
+  // 京都速報など「＜日付＞オープン ＜店名＞」形式の見出しで店名に日付が混じるのを防ぐ。
+  cleaned = cleaned
+    .replace(/^(?:\d{4}年)?\d{1,2}月\d{1,2}日\s*(?:に|の)?\s*(?:オープン|OPEN|開店|開業|グランドオープン|新規オープン)(?:予定)?[、,\s]*/i, "")
+    .trim();
+
   const quote = cleaned.match(/「([^」]+)」|『([^』]+)』/);
   if (quote) {
     const inner = (quote[1] ?? quote[2]).trim();
