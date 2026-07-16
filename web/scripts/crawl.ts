@@ -210,13 +210,15 @@ async function crawlSource(src: SourceRow) {
 }
 
 async function main() {
-  const { data: sources, error } = await sb
-    .from("sources")
-    .select("*")
-    .eq("enabled", true);
+  // 任意: `npx tsx scripts/crawl.ts <キーワード>` で名前/URL部分一致の特定ソースのみクロール
+  // （新規ソース追加時の動作確認・バックフィル用）。省略時は全有効ソース。
+  const only = process.argv[2];
+  let query = sb.from("sources").select("*").eq("enabled", true);
+  if (only) query = query.or(`name.ilike.%${only}%,url.ilike.%${only}%`);
+  const { data: sources, error } = await query;
   if (error) throw error;
   if (!sources || sources.length === 0) {
-    console.error("No enabled sources found. Run seed-sources.ts first.");
+    console.error(only ? `No enabled source matches "${only}".` : "No enabled sources found. Run seed-sources.ts first.");
     return;
   }
   for (const src of sources) {

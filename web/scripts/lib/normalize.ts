@@ -11,7 +11,10 @@ const ZEN_HAN: Record<string, string> = {
   "ｋ": "k", "ｌ": "l", "ｍ": "m", "ｎ": "n", "ｏ": "o",
   "ｐ": "p", "ｑ": "q", "ｒ": "r", "ｓ": "s", "ｔ": "t",
   "ｕ": "u", "ｖ": "v", "ｗ": "w", "ｘ": "x", "ｙ": "y", "ｚ": "z",
-  "－": "-", "ー": "-", "―": "-", "　": " ",
+  "－": "-", "―": "-", "　": " ",
+  // 注: 長音符「ー」(U+30FC) は仮名の一部なので変換しない。
+  // 「ラーメン」→「ラ-メン」のような店名破壊を防ぐ。
+  // 住所のハイフン正規化は normalizeAddress 側で個別に「ー」→「-」を行う。
 };
 
 export function normalizeText(s: string | null | undefined): string {
@@ -119,6 +122,9 @@ export function extractOpenDate(text: string, articleYear?: number): string | nu
     if (!m) continue;
     if (m.length === 4) {
       const y = Number(m[1]);
+      // 新規開店の記事なので、掲載年より大きく外れた年（無関係な過去の日付の誤取込）は棄却する。
+      // 誤った開店日を出すより未設定のほうが安全。
+      if (articleYear && (y < articleYear - 1 || y > articleYear + 2)) continue;
       const mo = Number(m[2]).toString().padStart(2, "0");
       const d = Number(m[3]).toString().padStart(2, "0");
       return `${y}-${mo}-${d}`;
@@ -207,6 +213,14 @@ export function extractStoreName(title: string): string | null {
   const quote = cleaned.match(/「([^」]+)」|『([^』]+)』/);
   if (quote) {
     const inner = (quote[1] ?? quote[2]).trim();
+    if (inner.length >= 2 && !STORE_NAME_NEGATIVE.includes(inner)) return inner;
+  }
+
+  // レビュー系ブログの見出し形式「○○にオープン（、/空白）＜店名＞で頂く△△」から店名を抜く。
+  // 例: 「千葉駅から徒歩10分に7/3オープン、KARUKARIで頂くポークビンダルーカレー」→ KARUKARI
+  const review = cleaned.match(/(?:オープン|OPEN|開店|開業)[、,\s]+([^、。]{2,30}?)(?:で(?:頂く|いただく|味わう|食べ|楽し|堪能|楽しむ)|にて)/);
+  if (review) {
+    const inner = review[1].trim();
     if (inner.length >= 2 && !STORE_NAME_NEGATIVE.includes(inner)) return inner;
   }
 
@@ -391,11 +405,13 @@ export function isFoodOpening(title: string, content: string): boolean {
     if (title.includes(kw)) return false;
   }
 
-  // 移転・リニューアル記事は「閉店取りやめ」「旧店舗の閉店」等で閉店語を含むことがあるため、
-  // 閉店語による除外をスキップする（新住所での開店＝リードとして拾う方針）。
-  const isRelocationOrRenewal = title.includes("移転") || title.includes("リニューアル");
+  // 閉店語を含む見出しは原則除外。ただし「移転オープン」「リニューアルオープン」等、
+  // 見出しに明確な開店動詞があれば新住所での開店リードとして拾う。
+  // （旧実装は「移転」を含むだけで閉店除外をスキップしていたため、
+  //  「○○が閉店、店主の故郷へ移転」のような純粋な閉店記事を誤取込していた）
   const closeKw = /(閉店|閉業|ラストデー|ラストオーダー終了)/.test(title);
-  if (closeKw && !isRelocationOrRenewal) return false;
+  const titleHasOpenVerb = /(オープン|OPEN|開店|開業|グランドオープン|新規開店|New Open|NEW OPEN)/i.test(title);
+  if (closeKw && !titleHasOpenVerb) return false;
 
   for (const kw of NON_FOOD_KEYWORDS) {
     if (title.includes(kw)) return false;
