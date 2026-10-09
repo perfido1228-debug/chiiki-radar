@@ -407,6 +407,11 @@ const OPEN_DATE_PATTERNS: Array<{ re: RegExp; pick: (m: RegExpMatchArray) => Dat
     re: new RegExp(`(?<![0-9\\/])([0-9]{1,2})\\/([0-9]{1,2})(?![0-9\\/])${DOW}${TIME}${PRE_VERB}${OPEN_VERB}`, "g"),
     pick: (m) => ({ m: Number(m[1]), d: Number(m[2]) }),
   },
+  // 見出しの先頭が日付で、その後にオープンの語が続く「10月9日（金）、荒川区内に○○がオープン」
+  {
+    re: new RegExp(`^(?:【[^】]*】)?\s*(?:([0-9]{4})年)?([0-9]{1,2})月([0-9]{1,2})日${DOW}[、,\s][^。！!]{0,60}?${OPEN_VERB}`, "g"),
+    pick: (m) => ({ y: m[1] ? Number(m[1]) : undefined, m: Number(m[2]), d: Number(m[3]) }),
+  },
   // 「グランドオープンは2026年10月9日」
   {
     re: new RegExp(`${OPEN_VERB}(?:日|予定日)?(?:は|が|：|:)\\s*(?:([0-9]{4})年)?([0-9]{1,2})月([0-9]{1,2})日`, "g"),
