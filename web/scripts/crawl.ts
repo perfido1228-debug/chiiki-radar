@@ -12,6 +12,7 @@ import { appendFileSync } from "fs";
 import { sb } from "./lib/supabase";
 import { analyzeArticle, type Analysis, type SourceInfo, type StoreDraft } from "./lib/extract";
 import { analyzeItenpo, isItenpoList, itenpoPageUrl, parseItenpoList } from "./lib/itenpo";
+import { isLivingList, livingPageUrl, parseLivingList } from "./lib/living";
 import { cityMentioned, classifyArticle } from "./lib/normalize";
 import { findExistingStore } from "./lib/dedupe";
 
@@ -122,6 +123,13 @@ async function readItenpoList(url: string): Promise<FeedItem[]> {
   return parseItenpoList(body).map((it) => ({ ...it, html: "", categories: [] }));
 }
 
+// リビングWeb「開店・閉店」の一覧ページ（フィードの中身が空なので、一覧ページを RSS の代わりに読む）
+async function readLivingList(url: string): Promise<FeedItem[]> {
+  const { status, body } = await fetchText(url, 20000);
+  if (status < 200 || status >= 300) throw new Error(`HTTP ${status}`);
+  return parseLivingList(body).map((it) => ({ ...it, html: "", categories: [] }));
+}
+
 // 情報源ごとの読み方の調整（その情報源にだけ効く）
 type SourceRule = {
   // 本文に業種が書かれず、記事の分類（カテゴリ）にだけ「喫茶店・カフェ」等が付く
@@ -132,12 +140,17 @@ type SourceRule = {
   genreWord?: string;
   // 記事ページの分類リンク（「ラーメン/新宿区」）。ここに市区町村があれば、それを店の場所とする
   pageCategoryLinks?: string;
+  // 記事ページの本文の場所（一般的な場所に無いサイト）と、本文の中で取り除く部分（関連記事など）
+  contentSelector?: string;
+  dropSelector?: string;
 };
 const SOURCE_RULES: Array<[host: string, rule: SourceRule]> = [
   // 練馬・桜台情報局
   ["s-nerima.jp", { categoriesAsText: true }],
   // 麺好い（めんこい）ブログ: 見出しは「店名＠駅」だけ。本文が「…の新店「店名」へ」、記事の分類が「ラーメン/新宿区」
   ["ikemen3.blog.jp", { openingInBody: /の新店「/, genreWord: "ラーメン", pageCategoryLinks: 'a[href*="/archives/cat_"]' }],
+  // リビングWeb「開店・閉店」: 本文は #single、その中の「関連記事」は他の店の話
+  ["mrs.living.jp", { contentSelector: "#single", dropSelector: ".connection_post" }],
 ];
 function ruleFor(src: SourceRow): SourceRule {
   return SOURCE_RULES.find(([host]) => src.rss_url.includes(host))?.[1] ?? {};
@@ -152,22 +165,26 @@ function pagedUrl(rssUrl: string, page: number): string | null {
 type ArticlePage = { text: string; thumbnail: string | null; categories: string[] };
 
 // 記事ページの本文（関連記事・SNSボタン・コメント欄などを除く）とアイキャッチ画像
-// categoryLinks: 記事の分類リンク（「ラーメン/新宿区」）も読む情報源用。件数付きの一覧（サイドバー）は除く
-async function fetchArticlePage(url: string, categoryLinks?: string): Promise<ArticlePage> {
+// rule: 情報源ごとの読み方（記事の分類リンク・本文の場所）。分類リンクは件数付きの一覧（サイドバー）を除く
+async function fetchArticlePage(url: string, rule: SourceRule = {}): Promise<ArticlePage> {
   try {
     const { status, body } = await fetchText(url, 15000);
     if (status < 200 || status >= 300 || !body) return { text: "", thumbnail: null, categories: [] };
     const $ = cheerio.load(body);
     const og = $('meta[property="og:image"]').attr("content") ?? null;
-    const categories = categoryLinks
-      ? [...new Set($(categoryLinks).map((_, a) => $(a).text().replace(/\s+/g, " ").trim()).get())].filter((c) => c && !/\(\d+\)$/.test(c))
+    const categories = rule.pageCategoryLinks
+      ? [...new Set($(rule.pageCategoryLinks).map((_, a) => $(a).text().replace(/\s+/g, " ").trim()).get())].filter((c) => c && !/\(\d+\)$/.test(c))
       : [];
     $(
       "script, style, noscript, template, nav, header, footer, aside, iframe, form, .sidebar, .widget, " +
         "[class*=related], [id*=related], .yarpp, [class*=share], [class*=sns], [class*=breadcrumb], " +
-        "[class*=pagination], [class*=comment], [id*=comment], [class*=ranking], [class*=popular], [class*=recommend]",
+        "[class*=pagination], [class*=comment], [id*=comment], [class*=ranking], [class*=popular], [class*=recommend]" +
+        (rule.dropSelector ? `, ${rule.dropSelector}` : ""),
     ).remove();
-    const selectors = ['[itemprop="articleBody"]', ".entry-content", ".post-content", ".article-body", ".single-content", ".post-body", ".entry-body", "article", "main"];
+    const selectors = [
+      ...(rule.contentSelector ? [rule.contentSelector] : []),
+      '[itemprop="articleBody"]', ".entry-content", ".post-content", ".article-body", ".single-content", ".post-body", ".entry-body", "article", "main",
+    ];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let $body: cheerio.Cheerio<any> = $("body");
     for (const sel of selectors) {
@@ -271,7 +288,8 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
   const lastCrawled = src.last_crawled_at ? new Date(src.last_crawled_at) : null;
   const minDate = new Date(Date.now() - MAX_AGE_DAYS * 86400000);
   const itenpo = isItenpoList(src.rss_url);
-  const readList = (url: string) => (itenpo ? readItenpoList(url) : parseFeed(url));
+  const living = isLivingList(src.rss_url);
+  const readList = (url: string) => (itenpo ? readItenpoList(url) : living ? readLivingList(url) : parseFeed(url));
 
   let items: FeedItem[];
   try {
@@ -290,7 +308,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       const dated = items.filter((it) => it.date);
       const oldest = dated.length ? Math.min(...dated.map((it) => it.date!.getTime())) : null;
       if (oldest === null || oldest <= lastCrawled.getTime() || oldest < minDate.getTime()) break;
-      const url = itenpo ? itenpoPageUrl(src.rss_url, page) : pagedUrl(src.rss_url, page);
+      const url = itenpo ? itenpoPageUrl(src.rss_url, page) : living ? livingPageUrl(src.rss_url, page) : pagedUrl(src.rss_url, page);
       if (!url) break;
       let more: FeedItem[];
       try {
@@ -355,7 +373,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       // RSSに本文の抜粋しかなく、見出しだけでは業種が分からない新着記事は、記事ページを読んで判断し直す
       const isNew = !lastCrawled || !it.date || it.date.getTime() > lastCrawled.getTime() - 2 * 3600 * 1000;
       if (!verdict.ok && isNew && rssText.length < 400 && /飲食の語なし|本文冒頭が飲食以外/.test(verdict.reason)) {
-        page = await fetchArticlePage(it.link, rule.pageCategoryLinks);
+        page = await fetchArticlePage(it.link, rule);
         if (page.text) verdict = classifyArticle(checkTitle, page.text + extra);
       }
       if (!verdict.ok) {
@@ -363,7 +381,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
         continue;
       }
 
-      page ??= await fetchArticlePage(it.link, rule.pageCategoryLinks);
+      page ??= await fetchArticlePage(it.link, rule);
       const pageText = page.text ? (rule.genreWord ? rule.genreWord + " " : "") + page.text + extra : "";
       // 記事の分類に市区町村があれば、それを担当地域として読む（本文に出てくる他の地名より確か）
       const place = page.categories.length ? cityMentioned(page.categories.join(" ")) : null;

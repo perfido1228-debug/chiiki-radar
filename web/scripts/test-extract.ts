@@ -15,6 +15,7 @@ import {
   type Pref,
 } from "./lib/normalize";
 import { parseItenpoDetail, parseItenpoList } from "./lib/itenpo";
+import { parseLivingList } from "./lib/living";
 
 let ng = 0;
 function eq(label: string, actual: unknown, expected: unknown) {
@@ -120,6 +121,16 @@ const itenpoDetail = parseItenpoDetail(
 );
 eq("居抜き: 記事の表", [itenpoDetail.fields["店舗名"], itenpoDetail.fields["業態"], itenpoDetail.fields["最寄駅"], itenpoDetail.fields["徒歩"]], ["参鶏湯Village", "韓国料理", "代官山駅", "4分"]);
 eq("居抜き: 地図の位置", [itenpoDetail.lat, itenpoDetail.lon], [35.65024, 139.70515]);
+
+// ---- リビングWeb「開店・閉店」（一覧ページ）
+const livingList = parseLivingList(
+  `<ul><li class="box"><dl class="clearfix"><dt class="prbox"><a href="https://mrs.living.jp/tokyo/newopen/article/6987763"><img alt="x"></a></dt>` +
+    `<dd><dl><dt><p class="area-label">中野・東中野</p></dt><dd class="title"> <a href="https://mrs.living.jp/tokyo/newopen/article/6987763">【開店】「ベーカリー 乃が美 中野店」9月19日（土）リニューアルオープン！</a></dd></dl></dd></dl>` +
+    `<div class="article-list__footer"> 2026/10/07<div class="favorite_button"></div></div></li></ul>`,
+);
+eq("リビング: 一覧", livingList.map((x) => [x.link, x.title, x.date?.toISOString()]), [
+  ["https://mrs.living.jp/tokyo/newopen/article/6987763", "【開店】「ベーカリー 乃が美 中野店」9月19日（土）リニューアルオープン！", "2026-10-07T03:00:00.000Z"],
+]);
 
 console.log(ng === 0 ? "\n全件 OK" : `\nNG ${ng} 件`);
 process.exitCode = ng === 0 ? 0 : 1;
