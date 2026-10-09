@@ -14,6 +14,7 @@ import {
   cityMentioned,
   type Pref,
 } from "./lib/normalize";
+import { parseItenpoDetail, parseItenpoList } from "./lib/itenpo";
 
 let ng = 0;
 function eq(label: string, actual: unknown, expected: unknown) {
@@ -43,6 +44,9 @@ eq("店名: 主語の鉤括弧", extractStoreName("【台東区】3月26日（�
 eq("店名: 跡地の鉤括弧は避ける", extractStoreName("【藤沢市】藤沢駅南口にあった「鰻の成瀬」跡地に「酒と鰻と定食と。うなやま」が4月6日にオープン"), "酒と鰻と定食と。うなやま");
 eq("店名: 区切りの後ろの店名", extractStoreName("【休業】地元衣笠で開業した辛くない担々麺新店 – 北区 – 麺屋 坦坦軒"), "麺屋 坦坦軒");
 eq("店名: 区切りの前の店名", extractStoreName("油そばきりん寺 金閣寺店 – 【京都ラーメン】北区が新店オープン"), "油そばきりん寺 金閣寺店");
+eq("店名: 店名＠地名", extractStoreName("やきとん蓮＠桜台【10/7オープン】"), "やきとん蓮");
+eq("店名: 英字の店名＠地名", extractStoreName("Hamburg Steak & Bar PORT＠江古田【10/5オープン】"), "Hamburg Steak & Bar PORT");
+eq("店名: 先頭の[開店]札", extractStoreName("[開店]らーめん大桜 相模原店"), "らーめん大桜 相模原店");
 eq("店名: ○○に△△がオープン", extractStoreName("亀戸に銀だこハイボール酒場がオープンしたよ。"), "銀だこハイボール酒場");
 eq("店名: 本文の店名欄", extractStoreName("祝！2026年4月1日、代々木に干物定食のお店がオープンします。", "…店名は「満腹食堂 誠」です。住所…"), "満腹食堂 誠");
 eq("店名: 末尾の【店名】", extractStoreName("【川越市】新店のご案内♪ 川越駅の駅ビルに麻辣湯（マーラータン）のお店がオープン！【七宝麻辣湯】"), "七宝麻辣湯");
@@ -88,6 +92,24 @@ eq("チェーン: 丸亀製麺", isChainStore("丸亀製麺 ○○店"), true);
 // ---- 店名の比較（重複判定）
 eq("同じ店: 支店名つき", namesCompatible("焼肉ホルモン よし川", "焼肉 ホルモン よし川 向ヶ丘遊園店"), true);
 eq("別の店", namesCompatible("やきとり にしだ場", "中華料理 ふく銀"), false);
+
+// ---- 居抜き店舗.com（一覧ページと記事ページの表）
+const itenpoList = parseItenpoList(
+  `<ul><li class="c-blogList__item"><div class="js-link" href="/news/open/14135"><h3 class="c-blogList__item__ttl">OPEN 参鶏湯Village（代官山駅）</h3>` +
+    `<p class="c-blogList__item__info__date"> 投稿日： 2026.10.07 </p></div></li></ul>`,
+);
+eq("居抜き: 一覧", itenpoList.map((x) => [x.link, x.title, x.date?.toISOString()]), [
+  ["https://www.i-tenpo.com/news/open/14135", "OPEN 参鶏湯Village（代官山駅）", "2026-10-07T03:00:00.000Z"],
+]);
+const itenpoDetail = parseItenpoDetail(
+  `<div class="p-blogDetail__content"><h2>【代官山】駅徒歩4分「参鶏湯Village」オープン！</h2><table class="content_table"><tbody>` +
+    `<tr><th>開店日</th><td>2026年9月19日</td></tr><tr><th>店舗名</th><td>参鶏湯Village</td></tr>` +
+    `<tr><th>業態</th><td><a href="/korean/">韓国料理</a></td></tr><tr><th>最寄駅</th><td><a href="/tokyo/daikanyama-st/">代官山駅</a></td></tr>` +
+    `<tr><th>徒 歩</th><td>4分</td></tr></tbody></table>` +
+    `<iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d12968.3!2d139.70515!3d35.65024!3m2!1i1024"></iframe></div>`,
+);
+eq("居抜き: 記事の表", [itenpoDetail.fields["店舗名"], itenpoDetail.fields["業態"], itenpoDetail.fields["最寄駅"], itenpoDetail.fields["徒歩"]], ["参鶏湯Village", "韓国料理", "代官山駅", "4分"]);
+eq("居抜き: 地図の位置", [itenpoDetail.lat, itenpoDetail.lon], [35.65024, 139.70515]);
 
 console.log(ng === 0 ? "\n全件 OK" : `\nNG ${ng} 件`);
 process.exitCode = ng === 0 ? 0 : 1;

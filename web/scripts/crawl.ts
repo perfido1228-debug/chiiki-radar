@@ -5,11 +5,13 @@
 //   npx tsx scripts/crawl.ts <キーワード>      … 名前/URLに一致する情報源だけ巡回（新規追加の確認・遡り取込用）
 //   npx tsx scripts/crawl.ts --dry-run        … DBに書き込まず、何を取り込むかだけ表示する
 //   オプション: --concurrency=8（同時に巡回する数） --max-age-days=120（これより古い記事は取り込まない）
+//              --max-pages=4（巡回が止まっていた間の記事を遡るページ数の上限）
 import Parser from "rss-parser";
 import * as cheerio from "cheerio";
 import { appendFileSync } from "fs";
 import { sb } from "./lib/supabase";
-import { analyzeArticle, type SourceInfo, type StoreDraft } from "./lib/extract";
+import { analyzeArticle, type Analysis, type SourceInfo, type StoreDraft } from "./lib/extract";
+import { analyzeItenpo, isItenpoList, itenpoPageUrl, parseItenpoList } from "./lib/itenpo";
 import { classifyArticle } from "./lib/normalize";
 import { findExistingStore } from "./lib/dedupe";
 
@@ -20,7 +22,7 @@ type SourceRow = SourceInfo & {
   last_crawled_at: string | null;
 };
 
-type FeedItem = { link: string; title: string; html: string; date: Date | null };
+type FeedItem = { link: string; title: string; html: string; categories: string[]; date: Date | null };
 
 type SourceResult = {
   source: SourceRow;
@@ -41,7 +43,7 @@ const DRY_RUN = args.includes("--dry-run");
 const KEYWORD = args.find((a) => !a.startsWith("--"));
 const CONCURRENCY = Number(args.find((a) => a.startsWith("--concurrency="))?.split("=")[1] ?? 8);
 const MAX_AGE_DAYS = Number(args.find((a) => a.startsWith("--max-age-days="))?.split("=")[1] ?? 120);
-const MAX_PAGES = 4;
+const MAX_PAGES = Number(args.find((a) => a.startsWith("--max-pages="))?.split("=")[1] ?? 4);
 const UA = "Mozilla/5.0 ChiikiRadar/1.0 (+https://github.com/perfido1228-debug/chiiki-radar)";
 
 const parser = new Parser({
@@ -79,7 +81,8 @@ async function fetchText(url: string, timeoutMs: number): Promise<{ status: numb
   }
 }
 
-// フィードを読む。rss-parser が失敗するサイト（未エスケープの「&」、UA拒否など）は取得し直して整えてから読む
+// フィードを読む。rss-parser が失敗するサイト（未エスケープの「&」、本文に埋め込まれたSNSの部品、UA拒否など）は
+// 取得し直して整えてから読む
 async function parseFeed(url: string): Promise<FeedItem[]> {
   let feed: Awaited<ReturnType<typeof parser.parseURL>>;
   try {
@@ -87,7 +90,10 @@ async function parseFeed(url: string): Promise<FeedItem[]> {
   } catch {
     const { status, body } = await fetchText(url, 20000);
     if (status < 200 || status >= 300) throw new Error(`HTTP ${status}`);
-    const sanitized = body.replace(/&(?!(?:[a-zA-Z][a-zA-Z0-9]*|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
+    const sanitized = body
+      // X(Twitter)の埋め込み部品の「/*<![CDATA[*/…/*]]>*/」が本文の区切りを途中で閉じてしまう
+      .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/&(?!(?:[a-zA-Z][a-zA-Z0-9]*|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
     feed = await parser.parseString(sanitized);
   }
   return (feed.items ?? [])
@@ -96,13 +102,31 @@ async function parseFeed(url: string): Promise<FeedItem[]> {
       const raw = it as unknown as Record<string, unknown>;
       const iso = (it.isoDate as string | undefined) ?? (it.pubDate as string | undefined);
       const date = iso ? new Date(iso) : null;
+      const categories = ((it.categories ?? []) as unknown[])
+        .map((c) => (typeof c === "string" ? c : String((c as { _?: unknown })?._ ?? "")).trim())
+        .filter(Boolean);
       return {
         link: String(it.link).trim(),
         title: String(it.title ?? "").trim(),
         html: String(raw.contentEncoded ?? it.content ?? ""),
+        categories,
         date: date && !Number.isNaN(date.getTime()) ? date : null,
       };
     });
+}
+
+// 居抜き店舗.com の一覧ページ（RSS が無いサイトなので、一覧ページを RSS の代わりに読む）
+async function readItenpoList(url: string): Promise<FeedItem[]> {
+  const { status, body } = await fetchText(url, 20000);
+  if (status < 200 || status >= 300) throw new Error(`HTTP ${status}`);
+  return parseItenpoList(body).map((it) => ({ ...it, html: "", categories: [] }));
+}
+
+// 本文に業種が書かれず、記事の分類（カテゴリ）にだけ「喫茶店・カフェ」等が付く情報源は、分類も本文の一部として読む
+const CATEGORY_AS_TEXT = ["s-nerima.jp"];
+function categoryText(src: SourceRow, it: FeedItem): string {
+  if (!it.categories.length || !CATEGORY_AS_TEXT.some((host) => src.rss_url.includes(host))) return "";
+  return " " + it.categories.join(" ");
 }
 
 // WordPress のフィードは ?paged=2 で過去の記事を遡れる（巡回が止まっていた間の記事を取り戻すため）
@@ -226,10 +250,12 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
   const r: SourceResult = { source: src, ok: false, items: 0, pages: 0, newestItem: null, added: 0, merged: 0, rejected: 0, skipped: 0, newStores: [] };
   const lastCrawled = src.last_crawled_at ? new Date(src.last_crawled_at) : null;
   const minDate = new Date(Date.now() - MAX_AGE_DAYS * 86400000);
+  const itenpo = isItenpoList(src.rss_url);
+  const readList = (url: string) => (itenpo ? readItenpoList(url) : parseFeed(url));
 
   let items: FeedItem[];
   try {
-    items = await parseFeed(src.rss_url);
+    items = await readList(src.rss_url);
     r.pages = 1;
   } catch (e) {
     r.error = (e as Error).message.slice(0, 160);
@@ -244,11 +270,11 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       const dated = items.filter((it) => it.date);
       const oldest = dated.length ? Math.min(...dated.map((it) => it.date!.getTime())) : null;
       if (oldest === null || oldest <= lastCrawled.getTime() || oldest < minDate.getTime()) break;
-      const url = pagedUrl(src.rss_url, page);
+      const url = itenpo ? itenpoPageUrl(src.rss_url, page) : pagedUrl(src.rss_url, page);
       if (!url) break;
       let more: FeedItem[];
       try {
-        more = await parseFeed(url);
+        more = await readList(url);
       } catch {
         break;
       }
@@ -278,26 +304,47 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       r.skipped++;
       continue;
     }
-    const rssText = stripHtml(it.html);
-    let verdict = classifyArticle(it.title, rssText);
-    let page: { text: string; thumbnail: string | null } | null = null;
-
-    // RSSに本文の抜粋しかなく、見出しだけでは業種が分からない新着記事は、記事ページを読んで判断し直す
-    const isNew = !lastCrawled || !it.date || it.date.getTime() > lastCrawled.getTime() - 2 * 3600 * 1000;
-    if (!verdict.ok && isNew && rssText.length < 400 && /飲食の語なし|本文冒頭が飲食以外/.test(verdict.reason)) {
-      page = await fetchArticlePage(it.link);
-      if (page.text) verdict = classifyArticle(it.title, page.text);
-    }
-    if (!verdict.ok) {
-      r.rejected++;
-      continue;
-    }
-
-    page ??= await fetchArticlePage(it.link);
     const publishedAt = it.date ?? new Date();
-    const analysis = analyzeArticle({ title: it.title, rssText, pageText: page.text, publishedAt, source: src });
-    const thumbnail = firstImage(it.html) ?? page.thumbnail;
-    const content = (page.text && page.text.length > rssText.length ? page.text : rssText).slice(0, 5000);
+    let analysis: Analysis;
+    let thumbnail: string | null;
+    let content: string;
+
+    if (itenpo) {
+      // 居抜き店舗.com は全部が飲食店の開業。記事ページの表と地図の位置から店の情報を読む
+      try {
+        const { status, body } = await fetchText(it.link, 20000);
+        // 消えた記事（404/410）は店なしで保存し、それ以外の失敗（拒否・混雑など）は次回に読み直す
+        if ((status < 200 || status >= 300) && status !== 404 && status !== 410) throw new Error(`HTTP ${status}`);
+        ({ analysis, thumbnail, content } = await analyzeItenpo(body, publishedAt));
+      } catch (e) {
+        // 通信の失敗は記事を保存せず、次回の巡回で読み直す
+        console.error(`  ${src.name}「${it.title}」: ${(e as Error).message}`);
+        r.skipped++;
+        continue;
+      }
+    } else {
+      const extra = categoryText(src, it);
+      const rssText = stripHtml(it.html) + extra;
+      let verdict = classifyArticle(it.title, rssText);
+      let page: { text: string; thumbnail: string | null } | null = null;
+
+      // RSSに本文の抜粋しかなく、見出しだけでは業種が分からない新着記事は、記事ページを読んで判断し直す
+      const isNew = !lastCrawled || !it.date || it.date.getTime() > lastCrawled.getTime() - 2 * 3600 * 1000;
+      if (!verdict.ok && isNew && rssText.length < 400 && /飲食の語なし|本文冒頭が飲食以外/.test(verdict.reason)) {
+        page = await fetchArticlePage(it.link);
+        if (page.text) verdict = classifyArticle(it.title, page.text + extra);
+      }
+      if (!verdict.ok) {
+        r.rejected++;
+        continue;
+      }
+
+      page ??= await fetchArticlePage(it.link);
+      const pageText = page.text ? page.text + extra : "";
+      analysis = analyzeArticle({ title: it.title, rssText, pageText, publishedAt, source: src });
+      thumbnail = firstImage(it.html) ?? page.thumbnail;
+      content = (pageText.length > rssText.length ? pageText : rssText).slice(0, 5000);
+    }
 
     if (DRY_RUN) {
       if (analysis.ok) {

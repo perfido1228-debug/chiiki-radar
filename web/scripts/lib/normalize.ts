@@ -669,6 +669,8 @@ function pickLabeledName(body: string): string | null {
 export function extractStoreName(title: string, body?: string): string | null {
   let cleaned = normalizeText(title)
     .replace(/【[^】]*】\s*/g, "")
+    // 見出し先頭の「[開店]」「[閉店]」のような短い札（相模原の開店閉店ブログ等）
+    .replace(/^\s*[[［][^\]］]{1,8}[\]］]\s*/, "")
     .replace(/^\s*\d+[\.、]\s*/, "")
     .trim();
 
@@ -694,6 +696,11 @@ export function extractStoreName(title: string, body?: string): string | null {
       cleaned = nameLike[0] ?? seg[0];
     }
   }
+
+  // 「店名＠場所」形式（練馬・桜台情報局など）は＠の後ろの地名を外す。
+  // 「メニュー＠店名（場所）」の食レポ形式は後ろに括弧が付くので対象外
+  const atPlace = cleaned.match(/^(.{2,40}?)\s*[＠@]\s*([^\s＠@、。（）()]{1,10})$/);
+  if (atPlace && /[ぁ-んァ-ヶ一-龥]/.test(atPlace[2])) cleaned = atPlace[1].trim();
 
   const quoted = pickQuotedName(cleaned);
   if (quoted) return quoted;
