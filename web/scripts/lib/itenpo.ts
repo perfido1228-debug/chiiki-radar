@@ -1,10 +1,11 @@
 // 居抜き店舗.com「OPEN情報」の読み取り（https://www.i-tenpo.com/news/open）。
-// 居抜き物件で開業した飲食店の一覧で、全部が飲食店の開業。RSS が無いので、
+// 居抜き物件で開業した店の一覧（大半が飲食店。美容室・買取店なども混じるので業態で絞る）。RSS が無いので、
 // 一覧ページ（?page=N）と記事ページの表（開店日・店舗名・業態・最寄駅）から直接読む。
 // 記事に住所は無いが、埋め込みの地図の中心が店の位置なので、そこから市区町村を割り出す（HeartRails Geo API・無料）。
 import * as cheerio from "cheerio";
 import type { Analysis, StoreDraft } from "./extract";
 import {
+  classifyArticle,
   extractCity,
   extractGenre,
   extractOpenDate,
@@ -98,6 +99,12 @@ export async function analyzeItenpo(html: string, publishedAt: Date): Promise<It
   const name = normalizeText(f["店舗名"] ?? "").replace(/\s+/g, " ").trim();
   if (!name) return fail("店名を読み取れない");
   if (isChainStore(name)) return fail("大手チェーン");
+  // 居抜き物件には美容室・買取店・整体なども入るので、業態で飲食店だけに絞る
+  // （ほかの情報源と同じ判定。判定の語に無い食べ物（「沖縄そば」等）はジャンルが読めれば飲食とみなす）
+  const gyotai = f["業態"] ?? "";
+  const genre = extractGenre(gyotai, d.headline, name);
+  const food = classifyArticle(`${gyotai} ${name}がオープン`, `${gyotai} ${d.headline}`);
+  if (!food.ok && !(food.reason === "飲食の語なし" && genre)) return fail(`飲食店ではない（業態: ${gyotai || "不明"}）`);
   if (d.lat === null || d.lon === null) return fail("市区町村を特定できない（地図なし）");
 
   const place = await placeOf(d.lat, d.lon);
@@ -116,7 +123,7 @@ export async function analyzeItenpo(html: string, publishedAt: Date): Promise<It
     city,
     tel: null,
     tel_normalized: null,
-    genre: extractGenre(f["業態"] ?? "", d.headline, name),
+    genre,
     nearest_station: station ? (station.endsWith("駅") ? station : `${station}駅`) : null,
     open_date: f["開店日"] ? extractOpenDate(`開店日：${f["開店日"]}`, publishedAt) : null,
     listed_date: jstDateString(publishedAt),

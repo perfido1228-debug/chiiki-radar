@@ -310,7 +310,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
     let content: string;
 
     if (itenpo) {
-      // 居抜き店舗.com は全部が飲食店の開業。記事ページの表と地図の位置から店の情報を読む
+      // 居抜き店舗.com は記事ページの表（業態で飲食店に絞る）と地図の位置から店の情報を読む
       try {
         const { status, body } = await fetchText(it.link, 20000);
         // 消えた記事（404/410）は店なしで保存し、それ以外の失敗（拒否・混雑など）は次回に読み直す

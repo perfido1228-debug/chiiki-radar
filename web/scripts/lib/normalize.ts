@@ -898,6 +898,7 @@ const FOOD_STRONG = [
   "日本酒", "クラフトビール", "ハイボール",
   "焼き肉", "オムライス", "グラタン", "ナポリタン", "ワッフル", "トースト", "パンケーキ", "ガレット", "シュークリーム", "マカロン",
   "バウムクーヘン", "ソフトクリーム", "茶房", "甘味", "団子", "大福", "おはぎ", "まんじゅう", "にぎり", "握り", "おでん", "炉端", "炉ばた",
+  "焼き菓子", "焼菓子",
   "せんべろ", "角打ち", "つけめん", "らあめん", "点心", "小籠包", "飲茶", "火鍋", "薬膳", "お粥", "サラダ専門", "サラダボウル", "アサイー",
 ];
 // 飲食の語ではあるが、他業種の見出しにも出てくる語（他業種の語と一緒なら飲食とみなさない）
@@ -910,6 +911,7 @@ const FOOD_FALSE_FRIENDS = [
   "料理教室", "パン教室", "お菓子教室", "ケーキ教室", "そば打ち体験", "料理研究家", "コーヒー豆", "フードバンク", "フードドライブ",
   "ネットカフェ", "インターネットカフェ", "漫画喫茶", "まんが喫茶", "コスメキッチン", "ジェラートピケ", "ジェラート ピケ",
   "gelato pique", "キッチンカー", "キッチン用品", "システムキッチン", "ダイニングテーブル", "フランチャイズ",
+  "ホワイトニングカフェ",
 ];
 // 「バル」「BAR」は他の単語の一部（グローバル、BARBER など）を除いて数える
 const BAR_WORD_RE = /(?<![A-Za-z])(?:BAR|Bar)(?![A-Za-z])|(?<![ーァ-ヶ])バル(?![ーコンカクチラブトドゥセ])/;
@@ -950,8 +952,11 @@ export function nameLooksNonFood(name: string): boolean {
 
 export type OpeningVerdict = { ok: boolean; reason: string };
 
+// 開店の意味ではない「オープン」（料理名・設備・催しの名前）
+const OPEN_COMPOUND_RE = /オープン(?:サンド|テラス|キッチン|ハウス|キャンパス|カー|デー|戦)/g;
+
 export function classifyArticle(title: string, content: string): OpeningVerdict {
-  const t = normalizeText(title);
+  const t = normalizeText(title).replace(OPEN_COMPOUND_RE, " ");
   const c = normalizeText(content);
 
   const strongOpen = STRONG_OPEN_RE.test(t);

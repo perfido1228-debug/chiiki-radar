@@ -5,7 +5,7 @@ import { sb } from "./lib/supabase";
 // - 練馬・桜台情報局: ほぼ全記事が練馬区の開店。本文に業種が無いので記事の分類も読む（crawl.ts の CATEGORY_AS_TEXT）
 // - ここは何が出来るんだろう？: 相模原市の開店・閉店を毎日（病院・薬局も載るので飲食だけ拾う）。
 //   本文に X の埋め込みがあり、フィードの区切りが壊れる → crawl.ts の parseFeed で取り除いて読む
-// - 居抜き店舗.com OPEN情報: 全部が飲食店の開業・ほぼ1都3県。RSS が無いので専用の読み取り（lib/itenpo.ts）
+// - 居抜き店舗.com OPEN情報: 大半が飲食店の開業（美容室・買取店なども混じるので業態で絞る）・ほぼ1都3県。RSS が無いので専用の読み取り（lib/itenpo.ts）
 type Seed = {
   name: string; url: string; rss_url: string;
   source_type: string; pref: string; city: string | null; enabled: boolean;
