@@ -176,9 +176,20 @@ async function makePlan(path: string) {
 
   // ---- 3) 既存の店の値の誤りを直す
   const detachedSet = new Set(plan.detach.map((x) => `${x.storeId}:${x.articleId}`));
+  // 対象外の県（群馬県など）の店は、そのまま残す方針（2026-10-09 確認）なので値も変えない
+  const isOutOfArea = (storeId: number) =>
+    (storeArticles.get(storeId) ?? []).some((aid) => {
+      const r = analysis.get(aid);
+      return !!r && !r.ok && r.reason === "対象エリア外";
+    });
+  let skippedOutOfArea = 0;
   for (const st of stores) {
     const artIds = (storeArticles.get(st.id) ?? []).filter((aid) => !detachedSet.has(`${st.id}:${aid}`)).sort(byDate);
     if (!artIds.length) continue;
+    if (isOutOfArea(st.id)) {
+      skippedOutOfArea++;
+      continue;
+    }
     const drafts = artIds.map(draftOf).filter((d): d is StoreDraft => !!d);
     const core = draftOf(artIds[0]);
     const before: Record<string, unknown> = {};
@@ -280,6 +291,7 @@ async function makePlan(path: string) {
     droppedAsNonFood: nonFoodDropped.length,
     updates: { stores: plan.updates.length, byCategory: catCount },
     outOfAreaStores: outOfAreaStores.size,
+    skippedOutOfArea,
   };
   writeFileSync(path, JSON.stringify(plan, null, 1));
   console.log(JSON.stringify(plan.report, null, 2));
