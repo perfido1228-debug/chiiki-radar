@@ -141,10 +141,18 @@ async function fetchArticlePage(url: string): Promise<{ text: string; thumbnail:
 }
 
 // すでに取り込んだ記事のURL（まとめて問い合わせる）
+// URLがとても長いサイト（後ろに計測用の utm_ が数百文字付くもの）は、問い合わせが長すぎて通信が切れるので小分けにする
 async function existingUrls(urls: string[]): Promise<Set<string>> {
   const found = new Set<string>();
-  for (let i = 0; i < urls.length; i += 40) {
-    const chunk = urls.slice(i, i + 40);
+  for (let i = 0; i < urls.length; ) {
+    const chunk: string[] = [];
+    let size = 0;
+    while (i < urls.length && chunk.length < 40) {
+      const len = encodeURIComponent(urls[i]).length;
+      if (chunk.length && size + len > 8000) break;
+      chunk.push(urls[i++]);
+      size += len;
+    }
     const { data, error } = await sb.from("articles").select("article_url").in("article_url", chunk);
     if (error) throw new Error(`articles 検索に失敗: ${error.message}`);
     for (const r of data ?? []) found.add(r.article_url as string);
