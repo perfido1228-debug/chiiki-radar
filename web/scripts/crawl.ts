@@ -122,11 +122,25 @@ async function readItenpoList(url: string): Promise<FeedItem[]> {
   return parseItenpoList(body).map((it) => ({ ...it, html: "", categories: [] }));
 }
 
-// 本文に業種が書かれず、記事の分類（カテゴリ）にだけ「喫茶店・カフェ」等が付く情報源は、分類も本文の一部として読む
-const CATEGORY_AS_TEXT = ["s-nerima.jp"];
-function categoryText(src: SourceRow, it: FeedItem): string {
-  if (!it.categories.length || !CATEGORY_AS_TEXT.some((host) => src.rss_url.includes(host))) return "";
-  return " " + it.categories.join(" ");
+// 情報源ごとの読み方の調整（その情報源にだけ効く）
+type SourceRule = {
+  // 本文に業種が書かれず、記事の分類（カテゴリ）にだけ「喫茶店・カフェ」等が付く
+  categoriesAsText?: boolean;
+  // 見出しに「オープン」等を書かないサイトで、本文がこの形なら開店記事として読む
+  openingInBody?: RegExp;
+  // 業種を書かない専門ブログで、本文の前に足す業種の語
+  genreWord?: string;
+  // 記事ページの分類リンク（「ラーメン/新宿区」）を本文の頭に足す（市区町村を読むため）
+  pageCategoryLinks?: string;
+};
+const SOURCE_RULES: Array<[host: string, rule: SourceRule]> = [
+  // 練馬・桜台情報局
+  ["s-nerima.jp", { categoriesAsText: true }],
+  // 麺好い（めんこい）ブログ: 見出しは「店名＠駅」だけ。本文が「…の新店「店名」へ」、記事の分類が「ラーメン/新宿区」
+  ["ikemen3.blog.jp", { openingInBody: /の新店「/, genreWord: "ラーメン", pageCategoryLinks: 'a[href*="/archives/cat_"]' }],
+];
+function ruleFor(src: SourceRow): SourceRule {
+  return SOURCE_RULES.find(([host]) => src.rss_url.includes(host))?.[1] ?? {};
 }
 
 // WordPress のフィードは ?paged=2 で過去の記事を遡れる（巡回が止まっていた間の記事を取り戻すため）
@@ -136,12 +150,16 @@ function pagedUrl(rssUrl: string, page: number): string | null {
 }
 
 // 記事ページの本文（関連記事・SNSボタン・コメント欄などを除く）とアイキャッチ画像
-async function fetchArticlePage(url: string): Promise<{ text: string; thumbnail: string | null }> {
+// categoryLinks: 記事の分類リンクの文字（「ラーメン/新宿区」）を本文の頭に足す情報源用。件数付きの一覧（サイドバー）は除く
+async function fetchArticlePage(url: string, categoryLinks?: string): Promise<{ text: string; thumbnail: string | null }> {
   try {
     const { status, body } = await fetchText(url, 15000);
     if (status < 200 || status >= 300 || !body) return { text: "", thumbnail: null };
     const $ = cheerio.load(body);
     const og = $('meta[property="og:image"]').attr("content") ?? null;
+    const categories = categoryLinks
+      ? [...new Set($(categoryLinks).map((_, a) => $(a).text().replace(/\s+/g, " ").trim()).get())].filter((c) => c && !/\(\d+\)$/.test(c))
+      : [];
     $(
       "script, style, noscript, template, nav, header, footer, aside, iframe, form, .sidebar, .widget, " +
         "[class*=related], [id*=related], .yarpp, [class*=share], [class*=sns], [class*=breadcrumb], " +
@@ -157,7 +175,7 @@ async function fetchArticlePage(url: string): Promise<{ text: string; thumbnail:
         break;
       }
     }
-    const text = $body.text().replace(/\s+/g, " ").trim().slice(0, 10000);
+    const text = [...categories, $body.text()].join(" ").replace(/\s+/g, " ").trim().slice(0, 10000);
     return { text, thumbnail: og ?? $body.find("img").first().attr("src") ?? null };
   } catch {
     return { text: "", thumbnail: null };
@@ -323,25 +341,29 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
         continue;
       }
     } else {
-      const extra = categoryText(src, it);
-      const rssText = stripHtml(it.html) + extra;
-      let verdict = classifyArticle(it.title, rssText);
+      const rule = ruleFor(src);
+      const extra = rule.categoriesAsText && it.categories.length ? " " + it.categories.join(" ") : "";
+      const rssText = (rule.genreWord ? rule.genreWord + " " : "") + stripHtml(it.html) + extra;
+      // 見出しに開店の語を書かないサイトは、本文の書き出しで開店記事かを判断する
+      const openingByBody = !!rule.openingInBody?.test(rssText);
+      const checkTitle = openingByBody ? `${it.title} 新店` : it.title;
+      let verdict = classifyArticle(checkTitle, rssText);
       let page: { text: string; thumbnail: string | null } | null = null;
 
       // RSSに本文の抜粋しかなく、見出しだけでは業種が分からない新着記事は、記事ページを読んで判断し直す
       const isNew = !lastCrawled || !it.date || it.date.getTime() > lastCrawled.getTime() - 2 * 3600 * 1000;
       if (!verdict.ok && isNew && rssText.length < 400 && /飲食の語なし|本文冒頭が飲食以外/.test(verdict.reason)) {
-        page = await fetchArticlePage(it.link);
-        if (page.text) verdict = classifyArticle(it.title, page.text + extra);
+        page = await fetchArticlePage(it.link, rule.pageCategoryLinks);
+        if (page.text) verdict = classifyArticle(checkTitle, page.text + extra);
       }
       if (!verdict.ok) {
         r.rejected++;
         continue;
       }
 
-      page ??= await fetchArticlePage(it.link);
+      page ??= await fetchArticlePage(it.link, rule.pageCategoryLinks);
       const pageText = page.text ? page.text + extra : "";
-      analysis = analyzeArticle({ title: it.title, rssText, pageText, publishedAt, source: src });
+      analysis = analyzeArticle({ title: it.title, rssText, pageText, publishedAt, source: src }, { skipClassify: openingByBody });
       thumbnail = firstImage(it.html) ?? page.thumbnail;
       content = (pageText.length > rssText.length ? pageText : rssText).slice(0, 5000);
     }

@@ -604,10 +604,22 @@ function pickQuotedName(t: string): string | null {
     const end = start + m[0].length;
     const after = t.slice(end, end + 6);
     const before = t.slice(Math.max(0, start - 12), start);
+    // 「「○○」跡地に」「「○○」の隣」のように場所の目印として出てくる鉤括弧
+    const placeAfter = /^(?:に(?!て|行)|跡|内|前|隣|近く|周辺|エリア|館|[0-9]+階|[0-9]+F|店内|にある|の[0-9]+階)/.test(after);
+    // すぐ後ろ（次の鉤括弧・「。」より前）に開店の語が続くか（「「店名」が10月1日にオープン」「「店名」本日オープン」）
+    // （「「○○」との複合店舗にリニューアル」の○○は相手のブランドなので除く）
+    const openSoon =
+      !placeAfter &&
+      !/^との/.test(after) &&
+      /^[^「『《“。]{0,30}?(?:オープン|OPEN|開店|開業|誕生|出店|リニューアル|移転|新装|復活|上陸|できる|できた|できてる)/.test(t.slice(end, end + 40));
     let score = 0;
-    if (/^(?:が|は|って|という|、|！|!|オープン|OPEN|開店|開業|の(?:オープン|開店|魅力|新店|店舗|新業態|2号店|跡地に)?|に行って|へ行って|をオープン|と[「『])/.test(after)) score += 3;
+    if (/^(?:が|は|って|という|、|！|!|オープン|OPEN|開店|開業|の(?:オープン|開店|魅力|新店|店舗|新業態|2号店|跡地に)?|に行って|へ行って|をオープン|と[「『])/.test(after)) {
+      // 「「おはぎ」は買えました」のように、開店の話が続かない「が・は」は弱くみる
+      score += /^(?:が|は)/.test(after) && !openSoon ? 1 : 3;
+    }
+    if (openSoon) score += 2;
     if (/^(?:で|の)/.test(after)) score += 1;
-    if (/^(?:に(?!て|行)|跡|内|前|隣|近く|周辺|エリア|館|[0-9]+階|[0-9]+F|店内|にある|の[0-9]+階)/.test(after)) score -= 5;
+    if (placeAfter) score -= 5;
     if (/^(?:を|食べ|実食|メニュー)/.test(after)) score -= 2;
     // 直前に「○○店の」「ラーメン店」「オープンの」など店を指す語があれば店名らしい
     if (/(?:店|専門店|カフェ|食堂|レストラン|酒場|ベーカリー|オープン|開店|開業|新店)の?$/.test(before)) score += 2;
@@ -656,7 +668,7 @@ function pickLabeledName(body: string): string | null {
     t.match(/(?:【店名】|【店舗名】|[■●◆]\s*店名|店名\s*[:：]|店舗名\s*[:：])\s*()()()([^\s、。|｜/「」『』]{2,30}(?:\s[^\s、。|｜/「」『』]{1,15}){0,2})/);
   if (!m) return null;
   let name = (m[1] || m[2] || m[3] || m[4] || "")
-    .replace(/(?:住所|所在地|営業時間|定休日|電話|TEL|アクセス|最寄り?|URL|公式).*$/, "")
+    .replace(/(?:住所|所在地|営業時間|定休日|電話|TEL|アクセス|最寄り?|URL|公式|オープン日|開店日|開業日|オープン予定|ジャンル|業態|予算|席数).*$/, "")
     .replace(/[」』】）)]+$/, "")
     .replace(/^[「『【（(]+/, "")
     .trim();
@@ -666,8 +678,19 @@ function pickLabeledName(body: string): string | null {
   return name;
 }
 
+// 見出しの後ろにサイトが毎回付ける決まり文句（横浜・神奈川ローカルNETの「｜場所・メニューまとめ」）
+const TITLE_SITE_SUFFIX_RE = /\s*[｜|]\s*場所・(?:メニュー|サービス|アクセス|料金)?まとめ\s*$/;
+// 見出し先頭の時期（「2026年12月 店名が…」「2027年1月下旬 店名が…」）
+const DATE_HEAD_RE =
+  /^(?:\d{4}年(?:\d{1,2}月(?:\d{1,2}日)?)?|\d{1,2}月(?:\d{1,2}日)?)(?:上旬|中旬|下旬|頃|ごろ)?(?:\s*[～〜~]\s*(?:\d{4}年)?\d{1,2}月(?:\d{1,2}日)?(?:上旬|中旬|下旬|頃|ごろ)?)?\s+/;
+
 export function extractStoreName(title: string, body?: string): string | null {
+  // 「【ニューオープン｜店名】…」の形（飲食ニュースの hibana など）は括弧の中が店名
+  const tagged = normalizeText(title).match(/【\s*(?:ニューオープン|NEW\s?OPEN|新店)\s*[｜|]\s*([^】]{2,40})】/i);
+  if (tagged) return tagged[1].trim();
+
   let cleaned = normalizeText(title)
+    .replace(TITLE_SITE_SUFFIX_RE, "")
     .replace(/【[^】]*】\s*/g, "")
     // 見出し先頭の「[開店]」「[閉店]」のような短い札（相模原の開店閉店ブログ等）
     .replace(/^\s*[[［][^\]］]{1,8}[\]］]\s*/, "")
@@ -678,6 +701,7 @@ export function extractStoreName(title: string, body?: string): string | null {
   // 京都速報など「＜日付＞オープン ＜店名＞」形式の見出しで店名に日付が混じるのを防ぐ。
   cleaned = cleaned
     .replace(/^(?:\d{4}年)?\d{1,2}月\d{1,2}日\s*(?:に|の)?\s*(?:オープン|OPEN|開店|開業|グランドオープン|新規オープン)(?:予定)?[、,\s]*/i, "")
+    .replace(DATE_HEAD_RE, "")
     .trim();
 
   // 「店名 – カテゴリ名」「店名 | サイト名」のような区切りの後ろはサイト側の付け足し
@@ -701,6 +725,9 @@ export function extractStoreName(title: string, body?: string): string | null {
   // 「メニュー＠店名（場所）」の食レポ形式は後ろに括弧が付くので対象外
   const atPlace = cleaned.match(/^(.{2,40}?)\s*[＠@]\s*([^\s＠@、。（）()]{1,10})$/);
   if (atPlace && /[ぁ-んァ-ヶ一-龥]/.test(atPlace[2])) cleaned = atPlace[1].trim();
+  // 店名の後ろの「（所沢市松郷）」のような所在地の括弧（メシナビの開店予定など）
+  const placeParen = cleaned.match(/^(.{2,}?)\s*[（(]([^（）()]{2,20})[）)]$/);
+  if (placeParen && cityMentioned(placeParen[2])) cleaned = placeParen[1].trim();
 
   const quoted = pickQuotedName(cleaned);
   if (quoted) return quoted;
@@ -794,7 +821,8 @@ const STORE_NOUN_RE = /(店|専門店|カフェ|食堂|レストラン|酒場|�
 // 経済新聞ネットワーク等は見出しに「オープン/開店」を入れず、
 // 「○○に「店名」」「○○に△△店」形式で新規開店を告知する。
 // その場合は本文の開店表現で裏取りする（見出し形式＋本文開店語の二重条件で誤検出を抑制）。
-const NEWSHOP_TITLE_RE = /[にへ]「[^」]{2,}」|[にへ][^\s、。]{0,14}(?:専門店|食堂|レストラン|ダイニング|カフェ|酒場|バル|ビストロ|店)(?:が|、|を|\s|$)/;
+// 「恵比寿にすし店「鮨 ○○」」のように業種の後ろに店名が続く形も含む
+const NEWSHOP_TITLE_RE = /[にへ]「[^」]{2,}」|[にへ][^\s、。]{0,14}(?:専門店|食堂|レストラン|ダイニング|カフェ|酒場|バル|ビストロ|店)(?:が|、|を|\s|$|「)/;
 const BODY_OPENING_RE = /(オープン|開店|開業|グランドオープン|新規開店|新装開店)/;
 
 // 見出しにあれば常に除外する語（開店記事ではない／店舗の新規開店ではない）
@@ -862,7 +890,8 @@ const NON_FOOD_BUSINESS = [
   "ホテル", "旅館", "民泊", "ゲストハウス", "宿泊", "ヴィラ", "グランピング", "キャンプ場",
   "サウナ", "銭湯", "温泉", "スパ施設",
   "銀行", "ATM", "保険", "郵便局",
-  "スーパー", "業務スーパー", "ディスカウントストア", "ドン・キホーテ", "食品館", "鮮魚店", "精肉店", "八百屋", "青果",
+  "スーパー", "業務スーパー", "ディスカウントストア", "ドン・キホーテ", "食品館", "鮮魚店", "精肉店", "精肉", "八百屋", "青果",
+  "酵素浴",
   "西友", "ヤオコー", "マルエツ", "ロピア", "まいばすけっと", "ビッグ・エー", "マミープラス", "ヨークマート",
   "成城石井", "カルディ", "オーケーストア", "ベルク", "トライアル", "コープ", "生協",
   "写真館", "フォトスタジオ", "商業拠点", "体験施設", "クッキング",
@@ -912,6 +941,8 @@ const FOOD_FALSE_FRIENDS = [
   "ネットカフェ", "インターネットカフェ", "漫画喫茶", "まんが喫茶", "コスメキッチン", "ジェラートピケ", "ジェラート ピケ",
   "gelato pique", "キッチンカー", "キッチン用品", "システムキッチン", "ダイニングテーブル", "フランチャイズ",
   "ホワイトニングカフェ",
+  "犬カフェ", "いぬカフェ", "猫カフェ", "ねこカフェ", "ネコカフェ", "保護猫カフェ", "ふくろうカフェ", "フクロウカフェ",
+  "うさぎカフェ", "爬虫類カフェ", "動物カフェ", "ふれあいカフェ",
 ];
 // 「バル」「BAR」は他の単語の一部（グローバル、BARBER など）を除いて数える
 const BAR_WORD_RE = /(?<![A-Za-z])(?:BAR|Bar)(?![A-Za-z])|(?<![ーァ-ヶ])バル(?![ーコンカクチラブトドゥセ])/;
@@ -956,7 +987,7 @@ export type OpeningVerdict = { ok: boolean; reason: string };
 const OPEN_COMPOUND_RE = /オープン(?:サンド|テラス|キッチン|ハウス|キャンパス|カー|デー|戦)/g;
 
 export function classifyArticle(title: string, content: string): OpeningVerdict {
-  const t = normalizeText(title).replace(OPEN_COMPOUND_RE, " ");
+  const t = normalizeText(title).replace(TITLE_SITE_SUFFIX_RE, "").replace(OPEN_COMPOUND_RE, " ");
   const c = normalizeText(content);
 
   const strongOpen = STRONG_OPEN_RE.test(t);
