@@ -5,10 +5,13 @@ on:
     - cron: "0 15 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   purge:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: web
@@ -20,8 +23,9 @@ jobs:
           cache: "npm"
           cache-dependency-path: web/package-lock.json
       - run: npm ci
+      # 2年より前の店・記事を削除（以前の1行スクリプトは読み込み方の誤りで一度も成功していなかった）
       - name: Purge old (> 2 years)
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
-        run: npx tsx -e "import('./scripts/lib/supabase').then(async ({sb}) => { const { error } = await sb.rpc('purge_old_data'); if (error) throw error; console.log('purged'); })"
+        run: npx tsx scripts/purge.ts

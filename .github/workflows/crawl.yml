@@ -5,9 +5,13 @@ on:
     # GitHubのscheduleは高負荷時に無音スキップされる。毎時00分は最も混雑し
     # 落とされやすいため、混雑しない分(:17/:47)に2回/時で冗長化してgapを縮める。
     # クロールは既存URLスキップで冪等なので二重発火しても安全。
+    # 間が空いた場合も、クロール側でフィードの2ページ目以降を遡って取りこぼしを防ぐ。
     - cron: "17 * * * *"
     - cron: "47 * * * *"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 # 前のcrawlが走行中に次が発火しても積み上がらないよう直列化（実行中は待たせる）
 concurrency:
@@ -29,6 +33,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: web/package-lock.json
       - run: npm ci
+      # 結果（新しく取り込んだ店・取得に失敗した情報源）は実行画面の Summary に表示される
       - name: Run crawler
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

@@ -61,3 +61,74 @@ main { padding: 20px 24px 60px; max-width: 1400px; margin: 0 auto; }
 .card .open-btn:hover { background: #0b3d91; color: #fff; }
 
 .empty { text-align: center; padding: 60px; color: #999; }
+
+/* ---- 2026-10 追加: 検索・NEW・CSV・地図・取込状況 ---- */
+.app-header .meta { display: flex; align-items: center; gap: 14px; }
+.app-header .meta-link { color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.5); padding: 3px 10px; border-radius: 12px; font-size: 12px; }
+.app-header .meta-link:hover { background: rgba(255,255,255,0.15); }
+
+.filters label.search input { min-width: 240px; }
+.filters button.csv { padding: 7px 14px; border: 1px solid #0b3d91; background: #0b3d91; color: #fff; border-radius: 6px; cursor: pointer; font-size: 12px; align-self: flex-end; font-weight: 600; }
+.filters button.csv:hover { background: #0a3279; }
+.filters button.csv:disabled { opacity: 0.4; cursor: default; }
+.filters .count { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.filters .count .crawled { font-size: 11px; color: #888; }
+.filters .count .crawled.stale { color: #c0392b; font-weight: 600; }
+.toggle-filter.new-filter { background: #fff7e6; border-color: #f5c26b; }
+
+.stale-banner { background: #fee2e2; border: 1px solid #f5a3a3; color: #991b1b; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; font-weight: 600; }
+.stale-banner a { color: #991b1b; }
+
+.card .card-header .new-badge { background: #dc2626; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; letter-spacing: 0.05em; }
+.card .dup-flag .dup-link { display: block; margin-top: 4px; background: none; border: none; padding: 0; color: #92400e; text-decoration: underline; cursor: pointer; font-size: 11px; font-weight: 600; text-align: left; }
+.card .footer { gap: 10px; align-items: flex-start; }
+.card .footer .actions { display: flex; gap: 6px; flex-shrink: 0; }
+.card .map-btn { font-size: 12px; color: #059669; text-decoration: none; font-weight: 500; padding: 4px 10px; border: 1px solid #059669; border-radius: 4px; }
+.card .map-btn:hover { background: #059669; color: #fff; }
+.card .more-sources { display: inline; }
+.card .more-sources summary { display: inline; cursor: pointer; list-style: none; }
+.card .more-sources summary::-webkit-details-marker { display: none; }
+.card .more-sources[open] summary { text-decoration: underline; }
+.card .more-sources ul { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 4px; }
+.card .more-sources li a { color: #0b3d91; font-size: 11px; line-height: 1.4; text-decoration: none; }
+.card .more-sources li a:hover { text-decoration: underline; }
+
+main .more { text-align: center; margin-top: 24px; }
+main .more button { padding: 10px 24px; border: 1px solid #0b3d91; background: #fff; color: #0b3d91; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; }
+main .more button:hover { background: #f0f4fa; }
+main .more button:disabled { opacity: 0.6; cursor: default; }
+main .more .older-error { margin-top: 8px; color: #c0392b; font-size: 12px; }
+
+/* 情報源の状況 */
+.sources-page h2 { font-size: 18px; color: #0b3d91; margin-bottom: 6px; }
+.sources-page .lead { font-size: 13px; color: #555; margin-bottom: 12px; }
+.status-summary { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.status-chip { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 600; white-space: nowrap; }
+.status-chip b { margin-left: 4px; }
+.status-chip.error { background: #fee2e2; color: #991b1b; }
+.status-chip.dormant { background: #fde68a; color: #78350f; }
+.status-chip.slow { background: #fef3c7; color: #92400e; }
+.status-chip.ok { background: #dcfce7; color: #166534; }
+.status-chip.disabled { background: #e5e7eb; color: #4b5563; }
+.status-help { font-size: 12px; color: #555; margin: 0 0 16px 18px; line-height: 1.7; }
+.pref-table { border-collapse: collapse; margin-bottom: 18px; background: #fff; font-size: 12px; }
+.pref-table th, .pref-table td { border: 1px solid #e3e5ea; padding: 6px 12px; text-align: center; }
+.pref-table th { background: #f0f4fa; color: #0b3d91; }
+.table-wrap { overflow-x: auto; background: #fff; border: 1px solid #e3e5ea; border-radius: 8px; }
+.sources-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.sources-table th { background: #f0f4fa; color: #0b3d91; text-align: left; padding: 8px 10px; position: sticky; top: 0; white-space: nowrap; }
+.sources-table td { border-top: 1px solid #eef0f4; padding: 6px 10px; vertical-align: top; }
+.sources-table td.num { text-align: right; }
+.sources-table a { color: #0b3d91; }
+.sources-table tr.disabled td { color: #999; }
+
+@media (max-width: 640px) {
+  .app-header { padding: 12px 16px; flex-wrap: wrap; gap: 6px; }
+  .app-header .sub { display: block; margin-left: 0; margin-top: 2px; }
+  nav.tabs { padding: 0 8px; }
+  .filters { padding: 12px 16px; }
+  .filters label, .filters label.search { flex: 1 1 140px; }
+  .filters select, .filters input, .filters label.search input { min-width: 0; width: 100%; }
+  main { padding: 16px 16px 60px; }
+  .grid { grid-template-columns: 1fr; }
+}

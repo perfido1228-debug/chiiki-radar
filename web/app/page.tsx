@@ -1,9 +1,9 @@
 import RadarView from "@/components/RadarView";
-import { fetchStores } from "@/lib/fetchStores";
+import { fetchRadarData } from "@/lib/fetchStores";
 
 export const revalidate = 30;
 
 export default async function Page() {
-  const stores = await fetchStores();
-  return <RadarView stores={stores} />;
+  const { data, meta } = await fetchRadarData();
+  return <RadarView data={data} meta={meta} />;
 }
