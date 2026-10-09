@@ -189,7 +189,8 @@ async function fetchArticlePage(url: string, rule: SourceRule = {}): Promise<Art
     let $body: cheerio.Cheerio<any> = $("body");
     for (const sel of selectors) {
       const found = $(sel).first();
-      if (found.length && found.text().trim().length > 200) {
+      // 情報源ごとに指定した本文の場所は、短い記事（数行の開店告知）でもそこを本文とする
+      if (found.length && found.text().trim().length > (sel === rule.contentSelector ? 20 : 200)) {
         $body = found;
         break;
       }
