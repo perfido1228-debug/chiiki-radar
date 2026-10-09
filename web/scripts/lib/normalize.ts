@@ -286,6 +286,9 @@ function isPlausibleAddress(a: string): boolean {
   else if (afterPref.startsWith(plain)) rest = afterPref.slice(plain.length);
   if (!/[0-9]/.test(rest) && !/丁目|番地/.test(rest)) return false;
   if (/^[営立内民役]/.test(rest)) return false;
+  // 「寝屋川市に1号店」のように市区町村名の直後が助詞なら文章（住所ではない）。
+  // ひらがなの町名（「はるひ野」「にっさい花見台」等）は続く文字がひらがななので残る
+  if (/^(?:に|で|へ|の|から|まで)(?![ぁ-ん])/.test(rest)) return false;
   if (/(?:を中心|店舗|ほか|など|にある|では|には|から|まで|以内|内に|内で|全域|各地|駅|出口)/.test(rest.slice(0, 14))) return false;
   return true;
 }
@@ -723,8 +726,14 @@ export function extractStoreName(title: string, body?: string): string | null {
 
   // 「店名＠場所」形式（練馬・桜台情報局など）は＠の後ろの地名を外す。
   // 「メニュー＠店名（場所）」の食レポ形式は後ろに括弧が付くので対象外
+  // この形の見出しは店名そのものなので、本文の「店名」欄などより優先する
   const atPlace = cleaned.match(/^(.{2,40}?)\s*[＠@]\s*([^\s＠@、。（）()]{1,10})$/);
-  if (atPlace && /[ぁ-んァ-ヶ一-龥]/.test(atPlace[2])) cleaned = atPlace[1].trim();
+  // （＠の前に鉤括弧があれば、その中を店名として下で選ぶ）
+  if (atPlace && /[ぁ-んァ-ヶ一-龥]/.test(atPlace[2])) {
+    const left = atPlace[1].trim();
+    if (!/[「『《“]/.test(left) && !STORE_NAME_NEGATIVE.includes(left)) return left;
+    cleaned = left;
+  }
   // 店名の後ろの「（所沢市松郷）」のような所在地の括弧（メシナビの開店予定など）
   const placeParen = cleaned.match(/^(.{2,}?)\s*[（(]([^（）()]{2,20})[）)]$/);
   if (placeParen && cityMentioned(placeParen[2])) cleaned = placeParen[1].trim();

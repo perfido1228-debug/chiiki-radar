@@ -12,7 +12,7 @@ import { appendFileSync } from "fs";
 import { sb } from "./lib/supabase";
 import { analyzeArticle, type Analysis, type SourceInfo, type StoreDraft } from "./lib/extract";
 import { analyzeItenpo, isItenpoList, itenpoPageUrl, parseItenpoList } from "./lib/itenpo";
-import { classifyArticle } from "./lib/normalize";
+import { cityMentioned, classifyArticle } from "./lib/normalize";
 import { findExistingStore } from "./lib/dedupe";
 
 type SourceRow = SourceInfo & {
@@ -130,7 +130,7 @@ type SourceRule = {
   openingInBody?: RegExp;
   // 業種を書かない専門ブログで、本文の前に足す業種の語
   genreWord?: string;
-  // 記事ページの分類リンク（「ラーメン/新宿区」）を本文の頭に足す（市区町村を読むため）
+  // 記事ページの分類リンク（「ラーメン/新宿区」）。ここに市区町村があれば、それを店の場所とする
   pageCategoryLinks?: string;
 };
 const SOURCE_RULES: Array<[host: string, rule: SourceRule]> = [
@@ -149,12 +149,14 @@ function pagedUrl(rssUrl: string, page: number): string | null {
   return rssUrl + (rssUrl.includes("?") ? "&" : "?") + `paged=${page}`;
 }
 
+type ArticlePage = { text: string; thumbnail: string | null; categories: string[] };
+
 // 記事ページの本文（関連記事・SNSボタン・コメント欄などを除く）とアイキャッチ画像
-// categoryLinks: 記事の分類リンクの文字（「ラーメン/新宿区」）を本文の頭に足す情報源用。件数付きの一覧（サイドバー）は除く
-async function fetchArticlePage(url: string, categoryLinks?: string): Promise<{ text: string; thumbnail: string | null }> {
+// categoryLinks: 記事の分類リンク（「ラーメン/新宿区」）も読む情報源用。件数付きの一覧（サイドバー）は除く
+async function fetchArticlePage(url: string, categoryLinks?: string): Promise<ArticlePage> {
   try {
     const { status, body } = await fetchText(url, 15000);
-    if (status < 200 || status >= 300 || !body) return { text: "", thumbnail: null };
+    if (status < 200 || status >= 300 || !body) return { text: "", thumbnail: null, categories: [] };
     const $ = cheerio.load(body);
     const og = $('meta[property="og:image"]').attr("content") ?? null;
     const categories = categoryLinks
@@ -175,10 +177,10 @@ async function fetchArticlePage(url: string, categoryLinks?: string): Promise<{ 
         break;
       }
     }
-    const text = [...categories, $body.text()].join(" ").replace(/\s+/g, " ").trim().slice(0, 10000);
-    return { text, thumbnail: og ?? $body.find("img").first().attr("src") ?? null };
+    const text = $body.text().replace(/\s+/g, " ").trim().slice(0, 10000);
+    return { text, thumbnail: og ?? $body.find("img").first().attr("src") ?? null, categories };
   } catch {
-    return { text: "", thumbnail: null };
+    return { text: "", thumbnail: null, categories: [] };
   }
 }
 
@@ -348,7 +350,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       const openingByBody = !!rule.openingInBody?.test(rssText);
       const checkTitle = openingByBody ? `${it.title} 新店` : it.title;
       let verdict = classifyArticle(checkTitle, rssText);
-      let page: { text: string; thumbnail: string | null } | null = null;
+      let page: ArticlePage | null = null;
 
       // RSSに本文の抜粋しかなく、見出しだけでは業種が分からない新着記事は、記事ページを読んで判断し直す
       const isNew = !lastCrawled || !it.date || it.date.getTime() > lastCrawled.getTime() - 2 * 3600 * 1000;
@@ -362,8 +364,11 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       }
 
       page ??= await fetchArticlePage(it.link, rule.pageCategoryLinks);
-      const pageText = page.text ? page.text + extra : "";
-      analysis = analyzeArticle({ title: it.title, rssText, pageText, publishedAt, source: src }, { skipClassify: openingByBody });
+      const pageText = page.text ? (rule.genreWord ? rule.genreWord + " " : "") + page.text + extra : "";
+      // 記事の分類に市区町村があれば、それを担当地域として読む（本文に出てくる他の地名より確か）
+      const place = page.categories.length ? cityMentioned(page.categories.join(" ")) : null;
+      const source = place ? { ...src, pref: place.pref, city: place.city } : src;
+      analysis = analyzeArticle({ title: it.title, rssText, pageText, publishedAt, source }, { skipClassify: openingByBody });
       thumbnail = firstImage(it.html) ?? page.thumbnail;
       content = (pageText.length > rssText.length ? pageText : rssText).slice(0, 5000);
     }
