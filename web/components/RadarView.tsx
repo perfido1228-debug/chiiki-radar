@@ -148,8 +148,11 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
   const [showHidden, setShowHidden] = useState<boolean>(false);
   const [requireTel, setRequireTel] = useState<boolean>(false);
   const [requireAddr, setRequireAddr] = useState<boolean>(false);
-  // 「今日」は最初はページを作った日時で描き、表示後にこの端末の時刻に合わせる（以前は 2026-04-23 に固定されていた）
-  const [nowMs, setNowMs] = useState<number>(() => Date.parse(meta.generatedAt));
+  // 「今日」は最初は最終取込の日時で描き、表示後にこの端末の時刻に合わせる（以前は 2026-04-23 に固定されていた）。
+  // ページに作成時刻は入れない（作り直すたびに中身が変わり、Vercel の「ISRの書き込み」が毎回発生するため）
+  const [nowMs, setNowMs] = useState<number>(() => (meta.lastCrawledAt ? Date.parse(meta.lastCrawledAt) : 0));
+  // 端末の時刻が分かるまでは「○分前」と取込停止の警告を出さない
+  const [clockReady, setClockReady] = useState<boolean>(false);
   // NEW の基準時刻（前回の閲覧）。読み込むまでは NEW を出さない
   const [newSince, setNewSince] = useState<number | null>(null);
   // 表示期間より前の店（「さらに古い店も読み込む」で追加）
@@ -169,6 +172,7 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
   useEffect(() => {
     const now = Date.now();
     setNowMs(now);
+    setClockReady(true);
     let since = now - DAY;
     try {
       const raw = localStorage.getItem(VISIT_KEY);
@@ -317,7 +321,7 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
 
   const lastCrawled = meta.lastCrawledAt ? Date.parse(meta.lastCrawledAt) : null;
   const crawledHoursAgo = lastCrawled ? (nowMs - lastCrawled) / 3600000 : null;
-  const stale = crawledHoursAgo !== null && crawledHoursAgo >= STALE_HOURS;
+  const stale = clockReady && crawledHoursAgo !== null && crawledHoursAgo >= STALE_HOURS;
   const agoText =
     crawledHoursAgo === null ? "" : crawledHoursAgo < 1 ? `${Math.max(0, Math.round(crawledHoursAgo * 60))}分前` : crawledHoursAgo < 48 ? `${Math.floor(crawledHoursAgo)}時間前` : `${Math.floor(crawledHoursAgo / 24)}日前`;
 
@@ -443,7 +447,8 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
           <b>{filteredItems.length}</b>件
           {lastCrawled && (
             <span className={`crawled${stale ? " stale" : ""}`} title={`最終取込 ${jstFormat.format(new Date(lastCrawled))}`}>
-              最終取込 {jstFormat.format(new Date(lastCrawled))}（{agoText}）
+              最終取込 {jstFormat.format(new Date(lastCrawled))}
+              {clockReady && `（${agoText}）`}
             </span>
           )}
         </div>

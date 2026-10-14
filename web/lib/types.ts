@@ -31,9 +31,8 @@ export type Store = {
   createdAt: string;
 };
 
+// ページを作った日時は入れない（作り直すたびに中身が変わり、Vercel の「ISRの書き込み」が毎回発生するため）
 export type RadarMeta = {
-  // ページを作った日時
-  generatedAt: string;
   // 最後に情報源を巡回した日時
   lastCrawledAt: string | null;
   // 最初に読み込む期間（掲載日がこの日数以内の店）

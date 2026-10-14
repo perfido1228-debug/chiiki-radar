@@ -114,7 +114,6 @@ export async function fetchRadarData(pref?: string): Promise<{ data: Packed; met
     return {
       data: pack(stores),
       meta: {
-        generatedAt: new Date().toISOString(),
         lastCrawledAt: (crawled.data?.[0]?.last_crawled_at as string | undefined) ?? null,
         windowDays: WINDOW_DAYS,
         olderCount: older.count ?? 0,
@@ -122,6 +121,6 @@ export async function fetchRadarData(pref?: string): Promise<{ data: Packed; met
     };
   } catch (e) {
     console.error("fetchRadarData error:", e);
-    return { data: pack([]), meta: { generatedAt: new Date().toISOString(), lastCrawledAt: null, windowDays: WINDOW_DAYS, olderCount: 0 } };
+    return { data: pack([]), meta: { lastCrawledAt: null, windowDays: WINDOW_DAYS, olderCount: 0 } };
   }
 }
