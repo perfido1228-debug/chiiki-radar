@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 
 export const metadata: Metadata = { title: "情報源の状況 | 地域密着レーダー" };
-export const revalidate = 300;
+// 15分ごとに作り直す（Vercel の「ISRの書き込み」を抑えるため）
+export const revalidate = 900;
 
 type SourceRow = {
   id: number;
