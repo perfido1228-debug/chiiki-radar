@@ -20,6 +20,8 @@ type Props = {
   meta: RadarMeta;
   // 都府県の絞り込みの選択肢と並び順（配布キットでは設定した地域を渡す）
   prefOrder?: string[];
+  // 自動取込が止まっているときの説明（配布キットでは PC 版の説明を渡す）
+  staleReason?: string;
 };
 
 const PREF_ORDER = ["東京都", "神奈川県", "千葉県", "埼玉県", "愛知県", "大阪府", "京都府"];
@@ -135,7 +137,13 @@ function downloadCsv(rows: Store[], label: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
-export default function RadarView({ data, pinnedPref, meta, prefOrder = PREF_ORDER }: Props) {
+export default function RadarView({
+  data,
+  pinnedPref,
+  meta,
+  prefOrder = PREF_ORDER,
+  staleReason = "GitHub の自動実行が停止している可能性があります",
+}: Props) {
   const stores = useMemo(() => unpack(data), [data]);
   const [prefFilter, setPrefFilter] = useState<string>(pinnedPref ?? "");
   const [cityFilter, setCityFilter] = useState<string>("");
@@ -459,7 +467,7 @@ export default function RadarView({ data, pinnedPref, meta, prefOrder = PREF_ORD
       <main>
         {stale && (
           <div className="stale-banner">
-            ⚠ 自動取込が{agoText.replace("前", "")}止まっています。GitHub の自動実行が停止している可能性があります（
+            ⚠ 自動取込が{agoText.replace("前", "")}止まっています。{staleReason}（
             <a href="/sources">情報源の状況</a>
             で確認できます）。
           </div>

@@ -1,0 +1,25 @@
+/* PC版だけの部品（本番の globals.css の後ろに足す） */
+.app-header .kit-crawl {
+  color: #0b3d91;
+  background: #fff;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.app-header .kit-crawl:disabled { opacity: 0.6; cursor: default; }
+.kit-lastrun { background: #eef3fb; color: #2b3a55; font-size: 12px; padding: 6px 24px; border-bottom: 1px solid #dde5f2; }
+.kit-lastrun.ng { background: #fff4e5; color: #8a4b00; }
+.kit-page { max-width: 1100px; margin: 0 auto; padding: 20px 24px 40px; font-size: 14px; line-height: 1.7; }
+.kit-page code { background: #eef0f4; padding: 1px 5px; border-radius: 4px; }
+.kit-table { width: 100%; border-collapse: collapse; margin-top: 12px; background: #fff; font-size: 13px; }
+.kit-table th, .kit-table td { border-bottom: 1px solid #e3e6eb; padding: 7px 8px; text-align: left; vertical-align: top; }
+.kit-table th { background: #f0f2f6; font-weight: 600; white-space: nowrap; }
+.kit-table a { color: #0b3d91; }
+@media (max-width: 640px) {
+  .kit-lastrun { padding: 6px 16px; }
+  .kit-page { padding: 16px; }
+  .kit-table { display: block; overflow-x: auto; }
+}

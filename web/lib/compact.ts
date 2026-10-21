@@ -8,16 +8,18 @@ type SrcRef = [name: string, type: SourceType];
 // [id, 店名, 住所, 都府県番号, 市区町村, 掲載日, オープン日, ジャンル, 電話, 最寄駅, 重複の相手(0=なし/-1=相手不明), 取込日時(秒), 記事[[情報元番号, URL, 見出し]...]]
 type Row = [number, string, string, number, string, string, string, string, string, string, number, number, Array<[number, string, string]>];
 
-export type Packed = { s: SrcRef[]; r: Row[] };
+// p: 都府県の一覧（配布キットなど、7都府県以外を扱うときだけ入れる。無ければ PREF_LIST）
+export type Packed = { s: SrcRef[]; r: Row[]; p?: string[] };
 
-export function pack(stores: Store[]): Packed {
+export function pack(stores: Store[], prefList?: string[]): Packed {
+  const prefs: string[] = prefList ?? PREF_LIST;
   const index = new Map<string, number>();
   const s: SrcRef[] = [];
   const r: Row[] = stores.map((d) => [
     Number(d.id),
     d.name,
     d.addr,
-    PREF_LIST.indexOf(d.pref),
+    prefs.indexOf(d.pref),
     d.city,
     d.date,
     d.openDate,
@@ -37,10 +39,11 @@ export function pack(stores: Store[]): Packed {
       return [i, src.url, src.title ?? ""] as [number, string, string];
     }),
   ]);
-  return { s, r };
+  return prefList ? { s, r, p: prefList } : { s, r };
 }
 
 export function unpack(p: Packed): Store[] {
+  const prefs: string[] = p.p ?? PREF_LIST;
   return p.r.map(([id, name, addr, pref, city, date, openDate, genre, tel, station, dup, created, arts]) => {
     const sources = arts.map(([si, url, title]) => ({ name: p.s[si]?.[0] ?? "", type: p.s[si]?.[1] ?? "独立系ブログ", url, title }));
     return {
@@ -48,7 +51,7 @@ export function unpack(p: Packed): Store[] {
       name,
       articleTitle: sources[0]?.title || undefined,
       addr,
-      pref: PREF_LIST[pref] ?? "東京都",
+      pref: (prefs[pref] ?? "東京都") as Pref,
       city,
       date,
       openDate,

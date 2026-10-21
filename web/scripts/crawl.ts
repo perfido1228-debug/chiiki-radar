@@ -6,6 +6,7 @@
 //   npx tsx scripts/crawl.ts --dry-run        … DBに書き込まず、何を取り込むかだけ表示する
 //   オプション: --concurrency=8（同時に巡回する数） --max-age-days=120（これより古い記事は取り込まない）
 //              --max-pages=4（巡回が止まっていた間の記事を遡るページ数の上限）
+//              --show-rejected（開店記事ではないと判断した見出しも理由つきで表示する。--dry-run と一緒に使う）
 import Parser from "rss-parser";
 import * as cheerio from "cheerio";
 import { appendFileSync } from "fs";
@@ -43,6 +44,7 @@ type SourceResult = {
 
 const args = process.argv.slice(2);
 const DRY_RUN = args.includes("--dry-run");
+const SHOW_REJECTED = args.includes("--show-rejected");
 const KEYWORD = args.find((a) => !a.startsWith("--"));
 const CONCURRENCY = Number(args.find((a) => a.startsWith("--concurrency="))?.split("=")[1] ?? 8);
 const MAX_AGE_DAYS = Number(args.find((a) => a.startsWith("--max-age-days="))?.split("=")[1] ?? 120);
@@ -387,6 +389,7 @@ async function crawlSource(src: SourceRow): Promise<SourceResult> {
       }
       if (!verdict.ok) {
         r.rejected++;
+        if (SHOW_REJECTED) console.log(`  [対象外] ${it.title} … ${verdict.reason}`);
         continue;
       }
 

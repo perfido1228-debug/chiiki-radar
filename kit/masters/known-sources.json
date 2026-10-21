@@ -1,0 +1,3219 @@
+{
+ "source": "地域密着レーダー（本番）の情報源一覧。enabled=false は止めている情報源",
+ "generatedAt": "2026-10-21",
+ "sources": [
+  {
+   "name": "号外NET 板橋区",
+   "url": "https://itabashi.goguynet.jp/",
+   "rss_url": "https://itabashi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "板橋区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 越谷市",
+   "url": "https://koshigaya.goguynet.jp/",
+   "rss_url": "https://koshigaya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "越谷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 新宿区",
+   "url": "https://shinjuku.goguynet.jp/",
+   "rss_url": "https://shinjuku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "新宿区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 渋谷区",
+   "url": "https://shibuya.goguynet.jp/",
+   "rss_url": "https://shibuya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "渋谷区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 品川区",
+   "url": "https://shinagawa.goguynet.jp/",
+   "rss_url": "https://shinagawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "品川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 目黒区",
+   "url": "https://meguro.goguynet.jp/",
+   "rss_url": "https://meguro.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "目黒区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大田区",
+   "url": "https://otaku.goguynet.jp/",
+   "rss_url": "https://otaku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "大田区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 世田谷区",
+   "url": "https://setagaya.goguynet.jp/",
+   "rss_url": "https://setagaya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 杉並区",
+   "url": "https://suginami.goguynet.jp/",
+   "rss_url": "https://suginami.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "杉並区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 中野区",
+   "url": "https://nakano.goguynet.jp/",
+   "rss_url": "https://nakano.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "中野区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 練馬区",
+   "url": "https://nerima.goguynet.jp/",
+   "rss_url": "https://nerima.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "練馬区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 豊島区",
+   "url": "https://toshima.goguynet.jp/",
+   "rss_url": "https://toshima.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "豊島区",
+   "enabled": false
+  },
+  {
+   "name": "号外NET 北区",
+   "url": "https://tokyokita.goguynet.jp/",
+   "rss_url": "https://tokyokita.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "北区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 荒川区",
+   "url": "https://arakawa.goguynet.jp/",
+   "rss_url": "https://arakawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "荒川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 足立区",
+   "url": "https://adachi.goguynet.jp/",
+   "rss_url": "https://adachi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "足立区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 葛飾区",
+   "url": "https://katsushika.goguynet.jp/",
+   "rss_url": "https://katsushika.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "葛飾区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 江戸川区",
+   "url": "https://edogawa.goguynet.jp/",
+   "rss_url": "https://edogawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "江戸川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 江東区",
+   "url": "https://koto.goguynet.jp/",
+   "rss_url": "https://koto.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "江東区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 墨田区",
+   "url": "https://sumida.goguynet.jp/",
+   "rss_url": "https://sumida.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "墨田区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 台東区",
+   "url": "https://taito.goguynet.jp/",
+   "rss_url": "https://taito.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "台東区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 文京区",
+   "url": "https://bunkyo.goguynet.jp/",
+   "rss_url": "https://bunkyo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "文京区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 八王子市",
+   "url": "https://hachioji.goguynet.jp/",
+   "rss_url": "https://hachioji.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "八王子市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 立川市・昭島市",
+   "url": "https://tachikawa-akishima.goguynet.jp/",
+   "rss_url": "https://tachikawa-akishima.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "立川市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 武蔵野市・小金井市",
+   "url": "https://musashino.goguynet.jp/",
+   "rss_url": "https://musashino.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "武蔵野市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 三鷹市",
+   "url": "https://mitaka.goguynet.jp/",
+   "rss_url": "https://mitaka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "三鷹市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 府中市",
+   "url": "https://tokyofuchu.goguynet.jp/",
+   "rss_url": "https://tokyofuchu.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "府中市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 調布市・狛江市",
+   "url": "https://chofu-komae.goguynet.jp/",
+   "rss_url": "https://chofu-komae.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "調布市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 町田市",
+   "url": "https://machida.goguynet.jp/",
+   "rss_url": "https://machida.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "町田市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 小平市",
+   "url": "https://kodaira.goguynet.jp/",
+   "rss_url": "https://kodaira.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "小平市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 国分寺市・国立市",
+   "url": "https://kokubunji-kunitachi.goguynet.jp/",
+   "rss_url": "https://kokubunji-kunitachi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "国分寺市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 東久留米市・清瀬市",
+   "url": "https://higashikurume-kiyose.goguynet.jp/",
+   "rss_url": "https://higashikurume-kiyose.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "東久留米市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 多摩市・稲城市",
+   "url": "https://tama-inagi.goguynet.jp/",
+   "rss_url": "https://tama-inagi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "多摩市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 日野市",
+   "url": "https://hino.goguynet.jp/",
+   "rss_url": "https://hino.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "日野市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市中区・西区",
+   "url": "https://yokohamanaka-nishi.goguynet.jp/",
+   "rss_url": "https://yokohamanaka-nishi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市中区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市神奈川区",
+   "url": "https://yokohamakanagawa.goguynet.jp/",
+   "rss_url": "https://yokohamakanagawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市神奈川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市南区",
+   "url": "https://yokohamaminami.goguynet.jp/",
+   "rss_url": "https://yokohamaminami.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市南区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市港南区・栄区",
+   "url": "https://yokohamakonan-sakae.goguynet.jp/",
+   "rss_url": "https://yokohamakonan-sakae.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市港南区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市保土ケ谷区",
+   "url": "https://yokohamahodogaya.goguynet.jp/",
+   "rss_url": "https://yokohamahodogaya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市保土ケ谷区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市港北区",
+   "url": "https://yokohamakohoku.goguynet.jp/",
+   "rss_url": "https://yokohamakohoku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市港北区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市都筑区",
+   "url": "https://yokohamatsuzuki.goguynet.jp/",
+   "rss_url": "https://yokohamatsuzuki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市都筑区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市緑区・青葉区",
+   "url": "https://yokohamamidori-aoba.goguynet.jp/",
+   "rss_url": "https://yokohamamidori-aoba.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市青葉区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 川崎市中原区",
+   "url": "https://kawasakinakahara.goguynet.jp/",
+   "rss_url": "https://kawasakinakahara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "川崎市中原区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 川崎市多摩区",
+   "url": "https://kawasakitama.goguynet.jp/",
+   "rss_url": "https://kawasakitama.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "川崎市多摩区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 相模原市中央区",
+   "url": "https://sagamiharachuoku.goguynet.jp/",
+   "rss_url": "https://sagamiharachuoku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "相模原市中央区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 相模原市南区",
+   "url": "https://sagamihara-minamiku.goguynet.jp/",
+   "rss_url": "https://sagamihara-minamiku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "相模原市南区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横須賀市・三浦市",
+   "url": "https://yokosuka.goguynet.jp/",
+   "rss_url": "https://yokosuka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横須賀市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 鎌倉市・逗子市・葉山町",
+   "url": "https://kamakura-zushi.goguynet.jp/",
+   "rss_url": "https://kamakura-zushi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "鎌倉市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 藤沢市",
+   "url": "https://fujisawa.goguynet.jp/",
+   "rss_url": "https://fujisawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "藤沢市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 茅ヶ崎市",
+   "url": "https://chigasaki.goguynet.jp/",
+   "rss_url": "https://chigasaki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "茅ヶ崎市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 平塚市・大磯町",
+   "url": "https://hiratsuka.goguynet.jp/",
+   "rss_url": "https://hiratsuka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "平塚市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 厚木市",
+   "url": "https://atsugi.goguynet.jp/",
+   "rss_url": "https://atsugi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "厚木市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 海老名市・座間市・綾瀬市",
+   "url": "https://ebina-zama-ayase.goguynet.jp/",
+   "rss_url": "https://ebina-zama-ayase.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "海老名市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大和市",
+   "url": "https://yamato.goguynet.jp/",
+   "rss_url": "https://yamato.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "大和市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 千葉市",
+   "url": "https://chiba.goguynet.jp/",
+   "rss_url": "https://chiba.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "千葉市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 千葉市稲毛区・花見川区・美浜区",
+   "url": "https://chibainage.goguynet.jp/",
+   "rss_url": "https://chibainage.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "千葉市稲毛区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 船橋市",
+   "url": "https://funabashi.goguynet.jp/",
+   "rss_url": "https://funabashi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "船橋市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 市川市",
+   "url": "https://ichikawa.goguynet.jp/",
+   "rss_url": "https://ichikawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "市川市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 松戸市",
+   "url": "https://matsudo.goguynet.jp/",
+   "rss_url": "https://matsudo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "松戸市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 柏市",
+   "url": "https://kashiwa.goguynet.jp/",
+   "rss_url": "https://kashiwa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "柏市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 流山市・野田市",
+   "url": "https://nagareyama-noda.goguynet.jp/",
+   "rss_url": "https://nagareyama-noda.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "流山市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 八千代市・習志野市",
+   "url": "https://yachiyo-narashino.goguynet.jp/",
+   "rss_url": "https://yachiyo-narashino.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "八千代市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 佐倉市・四街道市・八街市",
+   "url": "https://sakura-yotsukaido-yachimata.goguynet.jp/",
+   "rss_url": "https://sakura-yotsukaido-yachimata.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "佐倉市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 市原市",
+   "url": "https://ichihara.goguynet.jp/",
+   "rss_url": "https://ichihara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "市原市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET さいたま市",
+   "url": "https://saitama.goguynet.jp/",
+   "rss_url": "https://saitama.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "さいたま市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET さいたま市浦和区・緑区",
+   "url": "https://saitamaurawa-midori.goguynet.jp/",
+   "rss_url": "https://saitamaurawa-midori.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "さいたま市浦和区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET さいたま市見沼区・岩槻区",
+   "url": "https://saitamaminuma-iwatsuki.goguynet.jp/",
+   "rss_url": "https://saitamaminuma-iwatsuki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "さいたま市見沼区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 川口市",
+   "url": "https://kawaguchi.goguynet.jp/",
+   "rss_url": "https://kawaguchi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "川口市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 川越市",
+   "url": "https://kawagoe.goguynet.jp/",
+   "rss_url": "https://kawagoe.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "川越市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 所沢市",
+   "url": "https://tokorozawa.goguynet.jp/",
+   "rss_url": "https://tokorozawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "所沢市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 春日部市",
+   "url": "https://kasukabe.goguynet.jp/",
+   "rss_url": "https://kasukabe.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "春日部市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 草加市",
+   "url": "https://soka.goguynet.jp/",
+   "rss_url": "https://soka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "草加市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 朝霞市・和光市",
+   "url": "https://asaka-wako.goguynet.jp/",
+   "rss_url": "https://asaka-wako.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "朝霞市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 新座市・志木市",
+   "url": "https://niiza-shiki.goguynet.jp/",
+   "rss_url": "https://niiza-shiki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "新座市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 戸田市・蕨市",
+   "url": "https://toda-warabi.goguynet.jp/",
+   "rss_url": "https://toda-warabi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "戸田市",
+   "enabled": true
+  },
+  {
+   "name": "ヨコハマ経済新聞",
+   "url": "https://www.hamakei.com/",
+   "rss_url": "https://www.hamakei.com/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "横浜市",
+   "enabled": true
+  },
+  {
+   "name": "港北経済新聞",
+   "url": "https://kohoku.keizai.biz/",
+   "rss_url": "https://kohoku.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "横浜市港北区",
+   "enabled": true
+  },
+  {
+   "name": "川崎経済新聞",
+   "url": "https://kawasaki.keizai.biz/",
+   "rss_url": "https://kawasaki.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "川崎市",
+   "enabled": true
+  },
+  {
+   "name": "相模原町田経済新聞",
+   "url": "https://machida.keizai.biz/",
+   "rss_url": "https://machida.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "相模原市",
+   "enabled": true
+  },
+  {
+   "name": "千葉経済新聞",
+   "url": "https://chiba.keizai.biz/",
+   "rss_url": "https://chiba.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "千葉市",
+   "enabled": true
+  },
+  {
+   "name": "船橋経済新聞",
+   "url": "https://funabashi.keizai.biz/",
+   "rss_url": "https://funabashi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "船橋市",
+   "enabled": true
+  },
+  {
+   "name": "松戸経済新聞",
+   "url": "https://matsudo.keizai.biz/",
+   "rss_url": "https://matsudo.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "松戸市",
+   "enabled": true
+  },
+  {
+   "name": "九十九里経済新聞",
+   "url": "https://kujukuri.keizai.biz/",
+   "rss_url": "https://kujukuri.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "浦和経済新聞",
+   "url": "https://urawa.keizai.biz/",
+   "rss_url": "https://urawa.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "さいたま市浦和区",
+   "enabled": true
+  },
+  {
+   "name": "大宮経済新聞",
+   "url": "https://omiya.keizai.biz/",
+   "rss_url": "https://omiya.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "さいたま市大宮区",
+   "enabled": true
+  },
+  {
+   "name": "川越経済新聞",
+   "url": "https://kawagoe.keizai.biz/",
+   "rss_url": "https://kawagoe.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "川越市",
+   "enabled": true
+  },
+  {
+   "name": "春日部経済新聞",
+   "url": "https://kasukabe.keizai.biz/",
+   "rss_url": "https://kasukabe.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "春日部市",
+   "enabled": true
+  },
+  {
+   "name": "新宿経済新聞",
+   "url": "https://shinjuku.keizai.biz/",
+   "rss_url": "https://shinjuku.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "新宿区",
+   "enabled": true
+  },
+  {
+   "name": "池袋経済新聞",
+   "url": "https://ikebukuro.keizai.biz/",
+   "rss_url": "https://ikebukuro.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "豊島区",
+   "enabled": true
+  },
+  {
+   "name": "赤坂経済新聞",
+   "url": "https://akasaka.keizai.biz/",
+   "rss_url": "https://akasaka.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "港区",
+   "enabled": true
+  },
+  {
+   "name": "六本木経済新聞",
+   "url": "https://roppongi.keizai.biz/",
+   "rss_url": "https://roppongi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "港区",
+   "enabled": true
+  },
+  {
+   "name": "銀座経済新聞",
+   "url": "https://ginza.keizai.biz/",
+   "rss_url": "https://ginza.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "中央区",
+   "enabled": true
+  },
+  {
+   "name": "新橋経済新聞",
+   "url": "https://shinbashi.keizai.biz/",
+   "rss_url": "https://shinbashi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "港区",
+   "enabled": true
+  },
+  {
+   "name": "日本橋経済新聞",
+   "url": "https://nihombashi.keizai.biz/",
+   "rss_url": "https://nihombashi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "中央区",
+   "enabled": true
+  },
+  {
+   "name": "品川経済新聞",
+   "url": "https://shinagawa.keizai.biz/",
+   "rss_url": "https://shinagawa.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "品川区",
+   "enabled": true
+  },
+  {
+   "name": "市ケ谷経済新聞",
+   "url": "https://ichigaya.keizai.biz/",
+   "rss_url": "https://ichigaya.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "千代田区",
+   "enabled": true
+  },
+  {
+   "name": "すみだ経済新聞",
+   "url": "https://sumida.keizai.biz/",
+   "rss_url": "https://sumida.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "墨田区",
+   "enabled": true
+  },
+  {
+   "name": "中野経済新聞",
+   "url": "https://nakano.keizai.biz/",
+   "rss_url": "https://nakano.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "中野区",
+   "enabled": true
+  },
+  {
+   "name": "東京ベイ経済新聞",
+   "url": "https://tokyobay.keizai.biz/",
+   "rss_url": "https://tokyobay.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "江東区",
+   "enabled": true
+  },
+  {
+   "name": "吉祥寺経済新聞",
+   "url": "https://kichijoji.keizai.biz/",
+   "rss_url": "https://kichijoji.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "武蔵野市",
+   "enabled": true
+  },
+  {
+   "name": "下北沢経済新聞",
+   "url": "https://shimokita.keizai.biz/",
+   "rss_url": "https://shimokita.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "自由が丘経済新聞",
+   "url": "https://jiyugaoka.keizai.biz/",
+   "rss_url": "https://jiyugaoka.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "目黒区",
+   "enabled": true
+  },
+  {
+   "name": "八王子経済新聞",
+   "url": "https://hachioji.keizai.biz/",
+   "rss_url": "https://hachioji.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "八王子市",
+   "enabled": true
+  },
+  {
+   "name": "立川経済新聞",
+   "url": "https://tachikawa.keizai.biz/",
+   "rss_url": "https://tachikawa.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "立川市",
+   "enabled": true
+  },
+  {
+   "name": "調布経済新聞",
+   "url": "https://chofu.keizai.biz/",
+   "rss_url": "https://chofu.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "調布市",
+   "enabled": true
+  },
+  {
+   "name": "船橋つうしん",
+   "url": "https://funabashi-tsushin.com/",
+   "rss_url": "https://funabashi-tsushin.com/openclosed/feed/",
+   "source_type": "つうしん系",
+   "pref": "千葉県",
+   "city": "船橋市",
+   "enabled": true
+  },
+  {
+   "name": "松戸つうしん",
+   "url": "https://matsudo-tsushin.com/",
+   "rss_url": "https://matsudo-tsushin.com/openclosed/feed/",
+   "source_type": "つうしん系",
+   "pref": "千葉県",
+   "city": "松戸市",
+   "enabled": true
+  },
+  {
+   "name": "柏つうしん",
+   "url": "https://kashiwa-tsushin.com/",
+   "rss_url": "https://kashiwa-tsushin.com/openclosed/feed/",
+   "source_type": "つうしん系",
+   "pref": "千葉県",
+   "city": "柏市",
+   "enabled": true
+  },
+  {
+   "name": "我孫子つうしん",
+   "url": "https://www.abiko-tsushin.com/",
+   "rss_url": "https://www.abiko-tsushin.com/feed/",
+   "source_type": "つうしん系",
+   "pref": "千葉県",
+   "city": "我孫子市",
+   "enabled": false
+  },
+  {
+   "name": "葛飾つうしん",
+   "url": "https://katsushika-tsushin.com/",
+   "rss_url": "https://katsushika-tsushin.com/openclosed/feed/",
+   "source_type": "つうしん系",
+   "pref": "東京都",
+   "city": "葛飾区",
+   "enabled": true
+  },
+  {
+   "name": "しんじゅく通信",
+   "url": "https://shinjukuku2shin.com/",
+   "rss_url": "https://shinjukuku2shin.com/index.rdf",
+   "source_type": "ku2shin系",
+   "pref": "東京都",
+   "city": "新宿区",
+   "enabled": true
+  },
+  {
+   "name": "ミナトアイの港区通信",
+   "url": "https://minatoku2shin.com/",
+   "rss_url": "https://minatoku2shin.com/index.rdf",
+   "source_type": "ku2shin系",
+   "pref": "東京都",
+   "city": "港区",
+   "enabled": true
+  },
+  {
+   "name": "なかのく通信",
+   "url": "https://nakanoku2shin.com/",
+   "rss_url": "https://nakanoku2shin.com/index.rdf",
+   "source_type": "ku2shin系",
+   "pref": "東京都",
+   "city": "中野区",
+   "enabled": true
+  },
+  {
+   "name": "おおたく通信",
+   "url": "https://ootaku2shin.com/",
+   "rss_url": "https://ootaku2shin.com/index.rdf",
+   "source_type": "ku2shin系",
+   "pref": "東京都",
+   "city": "大田区",
+   "enabled": true
+  },
+  {
+   "name": "池袋タイムズ",
+   "url": "https://ikebukuro-times.com/",
+   "rss_url": "https://ikebukuro-times.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "豊島区",
+   "enabled": true
+  },
+  {
+   "name": "いたばしTIMES",
+   "url": "https://itabashi-times.com/",
+   "rss_url": "https://itabashi-times.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "板橋区",
+   "enabled": true
+  },
+  {
+   "name": "赤羽マガジン",
+   "url": "https://akabane-shinbun.com/",
+   "rss_url": "https://akabane-shinbun.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "北区",
+   "enabled": true
+  },
+  {
+   "name": "大田区タイムズ",
+   "url": "https://otaku-times.com/",
+   "rss_url": "https://otaku-times.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "大田区",
+   "enabled": false
+  },
+  {
+   "name": "世田谷ガイド",
+   "url": "https://setagaya.guide/",
+   "rss_url": "https://setagaya.guide/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "南砂一丁目",
+   "url": "https://minamisuna1.com/",
+   "rss_url": "https://minamisuna1.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "江東区",
+   "enabled": true
+  },
+  {
+   "name": "荒川102",
+   "url": "https://arakawa102.com/",
+   "rss_url": "https://arakawa102.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "荒川区",
+   "enabled": true
+  },
+  {
+   "name": "いけぶくろねっと",
+   "url": "https://www.ikebukuro-net.jp/",
+   "rss_url": "https://www.ikebukuro-net.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "豊島区",
+   "enabled": true
+  },
+  {
+   "name": "多摩ポン",
+   "url": "https://tamapon.com/",
+   "rss_url": "https://tamapon.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "多摩市",
+   "enabled": true
+  },
+  {
+   "name": "ちょうふ通信",
+   "url": "https://chofucity.com/",
+   "rss_url": "https://chofucity.com/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "調布市",
+   "enabled": true
+  },
+  {
+   "name": "いいね！立川",
+   "url": "https://iine-tachikawa.net/",
+   "rss_url": "https://iine-tachikawa.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "立川市",
+   "enabled": true
+  },
+  {
+   "name": "八王子ジャーニー",
+   "url": "https://8dabe.com/",
+   "rss_url": "https://8dabe.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "八王子市",
+   "enabled": true
+  },
+  {
+   "name": "府中でみいつけた！",
+   "url": "https://mikke-fuchu.com/",
+   "rss_url": "https://mikke-fuchu.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "府中市",
+   "enabled": true
+  },
+  {
+   "name": "横浜日吉新聞",
+   "url": "https://hiyosi.net/",
+   "rss_url": "https://hiyosi.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市港北区",
+   "enabled": true
+  },
+  {
+   "name": "かなレポ川崎",
+   "url": "https://kanagawa-report.com/",
+   "rss_url": "https://kanagawa-report.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "川崎市",
+   "enabled": true
+  },
+  {
+   "name": "大和とぴっく",
+   "url": "https://www.yamatopi.jp/",
+   "rss_url": "https://www.yamatopi.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "大和市",
+   "enabled": true
+  },
+  {
+   "name": "さがみはらあたり。",
+   "url": "https://sagamiharaatari.com/",
+   "rss_url": "https://sagamiharaatari.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "相模原市",
+   "enabled": true
+  },
+  {
+   "name": "相模原ジャーニー",
+   "url": "https://sagamihara-journey.com/",
+   "rss_url": "https://sagamihara-journey.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "相模原市",
+   "enabled": true
+  },
+  {
+   "name": "湘南人",
+   "url": "https://shonanjin.com/",
+   "rss_url": "https://shonanjin.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "藤沢市",
+   "enabled": true
+  },
+  {
+   "name": "JIMOHACK湘南",
+   "url": "https://jimohack-shonan.jp/",
+   "rss_url": "https://jimohack-shonan.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "藤沢市",
+   "enabled": true
+  },
+  {
+   "name": "とことこ湘南",
+   "url": "https://www.shonan-sh.jp/",
+   "rss_url": "https://www.shonan-sh.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "茅ヶ崎市",
+   "enabled": false
+  },
+  {
+   "name": "WEB ふじさわびと",
+   "url": "https://www.fujisawabito.net/",
+   "rss_url": "https://www.fujisawabito.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "藤沢市",
+   "enabled": false
+  },
+  {
+   "name": "三浦半島日和",
+   "url": "https://miurahantou.jp/",
+   "rss_url": "https://miurahantou.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横須賀市",
+   "enabled": true
+  },
+  {
+   "name": "ちば通信",
+   "url": "https://chibatsu.jp/",
+   "rss_url": "https://chibatsu.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "千葉市",
+   "enabled": true
+  },
+  {
+   "name": "市川にゅ～す",
+   "url": "https://ichi-24.jp/",
+   "rss_url": "https://ichi-24.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "市川市",
+   "enabled": true
+  },
+  {
+   "name": "新浦安NAVIGATOR",
+   "url": "https://www.shinurayasu-navi.com/",
+   "rss_url": "https://www.shinurayasu-navi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "浦安市",
+   "enabled": false
+  },
+  {
+   "name": "まちっと柏",
+   "url": "https://machitto.jp/kashiwa/",
+   "rss_url": "https://machitto.jp/kashiwa/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "柏市",
+   "enabled": false
+  },
+  {
+   "name": "越谷雑談がやてっく",
+   "url": "https://koshigaya.gayatec.jp/",
+   "rss_url": "https://koshigaya.gayatec.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "越谷市",
+   "enabled": true
+  },
+  {
+   "name": "埼玉マガジン",
+   "url": "https://saitama-city-marathon.jp/",
+   "rss_url": "https://saitama-city-marathon.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市",
+   "enabled": true
+  },
+  {
+   "name": "川口マガジン",
+   "url": "https://kawaguchi-magazine.com/",
+   "rss_url": "https://kawaguchi-magazine.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "川口市",
+   "enabled": true
+  },
+  {
+   "name": "三郷ぐらし",
+   "url": "https://misato-gurashi.com/",
+   "rss_url": "https://misato-gurashi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "三郷市",
+   "enabled": true
+  },
+  {
+   "name": "所沢なび",
+   "url": "https://tokorozawanavi.com/",
+   "rss_url": "https://tokorozawanavi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "所沢市",
+   "enabled": true
+  },
+  {
+   "name": "さいたまっぷる",
+   "url": "https://jutaro123.com/",
+   "rss_url": "https://jutaro123.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "上尾市",
+   "enabled": true
+  },
+  {
+   "name": "さいほくらし",
+   "url": "https://saikura.info/",
+   "rss_url": "https://saikura.info/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "熊谷市",
+   "enabled": true
+  },
+  {
+   "name": "食べて埼玉",
+   "url": "https://jikomanpuku.com/",
+   "rss_url": "https://jikomanpuku.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市",
+   "enabled": true
+  },
+  {
+   "name": "Urawacity.net",
+   "url": "https://urawacity.net/",
+   "rss_url": "https://urawacity.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市浦和区",
+   "enabled": true
+  },
+  {
+   "name": "宮原大宮ドットコム",
+   "url": "https://miyahara-kitaku.com/",
+   "rss_url": "https://miyahara-kitaku.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市北区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 名古屋市北区・東区",
+   "url": "https://nagoyakita-higashi.goguynet.jp/",
+   "rss_url": "https://nagoyakita-higashi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "名古屋市東区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 名古屋市西区・中村区",
+   "url": "https://nagoyanishi-nakamura.goguynet.jp/",
+   "rss_url": "https://nagoyanishi-nakamura.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "名古屋市西区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 名古屋市名東区・千種区",
+   "url": "https://nagoyameito-chikusa.goguynet.jp/",
+   "rss_url": "https://nagoyameito-chikusa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "名古屋市千種区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 名古屋市中川区・港区",
+   "url": "https://nagoyanakagawa-minato.goguynet.jp/",
+   "rss_url": "https://nagoyanakagawa-minato.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "名古屋市中川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 名古屋市熱田区・南区",
+   "url": "https://nagoyaatsuta-minami.goguynet.jp/",
+   "rss_url": "https://nagoyaatsuta-minami.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "名古屋市熱田区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 一宮市",
+   "url": "https://ichinomiya.goguynet.jp/",
+   "rss_url": "https://ichinomiya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "一宮市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET あま市・津島市・愛西市",
+   "url": "https://ama-tsushima-aisai.goguynet.jp/",
+   "rss_url": "https://ama-tsushima-aisai.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "あま市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 稲沢市・清須市",
+   "url": "https://inazawa.goguynet.jp/",
+   "rss_url": "https://inazawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "稲沢市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 小牧市・犬山市",
+   "url": "https://komaki-inuyama.goguynet.jp/",
+   "rss_url": "https://komaki-inuyama.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "小牧市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 春日井市",
+   "url": "https://kasugai.goguynet.jp/",
+   "rss_url": "https://kasugai.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "春日井市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 瀬戸市・尾張旭市",
+   "url": "https://seto-owariasahi.goguynet.jp/",
+   "rss_url": "https://seto-owariasahi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "瀬戸市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 東海市・大府市",
+   "url": "https://tokai-obu.goguynet.jp/",
+   "rss_url": "https://tokai-obu.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "東海市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 豊田市",
+   "url": "https://toyota.goguynet.jp/",
+   "rss_url": "https://toyota.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "豊田市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 刈谷市・知立市",
+   "url": "https://kariya-chiryu.goguynet.jp/",
+   "rss_url": "https://kariya-chiryu.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "刈谷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 安城市・高浜市・碧南市",
+   "url": "https://anjo-takahama-hekinan.goguynet.jp/",
+   "rss_url": "https://anjo-takahama-hekinan.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "安城市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 岡崎市",
+   "url": "https://okazaki.goguynet.jp/",
+   "rss_url": "https://okazaki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "岡崎市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 西尾市・幸田町",
+   "url": "https://nishio.goguynet.jp/",
+   "rss_url": "https://nishio.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "西尾市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 豊川市・蒲郡市",
+   "url": "https://toyokawa-gamagori.goguynet.jp/",
+   "rss_url": "https://toyokawa-gamagori.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "豊川市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 豊橋市・田原市",
+   "url": "https://toyohashi-tahara.goguynet.jp/",
+   "rss_url": "https://toyohashi-tahara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "愛知県",
+   "city": "豊橋市",
+   "enabled": true
+  },
+  {
+   "name": "サカエ経済新聞",
+   "url": "https://sakae.keizai.biz/",
+   "rss_url": "https://sakae.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "愛知県",
+   "city": "名古屋市中区",
+   "enabled": true
+  },
+  {
+   "name": "名駅経済新聞",
+   "url": "https://meieki.keizai.biz/",
+   "rss_url": "https://meieki.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "愛知県",
+   "city": "名古屋市中村区",
+   "enabled": true
+  },
+  {
+   "name": "豊田経済新聞",
+   "url": "https://toyota.keizai.biz/",
+   "rss_url": "https://toyota.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "愛知県",
+   "city": "豊田市",
+   "enabled": true
+  },
+  {
+   "name": "NAGOYA.（ナゴヤドット）新店",
+   "url": "https://nagoyadot.jp/",
+   "rss_url": "https://nagoyadot.jp/new/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市",
+   "enabled": true
+  },
+  {
+   "name": "名古屋情報通",
+   "url": "https://jouhou.nagoya/",
+   "rss_url": "https://jouhou.nagoya/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市",
+   "url": "https://osaka.goguynet.jp/",
+   "rss_url": "https://osaka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市西区",
+   "url": "https://icchome.goguynet.jp/",
+   "rss_url": "https://icchome.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市西区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市東淀川区",
+   "url": "https://higashiyodogawaku.goguynet.jp/",
+   "rss_url": "https://higashiyodogawaku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市東淀川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市淀川区・西淀川区",
+   "url": "https://yodogawaku.goguynet.jp/",
+   "rss_url": "https://yodogawaku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市淀川区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市福島区・此花区",
+   "url": "https://fukushima-konohana.goguynet.jp/",
+   "rss_url": "https://fukushima-konohana.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市此花区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市都島区・旭区",
+   "url": "https://miyakojima-asahi.goguynet.jp/",
+   "rss_url": "https://miyakojima-asahi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市旭区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市鶴見区・城東区",
+   "url": "https://tsurumi-joto.goguynet.jp/",
+   "rss_url": "https://tsurumi-joto.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市鶴見区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市東成区・生野区",
+   "url": "https://higashinari-ikuno.goguynet.jp/",
+   "rss_url": "https://higashinari-ikuno.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市東成区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市港区・大正区",
+   "url": "https://minato-taisho.goguynet.jp/",
+   "rss_url": "https://minato-taisho.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市大正区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市天王寺区・阿倍野区",
+   "url": "https://tennoji-ku.goguynet.jp/",
+   "rss_url": "https://tennoji-ku.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市天王寺区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市住吉区・東住吉区",
+   "url": "https://sumiyoshi-higashisumiyoshi.goguynet.jp/",
+   "rss_url": "https://sumiyoshi-higashisumiyoshi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市住吉区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市浪速区・西成区",
+   "url": "https://naniwa-nishinari.goguynet.jp/",
+   "rss_url": "https://naniwa-nishinari.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市浪速区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大阪市平野区",
+   "url": "https://hirano.goguynet.jp/",
+   "rss_url": "https://hirano.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "大阪市平野区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 吹田市",
+   "url": "https://suita.goguynet.jp/",
+   "rss_url": "https://suita.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "吹田市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 豊中市",
+   "url": "https://toyonaka.goguynet.jp/",
+   "rss_url": "https://toyonaka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "豊中市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 東大阪市",
+   "url": "https://higashiosaka.goguynet.jp/",
+   "rss_url": "https://higashiosaka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "東大阪市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 茨木市",
+   "url": "https://ibaraki.goguynet.jp/",
+   "rss_url": "https://ibaraki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "茨木市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 高槻市",
+   "url": "https://takatsuki.goguynet.jp/",
+   "rss_url": "https://takatsuki.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "高槻市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 枚方市",
+   "url": "https://hirakata.goguynet.jp/",
+   "rss_url": "https://hirakata.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "枚方市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 寝屋川市",
+   "url": "https://neyagawa.goguynet.jp/",
+   "rss_url": "https://neyagawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "寝屋川市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 八尾市",
+   "url": "https://yao.goguynet.jp/",
+   "rss_url": "https://yao.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "八尾市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 守口市・門真市",
+   "url": "https://moriguchikadoma.goguynet.jp/",
+   "rss_url": "https://moriguchikadoma.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "守口市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 大東市・四條畷市",
+   "url": "https://daitoshijonawate.goguynet.jp/",
+   "rss_url": "https://daitoshijonawate.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "四條畷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 箕面市・池田市",
+   "url": "https://minoh.goguynet.jp/",
+   "rss_url": "https://minoh.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "箕面市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 摂津市・千里丘・南茨木",
+   "url": "https://settsu.goguynet.jp/",
+   "rss_url": "https://settsu.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "摂津市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 和泉市",
+   "url": "https://izumi.goguynet.jp/",
+   "rss_url": "https://izumi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "和泉市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 堺市堺区・西区",
+   "url": "https://sakai-nishi.goguynet.jp/",
+   "rss_url": "https://sakai-nishi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "堺市堺区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 堺市北区・東区・美原区",
+   "url": "https://sakaikita-higashi-mihara.goguynet.jp/",
+   "rss_url": "https://sakaikita-higashi-mihara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "堺市北区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 堺市中区・南区",
+   "url": "https://sakainaka-minami.goguynet.jp/",
+   "rss_url": "https://sakainaka-minami.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "堺市中区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 泉大津市・高石市・忠岡町",
+   "url": "https://kanku-area.goguynet.jp/",
+   "rss_url": "https://kanku-area.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "泉大津市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 岸和田市・貝塚市",
+   "url": "https://kishiwada-kaizuka.goguynet.jp/",
+   "rss_url": "https://kishiwada-kaizuka.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "岸和田市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 泉佐野市・泉南市・阪南市",
+   "url": "https://izumisano-sennan-hannan.goguynet.jp/",
+   "rss_url": "https://izumisano-sennan-hannan.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "泉佐野市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 富田林市・河内長野市",
+   "url": "https://tondabayashi-kawachinagano.goguynet.jp/",
+   "rss_url": "https://tondabayashi-kawachinagano.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "河内長野市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 羽曳野市・藤井寺市・柏原市",
+   "url": "https://habikino-fujiidera-kashiwara.goguynet.jp/",
+   "rss_url": "https://habikino-fujiidera-kashiwara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "大阪府",
+   "city": "藤井寺市",
+   "enabled": true
+  },
+  {
+   "name": "梅田経済新聞",
+   "url": "https://umeda.keizai.biz/",
+   "rss_url": "https://umeda.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市北区",
+   "enabled": true
+  },
+  {
+   "name": "なんば経済新聞",
+   "url": "https://namba.keizai.biz/",
+   "rss_url": "https://namba.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市中央区",
+   "enabled": true
+  },
+  {
+   "name": "船場経済新聞",
+   "url": "https://semba.keizai.biz/",
+   "rss_url": "https://semba.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市中央区",
+   "enabled": true
+  },
+  {
+   "name": "京橋経済新聞",
+   "url": "https://kyobashi.keizai.biz/",
+   "rss_url": "https://kyobashi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市都島区",
+   "enabled": true
+  },
+  {
+   "name": "あべの経済新聞",
+   "url": "https://abeno.keizai.biz/",
+   "rss_url": "https://abeno.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市阿倍野区",
+   "enabled": true
+  },
+  {
+   "name": "大阪ベイ経済新聞",
+   "url": "https://osakabay.keizai.biz/",
+   "rss_url": "https://osakabay.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "大阪市住之江区",
+   "enabled": true
+  },
+  {
+   "name": "東大阪経済新聞",
+   "url": "https://higashiosaka.keizai.biz/",
+   "rss_url": "https://higashiosaka.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "大阪府",
+   "city": "東大阪市",
+   "enabled": true
+  },
+  {
+   "name": "さかにゅー",
+   "url": "https://sakai-news.jp/",
+   "rss_url": "https://sakai-news.jp/category/newface/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "堺市",
+   "enabled": true
+  },
+  {
+   "name": "関西ニューオープン情報（大阪）",
+   "url": "https://kansai-kaiten.com/",
+   "rss_url": "https://kansai-kaiten.com/category/osaka/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市",
+   "url": "https://kyoto.goguynet.jp/",
+   "rss_url": "https://kyoto.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市伏見区",
+   "url": "https://fushimi.goguynet.jp/",
+   "rss_url": "https://fushimi.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市伏見区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市上京区・中京区・下京区",
+   "url": "https://kyotoponto.goguynet.jp/",
+   "rss_url": "https://kyotoponto.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市山科区・東山区",
+   "url": "https://kyotoyamasina-higasiyama.goguynet.jp/",
+   "rss_url": "https://kyotoyamasina-higasiyama.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市山科区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市右京区",
+   "url": "https://kyotoukyo.goguynet.jp/",
+   "rss_url": "https://kyotoukyo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市右京区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京都市左京区・北区",
+   "url": "https://kyotosakyo-kita.goguynet.jp/",
+   "rss_url": "https://kyotosakyo-kita.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京都市左京区",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 宇治市・城陽市",
+   "url": "https://uji-joyo.goguynet.jp/",
+   "rss_url": "https://uji-joyo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "宇治市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 長岡京市・向日市・大山崎町",
+   "url": "https://nagaokakyo.goguynet.jp/",
+   "rss_url": "https://nagaokakyo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "長岡京市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 京田辺市・木津川市・精華町",
+   "url": "https://kyotanabekizugawa.goguynet.jp/",
+   "rss_url": "https://kyotanabekizugawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "京都府",
+   "city": "京田辺市",
+   "enabled": true
+  },
+  {
+   "name": "烏丸経済新聞",
+   "url": "https://karasuma.keizai.biz/",
+   "rss_url": "https://karasuma.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "京都府",
+   "city": "京都市中京区",
+   "enabled": true
+  },
+  {
+   "name": "グッチジャパンの京都最新グルメ",
+   "url": "https://gcjapan-kyoto.com/",
+   "rss_url": "https://gcjapan-kyoto.com/category/%E6%96%B0%E5%BA%97%E3%83%BB%E9%96%89%E5%BA%97/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "京都のお墨付き！",
+   "url": "https://osumituki.com/",
+   "rss_url": "https://osumituki.com/feed",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 西東京市",
+   "url": "https://nishitokyo.goguynet.jp/",
+   "rss_url": "https://nishitokyo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "西東京市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 青梅市・羽村市",
+   "url": "https://ome-hamura.goguynet.jp/",
+   "rss_url": "https://ome-hamura.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "東京都",
+   "city": "青梅市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 加須市・羽生市・行田市",
+   "url": "https://kazo-hanyu.goguynet.jp/",
+   "rss_url": "https://kazo-hanyu.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "加須市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 久喜市・幸手市",
+   "url": "https://kuki-satte.goguynet.jp/",
+   "rss_url": "https://kuki-satte.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "久喜市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 白岡市・蓮田市",
+   "url": "https://shiraoka-hasuda.goguynet.jp/",
+   "rss_url": "https://shiraoka-hasuda.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "白岡市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 三郷市・八潮市・吉川市",
+   "url": "https://misato-yashio.goguynet.jp/",
+   "rss_url": "https://misato-yashio.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "三郷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 熊谷市",
+   "url": "https://kumagaya.goguynet.jp/",
+   "rss_url": "https://kumagaya.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "熊谷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 鴻巣市・北本市",
+   "url": "https://kounosu-kitamoto.goguynet.jp/",
+   "rss_url": "https://kounosu-kitamoto.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "鴻巣市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 上尾市・桶川市",
+   "url": "https://ageo-okegawa.goguynet.jp/",
+   "rss_url": "https://ageo-okegawa.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "上尾市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 坂戸市・鶴ヶ島市",
+   "url": "https://sakado-tsurugashima.goguynet.jp/",
+   "rss_url": "https://sakado-tsurugashima.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "坂戸市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 富士見市・ふじみ野市",
+   "url": "https://fujimi-fujimino.goguynet.jp/",
+   "rss_url": "https://fujimi-fujimino.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "富士見市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 狭山市・入間市",
+   "url": "https://sayama-iruma.goguynet.jp/",
+   "rss_url": "https://sayama-iruma.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "狭山市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 深谷市・本庄市",
+   "url": "https://fukaya-honjo.goguynet.jp/",
+   "rss_url": "https://fukaya-honjo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "埼玉県",
+   "city": "深谷市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 秦野市・伊勢原市",
+   "url": "https://hadano-isehara.goguynet.jp/",
+   "rss_url": "https://hadano-isehara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "秦野市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 横浜市金沢区・磯子区",
+   "url": "https://yokohamakanazawa-isogo.goguynet.jp/",
+   "rss_url": "https://yokohamakanazawa-isogo.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "横浜市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 川崎市宮前区",
+   "url": "https://kawasakimiyamae.goguynet.jp/",
+   "rss_url": "https://kawasakimiyamae.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "川崎市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 小田原市",
+   "url": "https://odawara.goguynet.jp/",
+   "rss_url": "https://odawara.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "神奈川県",
+   "city": "小田原市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 木更津市・君津市・富津市・袖ケ浦市",
+   "url": "https://kisarazu-kimitsu-futtsu-sodegaura.goguynet.jp/",
+   "rss_url": "https://kisarazu-kimitsu-futtsu-sodegaura.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "木更津市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 我孫子市",
+   "url": "https://abiko.goguynet.jp/",
+   "rss_url": "https://abiko.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "我孫子市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 成田市・富里市",
+   "url": "https://narita-tomisato.goguynet.jp/",
+   "rss_url": "https://narita-tomisato.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "成田市",
+   "enabled": true
+  },
+  {
+   "name": "号外NET 鎌ケ谷市・白井市・印西市",
+   "url": "https://kamagaya-shiroi-inzai.goguynet.jp/",
+   "rss_url": "https://kamagaya-shiroi-inzai.goguynet.jp/category/cat_openclose/feed/",
+   "source_type": "号外NET",
+   "pref": "千葉県",
+   "city": "鎌ケ谷市",
+   "enabled": true
+  },
+  {
+   "name": "江戸川経済新聞",
+   "url": "https://edogawa.keizai.biz/",
+   "rss_url": "https://edogawa.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "江戸川区",
+   "enabled": true
+  },
+  {
+   "name": "葛飾経済新聞",
+   "url": "https://katsushika.keizai.biz/",
+   "rss_url": "https://katsushika.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "葛飾区",
+   "enabled": true
+  },
+  {
+   "name": "江東経済新聞",
+   "url": "https://koto.keizai.biz/",
+   "rss_url": "https://koto.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "江東区",
+   "enabled": true
+  },
+  {
+   "name": "浅草経済新聞",
+   "url": "https://asakusa.keizai.biz/",
+   "rss_url": "https://asakusa.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "台東区",
+   "enabled": true
+  },
+  {
+   "name": "文京経済新聞",
+   "url": "https://bunkyo.keizai.biz/",
+   "rss_url": "https://bunkyo.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "文京区",
+   "enabled": true
+  },
+  {
+   "name": "アキバ経済新聞",
+   "url": "https://akiba.keizai.biz/",
+   "rss_url": "https://akiba.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "千代田区",
+   "enabled": true
+  },
+  {
+   "name": "赤羽経済新聞",
+   "url": "https://akabane.keizai.biz/",
+   "rss_url": "https://akabane.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "北区",
+   "enabled": true
+  },
+  {
+   "name": "練馬経済新聞",
+   "url": "https://nerima.keizai.biz/",
+   "rss_url": "https://nerima.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "練馬区",
+   "enabled": true
+  },
+  {
+   "name": "高田馬場経済新聞",
+   "url": "https://takadanobaba.keizai.biz/",
+   "rss_url": "https://takadanobaba.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "新宿区",
+   "enabled": true
+  },
+  {
+   "name": "高円寺経済新聞",
+   "url": "https://koenji.keizai.biz/",
+   "rss_url": "https://koenji.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "杉並区",
+   "enabled": true
+  },
+  {
+   "name": "経堂経済新聞",
+   "url": "https://kyodo.keizai.biz/",
+   "rss_url": "https://kyodo.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "二子玉川経済新聞",
+   "url": "https://nikotama.keizai.biz/",
+   "rss_url": "https://nikotama.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "三軒茶屋経済新聞",
+   "url": "https://sancha.keizai.biz/",
+   "rss_url": "https://sancha.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "西多摩経済新聞",
+   "url": "https://nishitama.keizai.biz/",
+   "rss_url": "https://nishitama.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "青梅市",
+   "enabled": true
+  },
+  {
+   "name": "北千住経済新聞",
+   "url": "https://adachi.keizai.biz/",
+   "rss_url": "https://adachi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "東京都",
+   "city": "足立区",
+   "enabled": true
+  },
+  {
+   "name": "横須賀経済新聞",
+   "url": "https://yokosuka.keizai.biz/",
+   "rss_url": "https://yokosuka.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "横須賀市",
+   "enabled": true
+  },
+  {
+   "name": "逗子葉山経済新聞",
+   "url": "https://zushi-hayama.keizai.biz/",
+   "rss_url": "https://zushi-hayama.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "逗子市",
+   "enabled": true
+  },
+  {
+   "name": "鎌倉経済新聞",
+   "url": "https://kamakura.keizai.biz/",
+   "rss_url": "https://kamakura.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "鎌倉市",
+   "enabled": true
+  },
+  {
+   "name": "湘南経済新聞",
+   "url": "https://shonan.keizai.biz/",
+   "rss_url": "https://shonan.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "藤沢市",
+   "enabled": true
+  },
+  {
+   "name": "小田原箱根経済新聞",
+   "url": "https://odawara-hakone.keizai.biz/",
+   "rss_url": "https://odawara-hakone.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "神奈川県",
+   "city": "小田原市",
+   "enabled": true
+  },
+  {
+   "name": "川口経済新聞",
+   "url": "https://kawaguchi.keizai.biz/",
+   "rss_url": "https://kawaguchi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "川口市",
+   "enabled": true
+  },
+  {
+   "name": "狭山経済新聞",
+   "url": "https://sayama.keizai.biz/",
+   "rss_url": "https://sayama.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "狭山市",
+   "enabled": true
+  },
+  {
+   "name": "熊谷経済新聞",
+   "url": "https://kumagaya.keizai.biz/",
+   "rss_url": "https://kumagaya.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "熊谷市",
+   "enabled": true
+  },
+  {
+   "name": "本庄経済新聞",
+   "url": "https://honjo.keizai.biz/",
+   "rss_url": "https://honjo.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "本庄市",
+   "enabled": true
+  },
+  {
+   "name": "秩父経済新聞",
+   "url": "https://chichibu.keizai.biz/",
+   "rss_url": "https://chichibu.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "埼玉県",
+   "city": "秩父市",
+   "enabled": true
+  },
+  {
+   "name": "浦安経済新聞",
+   "url": "https://urayasu.keizai.biz/",
+   "rss_url": "https://urayasu.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "浦安市",
+   "enabled": true
+  },
+  {
+   "name": "習志野経済新聞",
+   "url": "https://narashino.keizai.biz/",
+   "rss_url": "https://narashino.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "習志野市",
+   "enabled": true
+  },
+  {
+   "name": "外房経済新聞",
+   "url": "https://sotobo.keizai.biz/",
+   "rss_url": "https://sotobo.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "茂原市",
+   "enabled": true
+  },
+  {
+   "name": "銚子経済新聞",
+   "url": "https://choshi.keizai.biz/",
+   "rss_url": "https://choshi.keizai.biz/rss.xml",
+   "source_type": "経済新聞",
+   "pref": "千葉県",
+   "city": "銚子市",
+   "enabled": true
+  },
+  {
+   "name": "なりますチャンネル",
+   "url": "https://www.narimasu.tokyo/",
+   "rss_url": "https://www.narimasu.tokyo/?cat=106&feed=rss2",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "板橋区",
+   "enabled": true
+  },
+  {
+   "name": "ネリマンタイムス",
+   "url": "https://nerimantimes.jp/",
+   "rss_url": "https://nerimantimes.jp/feed",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "練馬区",
+   "enabled": true
+  },
+  {
+   "name": "すきグルメ東京ネット",
+   "url": "https://tokyo-gurume.com/",
+   "rss_url": "https://tokyo-gurume.com/category/newopen/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": false
+  },
+  {
+   "name": "孤高の千葉グルメ",
+   "url": "https://kokou-chiba.com/",
+   "rss_url": "https://kokou-chiba.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "千葉市",
+   "enabled": true
+  },
+  {
+   "name": "多摩っち",
+   "url": "https://tama.media/",
+   "rss_url": "https://tama.media/category/%E9%96%8B%E5%BA%97%E3%83%BB%E9%96%89%E5%BA%97/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "cocoré magazine",
+   "url": "https://cocore-magazine.com/",
+   "rss_url": "https://cocore-magazine.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "とよすと",
+   "url": "https://toyosu.tokyo/",
+   "rss_url": "https://toyosu.tokyo/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "江東区",
+   "enabled": true
+  },
+  {
+   "name": "大森・蒲田つーしん",
+   "url": "https://omori-kamata.com/",
+   "rss_url": "https://omori-kamata.com/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "大田区",
+   "enabled": true
+  },
+  {
+   "name": "東京ルッチ",
+   "url": "https://tokyolucci.jp/",
+   "rss_url": "https://tokyolucci.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "吉祥寺.me",
+   "url": "https://kichijoji.me/",
+   "rss_url": "https://kichijoji.me/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "武蔵野市",
+   "enabled": true
+  },
+  {
+   "name": "はまぴた",
+   "url": "https://hamapita.com/",
+   "rss_url": "https://hamapita.com/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市",
+   "enabled": true
+  },
+  {
+   "name": "はまこれ横浜",
+   "url": "https://hamakore.yokohama/",
+   "rss_url": "https://hamakore.yokohama/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市",
+   "enabled": true
+  },
+  {
+   "name": "武蔵小杉住んでみた。",
+   "url": "https://musashikosugi-sundemita.com/",
+   "rss_url": "https://musashikosugi-sundemita.com/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "川崎市中原区",
+   "enabled": true
+  },
+  {
+   "name": "個人的横浜",
+   "url": "https://1201.yokohama/",
+   "rss_url": "https://1201.yokohama/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市",
+   "enabled": true
+  },
+  {
+   "name": "浦安に住みたい！web",
+   "url": "https://sumitai.ne.jp/urayasu/",
+   "rss_url": "https://sumitai.ne.jp/urayasu/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "浦安市",
+   "enabled": true
+  },
+  {
+   "name": "松戸ロード",
+   "url": "https://wl29.net/",
+   "rss_url": "https://wl29.net/category/openclose/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "松戸市",
+   "enabled": true
+  },
+  {
+   "name": "きさらづレポート",
+   "url": "https://www.kisarepo.jp/",
+   "rss_url": "https://www.kisarepo.jp/category/openclose/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "木更津市",
+   "enabled": true
+  },
+  {
+   "name": "カワゴエ・マス・メディア",
+   "url": "https://koedo.info/",
+   "rss_url": "https://koedo.info/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "川越市",
+   "enabled": true
+  },
+  {
+   "name": "ちくさん",
+   "url": "https://chiku-san.com/",
+   "rss_url": "https://chiku-san.com/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市千種区",
+   "enabled": true
+  },
+  {
+   "name": "岡崎にゅーす",
+   "url": "https://okanyu.jp/",
+   "rss_url": "https://okanyu.jp/category/openclose/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "岡崎市",
+   "enabled": true
+  },
+  {
+   "name": "オカトピ",
+   "url": "https://xn--4ituj.net/",
+   "rss_url": "https://xn--4ituj.net/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "岡崎市",
+   "enabled": true
+  },
+  {
+   "name": "小牧つーしん",
+   "url": "https://komaki2.jp/",
+   "rss_url": "https://komaki2.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "小牧市",
+   "enabled": true
+  },
+  {
+   "name": "CHITAZINE",
+   "url": "https://chitazine.com/",
+   "rss_url": "https://chitazine.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "江南しえなん",
+   "url": "https://konanjoho.com/",
+   "rss_url": "https://konanjoho.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "江南市",
+   "enabled": true
+  },
+  {
+   "name": "交野タイムズ",
+   "url": "https://www.katano-times.com/",
+   "rss_url": "https://www.katano-times.com/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "交野市",
+   "enabled": true
+  },
+  {
+   "name": "TNN豊中報道。2",
+   "url": "https://toyo-2.jp/",
+   "rss_url": "https://toyo-2.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "豊中市",
+   "enabled": true
+  },
+  {
+   "name": "枚方つーしん",
+   "url": "https://www.hira2.jp/",
+   "rss_url": "https://www.hira2.jp/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "枚方市",
+   "enabled": true
+  },
+  {
+   "name": "高槻つーしん",
+   "url": "https://www.takatsuki2.jp/",
+   "rss_url": "https://www.takatsuki2.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "高槻市",
+   "enabled": true
+  },
+  {
+   "name": "茨木つーしん",
+   "url": "https://www.iba2.jp/",
+   "rss_url": "https://www.iba2.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "茨木市",
+   "enabled": true
+  },
+  {
+   "name": "京都速報",
+   "url": "https://kyo-soku.com/",
+   "rss_url": "https://kyo-soku.com/category/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "ALCO 宇治・城陽",
+   "url": "https://alco-uj.com/",
+   "rss_url": "https://alco-uj.com/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "宇治市",
+   "enabled": true
+  },
+  {
+   "name": "ALCO 京都伏見",
+   "url": "https://alco-kyotofushimi.com/",
+   "rss_url": "https://alco-kyotofushimi.com/category/gourmet/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "京都市伏見区",
+   "enabled": true
+  },
+  {
+   "name": "荒川区のはなし",
+   "url": "https://arakawa-story.com/",
+   "rss_url": "https://arakawa-story.com/?feed=rss2",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "荒川区",
+   "enabled": true
+  },
+  {
+   "name": "むーなび",
+   "url": "https://mu-navi.com/",
+   "rss_url": "https://mu-navi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "武蔵村山市",
+   "enabled": true
+  },
+  {
+   "name": "おめ通",
+   "url": "https://ometsu.net/",
+   "rss_url": "https://ometsu.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "青梅市",
+   "enabled": true
+  },
+  {
+   "name": "しもブロ",
+   "url": "https://www.shimokitazawa.info/",
+   "rss_url": "https://www.shimokitazawa.info/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "世田谷区",
+   "enabled": true
+  },
+  {
+   "name": "変わりゆく町田の街並み",
+   "url": "https://kawariyuku-machida.com/",
+   "rss_url": "https://kawariyuku-machida.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "町田市",
+   "enabled": true
+  },
+  {
+   "name": "流山つうしん",
+   "url": "https://nagareyama-tsushin.com/",
+   "rss_url": "https://nagareyama-tsushin.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": "流山市",
+   "enabled": true
+  },
+  {
+   "name": "カゴハラネット",
+   "url": "https://kagohara.net/",
+   "rss_url": "https://kagohara.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "熊谷市",
+   "enabled": true
+  },
+  {
+   "name": "埼北つうしん さいつう",
+   "url": "https://sai2.info/",
+   "rss_url": "https://sai2.info/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "本庄市",
+   "enabled": true
+  },
+  {
+   "name": "春日井つーしん",
+   "url": "https://kasugai2.jp/",
+   "rss_url": "https://kasugai2.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "春日井市",
+   "enabled": true
+  },
+  {
+   "name": "ちたまるNavi",
+   "url": "https://www.chitamaru.jp/",
+   "rss_url": "https://www.chitamaru.jp/feed/rss.xml",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "コハクの豊田市ぼっちグルメ",
+   "url": "https://toyotanikublog.com/",
+   "rss_url": "https://toyotanikublog.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "豊田市",
+   "enabled": true
+  },
+  {
+   "name": "大阪つーしん",
+   "url": "https://www.osaka2.jp/",
+   "rss_url": "https://www.osaka2.jp/archives/cat_204598.xml",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "大阪市",
+   "enabled": true
+  },
+  {
+   "name": "泉北・金剛さやまコミュニティ",
+   "url": "https://sencomi.com/",
+   "rss_url": "https://sencomi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "大阪府",
+   "city": "堺市",
+   "enabled": true
+  },
+  {
+   "name": "Kyotopi",
+   "url": "https://kyotopi.jp/",
+   "rss_url": "http://kyotopi.jp/kyotopi.rss",
+   "source_type": "独立系ブログ",
+   "pref": "京都府",
+   "city": "京都市",
+   "enabled": true
+  },
+  {
+   "name": "いいね！国立",
+   "url": "https://iine-kunitachi.net/",
+   "rss_url": "https://iine-kunitachi.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "国立市",
+   "enabled": true
+  },
+  {
+   "name": "ツナシマニア",
+   "url": "https://tsunashimania.com/",
+   "rss_url": "https://tsunashimania.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市港北区",
+   "enabled": true
+  },
+  {
+   "name": "瀬谷なび",
+   "url": "https://seya-navi.com/",
+   "rss_url": "https://seya-navi.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市瀬谷区",
+   "enabled": true
+  },
+  {
+   "name": "新百合ヶ丘タイムズ",
+   "url": "https://shinyuriknow.com/",
+   "rss_url": "https://shinyuriknow.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "川崎市麻生区",
+   "enabled": true
+  },
+  {
+   "name": "しょうわん",
+   "url": "https://sho-wan.com/",
+   "rss_url": "https://sho-wan.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市昭和区",
+   "enabled": true
+  },
+  {
+   "name": "名古屋市中川区情報2",
+   "url": "https://nagoyasi-nakagawakunoomise.blog.jp/",
+   "rss_url": "https://nagoyasi-nakagawakunoomise.blog.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市中川区",
+   "enabled": true
+  },
+  {
+   "name": "ナゴヤトコトン",
+   "url": "https://nagoyato.com/",
+   "rss_url": "https://nagoyato.com/feed",
+   "source_type": "独立系ブログ",
+   "pref": "愛知県",
+   "city": "名古屋市",
+   "enabled": true
+  },
+  {
+   "name": "練馬・桜台情報局",
+   "url": "https://s-nerima.jp/",
+   "rss_url": "https://s-nerima.jp/feed",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "練馬区",
+   "enabled": true
+  },
+  {
+   "name": "ここは何が出来るんだろう？（相模原）",
+   "url": "https://sagamiharahashimoto.seesaa.net/",
+   "rss_url": "https://sagamiharahashimoto.seesaa.net/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "相模原市",
+   "enabled": true
+  },
+  {
+   "name": "居抜き店舗.com OPEN情報",
+   "url": "https://www.i-tenpo.com/news/open",
+   "rss_url": "https://www.i-tenpo.com/news/open",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "メシナビ",
+   "url": "https://meshinavi.jp/",
+   "rss_url": "https://meshinavi.jp/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "hibana",
+   "url": "https://biz-hibana.com/",
+   "rss_url": "https://biz-hibana.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "麺好い（めんこい）ブログ",
+   "url": "https://ikemen3.blog.jp/",
+   "rss_url": "https://ikemen3.blog.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "シブヤ経済新聞",
+   "url": "https://www.shibukei.com/",
+   "rss_url": "https://www.shibukei.com/rss.xml",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "渋谷区",
+   "enabled": true
+  },
+  {
+   "name": "吉祥寺ファンページ",
+   "url": "https://kichifan.com/",
+   "rss_url": "https://kichifan.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "シブきち",
+   "url": "https://shibukichi.net/",
+   "rss_url": "https://shibukichi.net/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "竹の塚情報局たけトピ",
+   "url": "https://takenotsuka-topic.com/",
+   "rss_url": "https://takenotsuka-topic.com/feed",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": "足立区",
+   "enabled": true
+  },
+  {
+   "name": "まちさが",
+   "url": "https://machisaga.jp/",
+   "rss_url": "https://machisaga.jp/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "横浜・神奈川ローカルNET",
+   "url": "https://yokohama-localu.com/",
+   "rss_url": "https://yokohama-localu.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "うちの街 都筑！",
+   "url": "https://uchino-at.jugem.jp/",
+   "rss_url": "https://uchino-at.jugem.jp/?mode=rss",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市都筑区",
+   "enabled": true
+  },
+  {
+   "name": "綱島ニュース",
+   "url": "https://tsunashima.love/",
+   "rss_url": "https://tsunashima.love/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": "横浜市港北区",
+   "enabled": true
+  },
+  {
+   "name": "厚木らぼ",
+   "url": "https://atsugi-lab.com/",
+   "rss_url": "https://atsugi-lab.com/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "さいたま浦和大宮グルメなび（浦和裏日記）",
+   "url": "https://saitama-omiya-urawa.blog.jp/",
+   "rss_url": "https://saitama-omiya-urawa.blog.jp/index.rdf",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市",
+   "enabled": true
+  },
+  {
+   "name": "日進大宮なび",
+   "url": "https://newnissin.com/",
+   "rss_url": "https://newnissin.com/category/news/open-close/feed/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": "さいたま市",
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 東京 開店・閉店",
+   "url": "https://mrs.living.jp/tokyo/newopen/",
+   "rss_url": "https://mrs.living.jp/tokyo/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb むさしの 開店・閉店",
+   "url": "https://mrs.living.jp/musashino/newopen/",
+   "rss_url": "https://mrs.living.jp/musashino/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 多摩 開店・閉店",
+   "url": "https://mrs.living.jp/tama/newopen/",
+   "rss_url": "https://mrs.living.jp/tama/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "東京都",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 横浜 開店・閉店",
+   "url": "https://mrs.living.jp/yokohama/newopen/",
+   "rss_url": "https://mrs.living.jp/yokohama/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 田園都市 開店・閉店",
+   "url": "https://mrs.living.jp/denen/newopen/",
+   "rss_url": "https://mrs.living.jp/denen/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "神奈川県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 埼玉 開店・閉店",
+   "url": "https://mrs.living.jp/saitama/newopen/",
+   "rss_url": "https://mrs.living.jp/saitama/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "埼玉県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb 千葉 開店・閉店",
+   "url": "https://mrs.living.jp/chiba/newopen/",
+   "rss_url": "https://mrs.living.jp/chiba/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": null,
+   "enabled": true
+  },
+  {
+   "name": "リビングWeb かしわ 開店・閉店",
+   "url": "https://mrs.living.jp/kashiwa/newopen/",
+   "rss_url": "https://mrs.living.jp/kashiwa/newopen/",
+   "source_type": "独立系ブログ",
+   "pref": "千葉県",
+   "city": null,
+   "enabled": true
+  }
+ ]
+}

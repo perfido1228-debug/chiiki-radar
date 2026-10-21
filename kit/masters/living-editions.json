@@ -1,0 +1,28 @@
+{
+  "source": "リビングWeb https://mrs.living.jp/ の地域版（2026-10-21 時点）。「開店・閉店」は https://mrs.living.jp/{slug}/newopen/。都道府県は地域版の説明からの対応付け",
+  "editions": [
+    { "slug": "sapporo", "label": "札幌", "area": "札幌駅、大通、すすきの、円山、ほか北海道全域", "prefs": ["北海道"] },
+    { "slug": "sendai", "label": "仙台", "area": "仙台駅前、一番町、泉中央、長町、ほか宮城全域", "prefs": ["宮城県"] },
+    { "slug": "fukushima", "label": "ふくしま", "area": "福島、伊達、二本松、郡山、須賀川エリアほか、福島全域", "prefs": ["福島県"] },
+    { "slug": "tochigi", "label": "栃木", "area": "宇都宮、鹿沼、日光・鬼怒川、那須、ほか栃木全域", "prefs": ["栃木県"] },
+    { "slug": "chiba", "label": "千葉", "area": "千葉、幕張、船橋、習志野ほか", "prefs": ["千葉県"] },
+    { "slug": "kashiwa", "label": "かしわ", "area": "柏、松戸、我孫子、茨城ほか", "prefs": ["千葉県", "茨城県"] },
+    { "slug": "saitama", "label": "埼玉", "area": "大宮、浦和、川口ほか、埼玉全域", "prefs": ["埼玉県"] },
+    { "slug": "tokyo", "label": "東京", "area": "銀座、池袋、新宿、渋谷ほか", "prefs": ["東京都"] },
+    { "slug": "musashino", "label": "むさしの", "area": "阿佐ヶ谷、荻窪、吉祥寺、三鷹ほか", "prefs": ["東京都"] },
+    { "slug": "tama", "label": "多摩", "area": "立川、八王子、国立、国分寺など、多摩エリア", "prefs": ["東京都"] },
+    { "slug": "yokohama", "label": "横浜", "area": "横浜、元町・中華街、みなとみらいほか", "prefs": ["神奈川県"] },
+    { "slug": "denen", "label": "田園都市", "area": "青葉台、たまプラーザほか", "prefs": ["神奈川県", "東京都"] },
+    { "slug": "shizuoka", "label": "静岡", "area": "静岡、焼津、藤枝、ほか静岡全域", "prefs": ["静岡県"] },
+    { "slug": "nagoya", "label": "名古屋", "area": "名駅、栄、大須ほか、愛知全域", "prefs": ["愛知県"] },
+    { "slug": "osaka", "label": "大阪", "area": "大阪市、堺市、京阪沿線ほか、大阪エリア", "prefs": ["大阪府"] },
+    { "slug": "hokusetsu", "label": "北摂", "area": "豊中、吹田、池田、箕面、高槻、茨木ほか", "prefs": ["大阪府"] },
+    { "slug": "hyogo", "label": "神戸・阪神間", "area": "神戸、阪神間、北阪神ほか", "prefs": ["兵庫県"] },
+    { "slug": "okayama", "label": "岡山", "area": "岡山・倉敷など、岡山県内エリア", "prefs": ["岡山県"] },
+    { "slug": "hiroshima", "label": "広島", "area": "広島、宮島、呉、西条、尾道、ほか広島エリア", "prefs": ["広島県"] },
+    { "slug": "ehime", "label": "えひめ", "area": "松山・道後、伊予市、東温市、ほか愛媛エリア", "prefs": ["愛媛県"] },
+    { "slug": "fukuoka", "label": "ふくおか・北九州", "area": "福岡都市圏、北九州など福岡県全域", "prefs": ["福岡県"] },
+    { "slug": "kumamoto", "label": "くまもと", "area": "熊本市、阿蘇、天草、ほか熊本県内エリア", "prefs": ["熊本県"] },
+    { "slug": "kagoshima", "label": "かごしま", "area": "鹿児島市、霧島市、姶良市、大隅、川薩エリアほか", "prefs": ["鹿児島県"] }
+  ]
+}
