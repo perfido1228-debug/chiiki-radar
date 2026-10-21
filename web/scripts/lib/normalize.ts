@@ -1,4 +1,4 @@
-import { MUNICIPALITIES, OTHER_MUNICIPALITIES, OTHER_PREFS } from "./municipalities";
+import { DESIGNATED_CITIES, MUNICIPALITIES, OTHER_MUNICIPALITIES, OTHER_PREFS, PREFS } from "./municipalities";
 
 // 地域密着レーダー: 記事から店舗情報を読み取るためのルール集。
 // クロール（crawl.ts）・データ修復・検証スクリプトで共通に使う。
@@ -78,7 +78,8 @@ const OPERATOR_CONTEXT_RE = /(?:運営会社|運営者|運営元|会社概要|�
 // ============================================================
 // 都府県・市区町村
 // ============================================================
-export const PREFS = ["東京都", "神奈川県", "千葉県", "埼玉県", "愛知県", "大阪府", "京都府"] as const;
+// 対象の都府県・政令市の一覧は municipalities.ts（配布キットでは設定した地域に入れ替わる）
+export { PREFS };
 export type Pref = (typeof PREFS)[number];
 const PREF_ALT = PREFS.join("|");
 
@@ -92,8 +93,6 @@ export function extractPref(text: string): Pref | null {
   return best;
 }
 
-// 政令指定都市は区まで扱う
-const DESIGNATED_CITIES = ["さいたま市", "千葉市", "横浜市", "川崎市", "相模原市", "名古屋市", "京都市", "大阪市", "堺市"];
 // 市区町村名に使われうる文字（数字・区切り記号・括弧・空白を除く）
 const NAME_CH = "[^\\s0-9、。,，・（）()「」『』【】\\-－−ー―‐]";
 // 住所の候補を探すための大まかな形（正しい市区町村かどうかは一覧で確かめる）

@@ -5,6 +5,8 @@
 // 別の市区町村の同名店（チェーンの別店舗）は別の店として扱う。
 import { sb } from "./supabase";
 import { nameKey, namesCompatible } from "./normalize";
+// 政令指定都市の一覧（配布キットでは設定した地域に入れ替わる）
+import { DESIGNATED_CITIES } from "./municipalities";
 
 export type StoreCandidate = {
   name: string;
@@ -21,8 +23,6 @@ export type DedupeResult =
   | { type: "hard_match"; storeId: number }
   | { type: "soft_match"; storeId: number }
   | { type: "new" };
-
-const DESIGNATED_CITIES = ["さいたま市", "千葉市", "横浜市", "川崎市", "相模原市", "名古屋市", "京都市", "大阪市", "堺市"];
 
 // 政令市の区は市名までに丸める（「大阪市北区」と「大阪市」を同じ市として比べるため）
 export function municipalityBase(city: string): string {

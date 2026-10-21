@@ -21,6 +21,8 @@ type SourceRow = SourceInfo & {
   rss_url: string;
   enabled: boolean;
   last_crawled_at: string | null;
+  // 配布キットの情報源設定（sources.json）に書ける読み方の調整。本番のDBには無い
+  rules?: SourceRuleJson | null;
 };
 
 type FeedItem = { link: string; title: string; html: string; categories: string[]; date: Date | null };
@@ -152,8 +154,14 @@ const SOURCE_RULES: Array<[host: string, rule: SourceRule]> = [
   // リビングWeb「開店・閉店」: 本文は #single、その中の「関連記事」は他の店の話
   ["mrs.living.jp", { contentSelector: "#single", dropSelector: ".connection_post" }],
 ];
+// 設定ファイルに書く形（正規表現は文字列で書く）
+type SourceRuleJson = Omit<SourceRule, "openingInBody"> & { openingInBody?: string };
+
 function ruleFor(src: SourceRow): SourceRule {
-  return SOURCE_RULES.find(([host]) => src.rss_url.includes(host))?.[1] ?? {};
+  const base = SOURCE_RULES.find(([host]) => src.rss_url.includes(host))?.[1] ?? {};
+  const own = src.rules;
+  if (!own) return base;
+  return { ...base, ...own, openingInBody: own.openingInBody ? new RegExp(own.openingInBody) : base.openingInBody };
 }
 
 // WordPress のフィードは ?paged=2 で過去の記事を遡れる（巡回が止まっていた間の記事を取り戻すため）

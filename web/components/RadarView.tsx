@@ -18,6 +18,8 @@ type Props = {
   data: Packed;
   pinnedPref?: string;
   meta: RadarMeta;
+  // 都府県の絞り込みの選択肢と並び順（配布キットでは設定した地域を渡す）
+  prefOrder?: string[];
 };
 
 const PREF_ORDER = ["東京都", "神奈川県", "千葉県", "埼玉県", "愛知県", "大阪府", "京都府"];
@@ -73,7 +75,7 @@ function normalizeForSearch(s: string): string {
   return s.normalize("NFKC").toLowerCase().replace(/\s+/g, "");
 }
 
-function sortItems(items: Store[], mode: SortMode): Store[] {
+function sortItems(items: Store[], mode: SortMode, prefOrder: string[]): Store[] {
   const cp = [...items];
   const newest = (a: Store, b: Store) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt);
   switch (mode) {
@@ -86,7 +88,7 @@ function sortItems(items: Store[], mode: SortMode): Store[] {
     case "genre":
       return cp.sort((a, b) => a.genre.localeCompare(b.genre, "ja") || newest(a, b));
     case "pref":
-      return cp.sort((a, b) => PREF_ORDER.indexOf(a.pref) - PREF_ORDER.indexOf(b.pref) || newest(a, b));
+      return cp.sort((a, b) => prefOrder.indexOf(a.pref) - prefOrder.indexOf(b.pref) || newest(a, b));
     default:
       return cp.sort(newest);
   }
@@ -133,7 +135,7 @@ function downloadCsv(rows: Store[], label: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
-export default function RadarView({ data, pinnedPref, meta }: Props) {
+export default function RadarView({ data, pinnedPref, meta, prefOrder = PREF_ORDER }: Props) {
   const stores = useMemo(() => unpack(data), [data]);
   const [prefFilter, setPrefFilter] = useState<string>(pinnedPref ?? "");
   const [cityFilter, setCityFilter] = useState<string>("");
@@ -259,8 +261,8 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
       }
       return true;
     });
-    return sortItems(filtered, sortMode);
-  }, [allStores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, requireTel, requireAddr, onlyNew, newSince, sortMode, today, hiddenIds, showHidden, query, searchIndex]);
+    return sortItems(filtered, sortMode, prefOrder);
+  }, [allStores, effectivePref, cityFilter, dateFilter, genreFilter, srcFilter, srcNameFilter, requireTel, requireAddr, onlyNew, newSince, sortMode, today, hiddenIds, showHidden, query, searchIndex, prefOrder]);
 
   const hiddenCount = useMemo(() => allStores.filter((s) => hiddenIds.has(s.id)).length, [allStores, hiddenIds]);
 
@@ -348,7 +350,7 @@ export default function RadarView({ data, pinnedPref, meta }: Props) {
               }}
             >
               <option value="">すべて</option>
-              {PREF_ORDER.map((p) => (
+              {prefOrder.map((p) => (
                 <option key={p}>{p}</option>
               ))}
             </select>
